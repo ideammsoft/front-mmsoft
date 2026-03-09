@@ -1,0 +1,92 @@
+.container {
+  width: 100%;
+}
+
+/* 구분선 */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.dividerText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* 버튼 목록 */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* 공통 소셜 버튼 */
+.socialBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: none;
+  line-height: 1;
+}
+
+.socialBtn svg {
+  flex-shrink: 0;
+}
+
+/* Google */
+.google {
+  background-color: #ffffff;
+  color: #3c4043;
+  border: 1px solid #dadce0;
+}
+
+.google:hover {
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Naver */
+.naver {
+  background-color: #03C75A;
+  color: #ffffff;
+}
+
+.naver:hover {
+  background-color: #02b350;
+}
+
+/* Kakao */
+.kakao {
+  background-color: #FEE500;
+  color: #000000;
+}
+
+.kakao:hover {
+  background-color: #f5dc00;
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+  .socialBtn {
+    padding: 10px 12px;
+    font-size: var(--font-size-sm);
+  }
+}

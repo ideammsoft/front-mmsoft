@@ -1,0 +1,6 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#E1F5FE"/>
+  <path d="M100 50 L130 70 L130 120 C130 130, 120 140, 100 145 C80 140, 70 130, 70 120 L70 70 Z" fill="#00BCD4" stroke="#0097A7" stroke-width="2"/>
+  <path d="M95 95 L98 105 L110 105" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="100" y="180" font-family="Arial, sans-serif" font-size="16" fill="#454646" text-anchor="middle" font-weight="bold">보험고객 관리</text>
+</svg>

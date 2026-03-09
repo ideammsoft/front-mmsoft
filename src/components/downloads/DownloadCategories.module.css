@@ -1,0 +1,31 @@
+.categories {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.button {
+  padding: 8px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: white;
+  color: var(--color-text-light);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.button:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.button.active {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: white;
+}

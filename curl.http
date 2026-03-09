@@ -1,0 +1,12 @@
+### 임시회원 등록 (JSON)
+POST http://localhost:1882/api/auth/regist
+Content-Type: application/json
+
+{
+    "homepageId": "2222",
+    "password":"1234",
+    "name":"기성",
+    "email":"ideakslee@gmail.com"
+}
+
+

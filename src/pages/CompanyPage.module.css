@@ -1,0 +1,156 @@
+.hero {
+  background: var(--gradient-hero);
+  padding: 64px 0;
+  text-align: center;
+}
+
+.heroContainer {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.heroTitle {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: white;
+}
+
+.heroSubtitle {
+  font-size: var(--font-size-base);
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: var(--spacing-sm);
+}
+
+.section {
+  padding: var(--spacing-4xl) 0;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.introText {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text);
+  max-width: 800px;
+}
+
+.introText p {
+  margin-bottom: var(--spacing-md);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.card {
+  padding: 40px;
+  border-radius: var(--radius-xl);
+  background: white;
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-base);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+.cardIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.cardTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.cardText {
+  font-size: var(--font-size-base);
+  color: var(--color-text-light);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--color-border);
+}
+
+.timelineItem {
+  position: relative;
+  margin-bottom: var(--spacing-xl);
+  padding-left: var(--spacing-lg);
+}
+
+.timelineDot {
+  position: absolute;
+  left: -33px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  border: 3px solid white;
+  box-shadow: var(--shadow-sm);
+}
+
+.timelineYear {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.timelineContent {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: var(--font-size-3xl);
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: var(--spacing-3xl) 0;
+  }
+}

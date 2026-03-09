@@ -1,0 +1,106 @@
+.hero {
+  background: var(--gradient-hero);
+  padding: 64px 0;
+  text-align: center;
+}
+
+.heroContainer {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.heroTitle {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: white;
+}
+
+.heroSubtitle {
+  font-size: var(--font-size-base);
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: var(--spacing-sm);
+}
+
+.content {
+  max-width: calc(var(--container-max-width) * 0.8);
+  margin: 0 auto;
+  padding: var(--spacing-3xl) var(--spacing-md);
+}
+
+.searchBar {
+  max-width: 600px;
+  margin: 0 auto var(--spacing-xl);
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 14px 20px 14px 48px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-base);
+  background: white;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+}
+
+.filters {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.filterButton {
+  padding: 8px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: white;
+  color: var(--color-text-light);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.filterButton:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.filterButtonActive {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: white;
+}
+
+.empty {
+  padding: var(--spacing-3xl);
+  text-align: center;
+  color: var(--color-text-light);
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: var(--font-size-3xl);
+  }
+}

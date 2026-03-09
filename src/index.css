@@ -1,0 +1,4 @@
+/* Import CSS Variables, Global Styles, and Animations */
+@import './styles/variables.css';
+@import './styles/global.css';
+@import './styles/animations.css';

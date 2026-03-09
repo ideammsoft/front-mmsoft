@@ -1,0 +1,10 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#F3E5F5"/>
+  <rect x="60" y="50" width="80" height="90" rx="5" fill="#9C27B0"/>
+  <rect x="70" y="65" width="25" height="3" fill="white"/>
+  <rect x="70" y="75" width="25" height="3" fill="white"/>
+  <rect x="70" y="85" width="25" height="3" fill="white"/>
+  <circle cx="118" cy="75" r="8" fill="white"/>
+  <rect x="105" y="90" width="25" height="15" rx="2" fill="white"/>
+  <text x="100" y="180" font-family="Arial, sans-serif" font-size="16" fill="#454646" text-anchor="middle" font-weight="bold">인사관리</text>
+</svg>

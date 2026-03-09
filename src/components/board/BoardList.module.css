@@ -1,0 +1,457 @@
+.container {
+  background-color: white;
+}
+
+/* 상단 바: 필터 + 검색 + 글쓰기 */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.filters {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.filterButton {
+  padding: 8px 20px;
+  border: 1px solid var(--color-border);
+  background-color: white;
+  color: var(--color-text-light);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.filterButton:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.filterButton.active {
+  background-color: var(--color-secondary);
+  color: white;
+  border-color: var(--color-secondary);
+}
+
+.searchBox {
+  display: flex;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  transition: border-color var(--transition-base);
+}
+
+.searchBox:focus-within {
+  border-color: var(--color-secondary);
+}
+
+.searchInput {
+  padding: 8px 16px;
+  border: none;
+  font-size: var(--font-size-sm);
+  min-width: 200px;
+  outline: none;
+  background: transparent;
+}
+
+.searchButton {
+  padding: 8px 14px;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+}
+
+.searchButton:hover {
+  opacity: 0.9;
+}
+
+/* 글쓰기 버튼 */
+.writeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 8px 20px;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.writeButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* 하단 바 */
+.bottomBar {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+/* 테이블 */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.table thead {
+  background-color: var(--color-background-light);
+}
+
+.table th {
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-base);
+  cursor: pointer;
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-background-light);
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table td {
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+}
+
+.numberCol {
+  width: 80px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.titleCol {
+  flex: 1;
+}
+
+.titleCell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  background: var(--gradient-primary);
+  color: white;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-full);
+}
+
+.authorCol {
+  width: 120px;
+  text-align: center;
+}
+
+.dateCol {
+  width: 120px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.viewsCol {
+  width: 80px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.empty {
+  padding: var(--spacing-3xl);
+  text-align: center;
+  color: var(--color-text-light);
+}
+
+/* ===== 글쓰기 모달 ===== */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: var(--z-index-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+}
+
+.modal {
+  background: white;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-2xl);
+  width: 100%;
+  max-width: 620px;
+  max-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.modalTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.modalClose {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+}
+
+.modalClose:hover {
+  background: var(--color-surface);
+  color: var(--color-primary);
+}
+
+.modalBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.formLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+}
+
+.formInput {
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color var(--transition-base);
+  font-family: inherit;
+}
+
+.formInput:focus {
+  border-color: var(--color-secondary);
+}
+
+.formTextarea {
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  outline: none;
+  resize: vertical;
+  transition: border-color var(--transition-base);
+  font-family: inherit;
+  line-height: var(--line-height-relaxed);
+}
+
+.formTextarea:focus {
+  border-color: var(--color-secondary);
+}
+
+/* 파일첨부 */
+.fileInputWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.fileButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 8px 16px;
+  background: white;
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.fileButton:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.fileName {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileInputHidden {
+  display: none;
+}
+
+/* 모달 하단 버튼 */
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-2xl);
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+  background: white;
+}
+
+.cancelButton {
+  padding: 10px 24px;
+  background: white;
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: inherit;
+}
+
+.cancelButton:hover {
+  background: var(--color-surface);
+  color: var(--color-primary);
+}
+
+.submitButton {
+  padding: 10px 28px;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: inherit;
+}
+
+.submitButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .topBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .topActions {
+    justify-content: space-between;
+  }
+
+  .searchBox {
+    flex: 1;
+  }
+
+  .searchInput {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: var(--spacing-sm);
+  }
+
+  .table {
+    font-size: var(--font-size-xs);
+  }
+
+  .table th,
+  .table td {
+    padding: var(--spacing-sm);
+  }
+
+  .authorCol,
+  .dateCol {
+    display: none;
+  }
+
+  .modal {
+    max-width: 100%;
+    border-radius: var(--radius-lg);
+  }
+
+  .modalHeader,
+  .modalForm {
+    padding: var(--spacing-lg);
+  }
+}

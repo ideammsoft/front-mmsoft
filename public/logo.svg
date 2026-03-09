@@ -1,0 +1,16 @@
+<svg width="56" height="52" viewBox="0 0 56 52" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38D5F5"/>
+      <stop offset="100%" stop-color="#0A7FE5"/>
+    </linearGradient>
+  </defs>
+  <rect width="56" height="52" rx="12" fill="url(#logoGrad)"/>
+  <text x="28" y="36"
+    font-family="'Arial Black', 'Arial', sans-serif"
+    font-size="24"
+    fill="white"
+    font-weight="900"
+    text-anchor="middle"
+    letter-spacing="1">MM</text>
+</svg>

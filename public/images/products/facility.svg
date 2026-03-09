@@ -1,0 +1,9 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#FFF8E1"/>
+  <rect x="60" y="70" width="80" height="60" rx="3" fill="#FFC107" stroke="#FFA000" stroke-width="2"/>
+  <polygon points="100,45 50,75 150,75" fill="#FFB300"/>
+  <rect x="75" y="85" width="20" height="20" fill="white" opacity="0.7"/>
+  <rect x="105" y="85" width="20" height="20" fill="white" opacity="0.7"/>
+  <rect x="90" y="110" width="15" height="20" fill="#795548"/>
+  <text x="100" y="180" font-family="Arial, sans-serif" font-size="16" fill="#454646" text-anchor="middle" font-weight="bold">시설관리</text>
+</svg>

@@ -1,0 +1,26 @@
+.floatingChat {
+  position: fixed;
+  bottom: 84px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #FEE500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-index-floating);
+  transition: all var(--transition-base);
+  text-decoration: none;
+}
+
+.floatingChat:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 24px rgba(254, 229, 0, 0.4);
+}
+
+.chatIcon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
