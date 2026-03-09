@@ -23,14 +23,33 @@ function SignUpPanel({ onClose }) {
     if (field === 'userId') setIdChecked(false);
   };
 
-  const handleIdCheck = () => {
+  const handleIdCheck = async () => {
     if (!form.userId.trim()) {
       setErrors((prev) => ({ ...prev, userId: '아이디를 입력해 주세요.' }));
       return;
     }
-    // 정적 프로토타입: 항상 사용 가능으로 처리
-    setIdChecked(true);
-    alert('사용 가능한 아이디입니다.');
+    try {
+      const res = await fetch('http://localhost:1882/api/auth/idcheck', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ homepageId: form.userId }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setErrors((prev) => ({ ...prev, userId: data.message || '이미 사용 중인 아이디입니다.' }));
+        setIdChecked(false);
+        return;
+      }
+      if (data.cnt === 0) {
+        setIdChecked(true);
+        setErrors((prev) => ({ ...prev, userId: '' }));
+      } else {
+        setErrors((prev) => ({ ...prev, userId: '이미 사용 중인 아이디입니다.' }));
+        setIdChecked(false);
+      }
+    } catch {
+      alert('서버 연결에 실패했습니다.');
+    }
   };
 
   const validate = () => {
@@ -60,20 +79,41 @@ function SignUpPanel({ onClose }) {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    alert('회원가입이 완료되었습니다.\n실제 가입 기능은 백엔드 연동 후 구현됩니다.');
-    onClose();
+    try {
+      const res = await fetch('http://localhost:1882/api/auth/regist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          homepageId: form.userId,
+          password: form.password,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          company: form.company,
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        alert(err.message || '회원가입에 실패했습니다.');
+        return;
+      }
+      alert('회원가입이 완료되었습니다.');
+      onClose();
+    } catch {
+      alert('서버 연결에 실패했습니다.');
+    }
   };
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
+    <div className={styles.overlay} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className={styles.panel}>
         <div className={styles.panelHeader}>
           <h3 className={styles.title}>회원가입</h3>
           <button className={styles.closeButton} onClick={onClose}>&times;</button>

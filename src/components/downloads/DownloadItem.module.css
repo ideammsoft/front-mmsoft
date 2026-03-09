@@ -104,24 +104,42 @@
 /* 다운로드 버튼 */
 .downloadButton {
   padding: 8px 20px;
-  background: var(--gradient-primary);
-  color: white;
-  border: none;
-  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, #0e7490 0%, #0a5f78 55%, #074f66 100%);
+  color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
   cursor: pointer;
   transition: all var(--transition-base);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-sm);
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
   flex-shrink: 0;
   font-family: inherit;
+  letter-spacing: 0.01em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 2px 0 rgba(0, 0, 0, 0.3),
+    0 3px 10px rgba(6, 182, 212, 0.25);
 }
 
 .downloadButton:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(180deg, #1590ad 0%, #0d7290 55%, #0a5f78 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 6px 18px rgba(6, 182, 212, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.downloadButton:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.3),
+    0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 640px) {

@@ -40,7 +40,7 @@ function LoginPanel({ onClose, onLoginSuccess }) {
   };
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
+    <div className={styles.overlay} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
         <div className={styles.panelHeader}>
           <h3 className={styles.title}>로그인</h3>

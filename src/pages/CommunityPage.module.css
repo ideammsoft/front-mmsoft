@@ -1,25 +1,47 @@
+/* ===== HERO — Community Connection & Network ===== */
 .hero {
-  background: var(--gradient-hero);
-  padding: 64px 0;
+  position: relative;
+  overflow: hidden;
+  padding: 96px 0;
   text-align: center;
+  background:
+    radial-gradient(ellipse at 25% 40%, rgba(139, 92, 246, 0.20) 0%, transparent 50%),
+    radial-gradient(ellipse at 78% 65%, rgba(59, 130, 246, 0.16) 0%, transparent 48%),
+    linear-gradient(150deg, rgba(8,4,20,0.80) 0%, rgba(14,8,32,0.75) 50%, rgba(18,10,40,0.78) 100%),
+    url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.5) 35%, rgba(167,139,250,0.8) 50%, rgba(139,92,246,0.5) 65%, transparent 100%);
 }
 
 .heroContainer {
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 var(--spacing-md);
+  position: relative;
+  z-index: 1;
 }
 
 .heroTitle {
-  font-size: var(--font-size-4xl);
-  font-weight: var(--font-weight-bold);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
   color: white;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
 .heroSubtitle {
-  font-size: var(--font-size-base);
-  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-size-lg);
+  color: rgba(255, 255, 255, 0.6);
   margin-top: var(--spacing-sm);
+  letter-spacing: 0.04em;
 }
 
 .content {

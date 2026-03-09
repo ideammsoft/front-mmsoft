@@ -5,7 +5,7 @@
   gap: var(--spacing-sm);
   font-weight: var(--font-weight-medium);
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: 6px;
   cursor: pointer;
   transition: all var(--transition-base);
   text-align: center;
@@ -33,42 +33,89 @@
   font-size: var(--font-size-lg);
 }
 
-/* Variants */
+/* ===== PRIMARY — 다크 슬레이트 3D ===== */
 .primary {
-  background: var(--gradient-primary);
-  color: white;
+  background: linear-gradient(180deg, #2e3a4e 0%, #1c2840 55%, #111e2e 100%);
+  color: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  letter-spacing: 0.015em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 2px 0 rgba(0, 0, 0, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.28);
 }
 
 .primary:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(180deg, #3d4f66 0%, #253345 55%, #1a2838 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 28px rgba(0, 0, 0, 0.38),
+    0 3px 8px rgba(0, 0, 0, 0.22);
 }
 
+.primary:active:not(:disabled) {
+  transform: translateY(1px);
+  background: linear-gradient(180deg, #1c2840 0%, #111e2e 100%);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.4),
+    0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== SECONDARY — 미드 그레이 3D ===== */
 .secondary {
-  background-color: white;
-  color: var(--color-secondary);
-  border: 1px solid var(--color-secondary);
+  background: linear-gradient(180deg, #374151 0%, #252e3e 55%, #1f2937 100%);
+  color: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.22);
 }
 
 .secondary:hover:not(:disabled) {
-  background-color: rgba(59, 130, 246, 0.05);
-  transform: translateY(-1px);
+  background: linear-gradient(180deg, #4b5563 0%, #374151 55%, #2d3748 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 6px 20px rgba(0, 0, 0, 0.32);
 }
 
+.secondary:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== OUTLINE — 다크 글라스 ===== */
 .outline {
-  background-color: transparent;
-  color: var(--color-primary);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(180deg, rgba(46, 58, 78, 0.45) 0%, rgba(26, 37, 53, 0.45) 100%);
+  color: rgba(30, 41, 59, 0.75);
+  border: 1px solid rgba(30, 41, 59, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .outline:hover:not(:disabled) {
-  border-color: var(--color-secondary);
-  color: var(--color-secondary);
+  background: linear-gradient(180deg, #2e3a4e 0%, #1c2840 100%);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 6px 18px rgba(0, 0, 0, 0.28);
 }
 
+/* ===== GHOST ===== */
 .ghost {
   background: transparent;
   color: var(--color-text-light);
+  border: none;
+  box-shadow: none;
 }
 
 .ghost:hover:not(:disabled) {
@@ -76,10 +123,13 @@
   color: var(--color-primary);
 }
 
+/* ===== LINK ===== */
 .link {
   background: none;
   color: var(--color-secondary);
   padding: var(--spacing-xs);
+  border: none;
+  box-shadow: none;
 }
 
 .link:hover:not(:disabled) {

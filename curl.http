@@ -6,7 +6,16 @@ Content-Type: application/json
     "homepageId": "2222",
     "password":"1234",
     "name":"기성",
-    "email":"ideakslee@gmail.com"
+    "email":"ideakslee@gmail.com",
+    "phone":"010-4033-7576",
+    "company":"아이디어스"
 }
 
 
+### 아이디체크
+POST http://localhost:1882/api/auth/idcheck
+Content-Type: application/json
+
+{
+    "homepageId": "2222",
+}

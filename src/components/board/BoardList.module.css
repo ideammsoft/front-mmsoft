@@ -27,25 +27,36 @@
 
 .filterButton {
   padding: 8px 20px;
-  border: 1px solid var(--color-border);
-  background-color: white;
-  color: var(--color-text-light);
-  border-radius: var(--radius-full);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #4b5563 0%, #374151 55%, #2d3748 100%);
+  color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
   transition: all var(--transition-base);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 5px rgba(0, 0, 0, 0.18);
 }
 
 .filterButton:hover {
-  border-color: var(--color-secondary);
-  color: var(--color-secondary);
+  background: linear-gradient(180deg, #5a6677 0%, #455060 55%, #3a4455 100%);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 10px rgba(0, 0, 0, 0.24);
 }
 
 .filterButton.active {
-  background-color: var(--color-secondary);
+  background: linear-gradient(180deg, #1e293b 0%, #111e2e 55%, #0c1421 100%);
   color: white;
-  border-color: var(--color-secondary);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 4px 14px rgba(0, 0, 0, 0.35);
 }
 
 .searchBox {
@@ -71,18 +82,20 @@
 
 .searchButton {
   padding: 8px 14px;
-  background: var(--gradient-primary);
+  background: linear-gradient(180deg, #0c6882 0%, #085a73 55%, #063d50 100%);
   color: white;
   border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
   transition: all var(--transition-base);
   font-size: var(--font-size-sm);
   display: flex;
   align-items: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .searchButton:hover {
-  opacity: 0.9;
+  background: linear-gradient(180deg, #0e7490 0%, #0a6380 55%, #074d63 100%);
 }
 
 /* 글쓰기 버튼 */
@@ -91,20 +104,31 @@
   align-items: center;
   gap: var(--spacing-xs);
   padding: 8px 20px;
-  background: var(--gradient-primary);
-  color: white;
-  border: none;
-  border-radius: var(--radius-full);
+  background: linear-gradient(180deg, #0c6882 0%, #085a73 55%, #063d50 100%);
+  color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
   transition: all var(--transition-base);
   white-space: nowrap;
+  font-family: inherit;
+  letter-spacing: 0.01em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 2px 0 rgba(0, 0, 0, 0.28),
+    0 3px 10px rgba(6, 88, 115, 0.3);
 }
 
 .writeButton:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(180deg, #0e7490 0%, #0a6380 55%, #074d63 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 6px 18px rgba(6, 88, 115, 0.4);
 }
 
 /* 하단 바 */
@@ -371,38 +395,52 @@
 
 .cancelButton {
   padding: 10px 24px;
-  background: white;
-  color: var(--color-text-light);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
+  background: linear-gradient(180deg, #4b5563 0%, #374151 55%, #2d3748 100%);
+  color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
   transition: all var(--transition-base);
   font-family: inherit;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 5px rgba(0, 0, 0, 0.18);
 }
 
 .cancelButton:hover {
-  background: var(--color-surface);
-  color: var(--color-primary);
+  background: linear-gradient(180deg, #5a6677 0%, #455060 55%, #3a4455 100%);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
 }
 
 .submitButton {
   padding: 10px 28px;
-  background: var(--gradient-primary);
-  color: white;
-  border: none;
-  border-radius: var(--radius-full);
+  background: linear-gradient(180deg, #0c6882 0%, #085a73 55%, #063d50 100%);
+  color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
   transition: all var(--transition-base);
   font-family: inherit;
+  letter-spacing: 0.01em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 2px 0 rgba(0, 0, 0, 0.28),
+    0 3px 10px rgba(6, 88, 115, 0.3);
 }
 
 .submitButton:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(180deg, #0e7490 0%, #0a6380 55%, #074d63 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 6px 18px rgba(6, 88, 115, 0.4);
 }
 
 /* Responsive */

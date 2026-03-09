@@ -33,7 +33,7 @@
 }
 
 .moreLink:hover {
-  background-color: rgba(59, 130, 246, 0.05);
+  background-color: rgba(14, 116, 144, 0.06);
   transform: translateX(4px);
   color: var(--color-focus);
 }

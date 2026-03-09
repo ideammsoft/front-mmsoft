@@ -2,12 +2,12 @@
   "version": "1.0",
   "enabled": false,
   "teamName": "",
-  "feature": "front-mmsoft",
-  "pdcaPhase": "act",
+  "feature": "auth",
+  "pdcaPhase": "do",
   "orchestrationPattern": "leader",
   "ctoAgent": "opus",
-  "startedAt": "2026-02-15T09:08:14.705Z",
-  "lastUpdated": "2026-02-22T02:58:16.054Z",
+  "startedAt": "2026-03-09T09:22:39.557Z",
+  "lastUpdated": "2026-03-09T09:48:05.426Z",
   "teammates": [],
   "progress": {
     "totalTasks": 0,
@@ -17,5 +17,5 @@
     "pendingTasks": 0
   },
   "recentMessages": [],
-  "sessionId": "dee777e3-4910-4139-9d7b-5cd1775dd670"
+  "sessionId": "56f3b7bc-9b55-461f-9487-33e40690bafc"
 }

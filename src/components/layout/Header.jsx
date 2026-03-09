@@ -44,22 +44,7 @@ function Header() {
       <header className={clsx(styles.header, scrolled && styles.scrolled)}>
         <div className={styles.headerContainer}>
           <Link to="/" className={styles.logo}>
-            <svg className={styles.logoIcon} viewBox="0 0 56 52" xmlns="http://www.w3.org/2000/svg" aria-label="MM">
-              <defs>
-                <linearGradient id="mmLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#38D5F5"/>
-                  <stop offset="100%" stopColor="#0A7FE5"/>
-                </linearGradient>
-              </defs>
-              <rect width="56" height="52" rx="12" fill="url(#mmLogoGrad)"/>
-              <text x="28" y="36"
-                fontFamily="'Arial Black', Arial, sans-serif"
-                fontSize="24"
-                fill="white"
-                fontWeight="900"
-                textAnchor="middle"
-                letterSpacing="1">MM</text>
-            </svg>
+            <img src="/manymen_mark.png" alt="엠엠소프트" className={styles.logoIcon} />
             엠엠소프트
           </Link>
 

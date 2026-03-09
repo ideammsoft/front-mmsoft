@@ -2,8 +2,8 @@
 :root {
   /* === Colors (Modern Corporate Palette) === */
   --color-primary: #1e293b;
-  --color-secondary: #3b82f6;
-  --color-accent: #06b6d4;
+  --color-secondary: #0e7490;
+  --color-accent: #0891b2;
   --color-text: #334155;
   --color-text-light: #64748b;
   --color-text-muted: #94a3b8;
@@ -12,16 +12,23 @@
   --color-surface: #f1f5f9;
   --color-border: #e2e8f0;
   --color-border-light: #f1f5f9;
-  --color-hover: #3b82f6;
-  --color-focus: #2563eb;
+  --color-hover: #0e7490;
+  --color-focus: #0a5f78;
   --color-error: #ef4444;
   --color-success: #10b981;
   --color-warning: #f59e0b;
 
+  /* Premium Colors */
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8c96b;
+  --color-gold-dim: rgba(201, 168, 76, 0.15);
+
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-  --gradient-hero: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+  --gradient-primary: linear-gradient(180deg, #0c6882 0%, #085a73 55%, #063d50 100%);
+  --gradient-gold: linear-gradient(135deg, #c9a84c 0%, #e8c96b 50%, #c9a84c 100%);
+  --gradient-hero: linear-gradient(135deg, #020817 0%, #0f172a 50%, #1e293b 100%);
   --gradient-card: linear-gradient(135deg, rgba(59,130,246,0.05) 0%, rgba(6,182,212,0.05) 100%);
+
 
   /* === Typography === */
   --font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
@@ -74,8 +81,8 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-card-hover: 0 10px 40px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 16px 48px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(14, 116, 144, 0.08);
 
   /* Glass effect */
   --glass-bg: rgba(255, 255, 255, 0.85);

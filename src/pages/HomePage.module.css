@@ -1,30 +1,69 @@
+/* ===== HOME HERO — Premium Tech Business ===== */
 .hero {
-  min-height: 600px;
-  background: var(--gradient-hero);
+  min-height: 680px;
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: var(--spacing-4xl) var(--spacing-md);
+  background:
+    radial-gradient(ellipse at 15% 55%, rgba(59, 130, 246, 0.28) 0%, transparent 52%),
+    radial-gradient(ellipse at 82% 22%, rgba(6, 182, 212, 0.18) 0%, transparent 46%),
+    radial-gradient(ellipse at 58% 85%, rgba(139, 92, 246, 0.12) 0%, transparent 42%),
+    linear-gradient(160deg, rgba(2,8,23,0.80) 0%, rgba(5,15,35,0.74) 50%, rgba(10,20,45,0.78) 100%),
+    url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
+}
+
+/* 상단 광채 */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+/* 하단 골드 구분선 */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.5) 38%, rgba(232,201,107,0.85) 50%, rgba(201,168,76,0.5) 62%, transparent 100%);
 }
 
 .heroContent {
-  max-width: 800px;
-  animation: fadeInUp 0.8s ease;
+  max-width: 820px;
+  animation: heroFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  z-index: 1;
 }
 
 .heroTitle {
-  font-size: 3rem;
-  font-weight: var(--font-weight-bold);
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 800;
   color: white;
   margin-bottom: var(--spacing-md);
-  line-height: var(--line-height-tight);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
 }
 
 .heroSubtitle {
   font-size: var(--font-size-xl);
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.72);
   margin-bottom: var(--spacing-xl);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
 }
 
 .heroActions {
@@ -34,53 +73,58 @@
   flex-wrap: wrap;
 }
 
+/* 골드 CTA 버튼 */
 .heroPrimary {
   display: inline-flex;
   align-items: center;
-  padding: 14px 32px;
-  background-color: white;
-  color: var(--color-secondary);
-  font-weight: var(--font-weight-semibold);
+  padding: 15px 36px;
+  background: linear-gradient(135deg, #c9a84c 0%, #e8c96b 50%, #c9a84c 100%);
+  color: #0f172a;
+  font-weight: var(--font-weight-bold);
   font-size: var(--font-size-base);
   border-radius: var(--radius-md);
   text-decoration: none;
   transition: all var(--transition-base);
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.35);
+  letter-spacing: 0.01em;
 }
 
 .heroPrimary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  color: var(--color-focus);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(201, 168, 76, 0.5);
+  color: #0f172a;
 }
 
 .heroSecondary {
   display: inline-flex;
   align-items: center;
-  padding: 14px 32px;
+  padding: 15px 36px;
   background-color: transparent;
-  color: white;
+  color: rgba(255, 255, 255, 0.88);
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-base);
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
   border-radius: var(--radius-md);
   text-decoration: none;
   transition: all var(--transition-base);
+  backdrop-filter: blur(4px);
+  letter-spacing: 0.01em;
 }
 
 .heroSecondary:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  border-color: white;
+  border-color: rgba(255, 255, 255, 0.55);
   color: white;
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 768px) {
   .hero {
-    min-height: 400px;
+    min-height: 480px;
     padding: var(--spacing-3xl) var(--spacing-md);
   }
 
@@ -90,5 +134,10 @@
 
   .heroSubtitle {
     font-size: var(--font-size-base);
+  }
+
+  .heroPrimary,
+  .heroSecondary {
+    padding: 13px 26px;
   }
 }

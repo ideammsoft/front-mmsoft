@@ -1,25 +1,48 @@
+/* ===== HERO — Portfolio Creative Showcase ===== */
 .hero {
-  background: var(--gradient-hero);
-  padding: 64px 0;
+  position: relative;
+  overflow: hidden;
+  padding: 96px 0;
   text-align: center;
+  background:
+    radial-gradient(ellipse at 30% 60%, rgba(236, 72, 153, 0.14) 0%, transparent 46%),
+    radial-gradient(ellipse at 75% 25%, rgba(139, 92, 246, 0.18) 0%, transparent 48%),
+    radial-gradient(ellipse at 55% 90%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
+    linear-gradient(150deg, rgba(5,2,16,0.82) 0%, rgba(10,5,22,0.76) 45%, rgba(16,8,28,0.78) 100%),
+    url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.45) 30%, rgba(236,72,153,0.7) 50%, rgba(139,92,246,0.45) 70%, transparent 100%);
 }
 
 .heroContainer {
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 var(--spacing-md);
+  position: relative;
+  z-index: 1;
 }
 
 .heroTitle {
-  font-size: var(--font-size-4xl);
-  font-weight: var(--font-weight-bold);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
   color: white;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
 .heroSubtitle {
-  font-size: var(--font-size-base);
-  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-size-lg);
+  color: rgba(255, 255, 255, 0.6);
   margin-top: var(--spacing-sm);
+  letter-spacing: 0.04em;
 }
 
 .content {
@@ -37,26 +60,38 @@
 }
 
 .filterButton {
-  padding: 8px 20px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
-  background: white;
-  color: var(--color-text-light);
+  padding: 8px 22px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #4b5563 0%, #374151 55%, #2d3748 100%);
+  color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
   transition: all var(--transition-base);
+  letter-spacing: 0.01em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 5px rgba(0, 0, 0, 0.18);
 }
 
 .filterButton:hover {
-  border-color: var(--color-secondary);
-  color: var(--color-secondary);
+  background: linear-gradient(180deg, #5a6677 0%, #455060 55%, #3a4455 100%);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 10px rgba(0, 0, 0, 0.24);
 }
 
 .filterButtonActive {
-  background: var(--color-secondary);
-  border-color: var(--color-secondary);
+  background: linear-gradient(180deg, #1e293b 0%, #111e2e 55%, #0c1421 100%);
   color: white;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 4px 14px rgba(0, 0, 0, 0.35);
 }
 
 .grid {
