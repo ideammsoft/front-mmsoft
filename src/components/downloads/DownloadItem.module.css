@@ -1,12 +1,12 @@
 .item {
   display: flex;
   align-items: center;
-  padding: var(--spacing-lg);
+  padding: 14px var(--spacing-lg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   background-color: white;
   transition: all var(--transition-base);
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
 }
 
 .item:hover {
@@ -15,40 +15,32 @@
   transform: translateY(-2px);
 }
 
-/* 아이콘 공통 */
-.icon {
-  width: 56px;
-  height: 56px;
-  display: flex;
+/* 썸네일 이미지 */
+.thumbnail {
+  width: 96px;
+  height: 68px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  background: #f1f5f9;
+}
+
+.thumbnailImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbnailFallback {
+  display: none;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-lg);
-  font-size: 1.4rem;
-  flex-shrink: 0;
-}
-
-/* 소프트웨어 — 인디고/보라 */
-.iconSoftware {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  color: white;
-}
-
-/* 메뉴얼 — 에메랄드/녹색 */
-.iconManual {
-  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-  color: white;
-}
-
-/* 유틸리티 — 앰버/주황 */
-.iconUtility {
-  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
-  color: white;
-}
-
-/* 기타 */
-.iconDefault {
-  background: var(--gradient-primary);
-  color: white;
+  color: #94a3b8;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
 }
 
 /* 본문 */
@@ -59,40 +51,37 @@
 
 .titleRow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-xs);
-  flex-wrap: wrap;
+  margin-bottom: 4px;
 }
 
 .title {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-primary);
-}
-
-/* 카테고리 뱃지 */
-.categoryBadge {
-  font-size: 11px;
-  font-weight: var(--font-weight-medium);
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  flex-shrink: 0;
-  background: var(--color-surface);
-  color: var(--color-text-light);
+  line-height: 1.4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .description {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   color: var(--color-text-light);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .meta {
   display: flex;
-  gap: var(--spacing-lg);
-  font-size: var(--font-size-xs);
+  gap: var(--spacing-md);
+  font-size: 11px;
   color: var(--color-text-muted);
+  flex-wrap: wrap;
 }
 
 .metaItem {
@@ -103,7 +92,7 @@
 
 /* 다운로드 버튼 */
 .downloadButton {
-  padding: 8px 20px;
+  padding: 7px 16px;
   background: linear-gradient(180deg, #0e7490 0%, #0a5f78 55%, #074f66 100%);
   color: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -142,10 +131,160 @@
     0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
+/* 모달 오버레이 */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(2px);
+}
+
+/* 모달 카드 */
+.modal {
+  background: white;
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modalTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.closeIcon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  transition: color var(--transition-base);
+}
+
+.closeIcon:hover {
+  color: var(--color-primary);
+}
+
+.modalBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-xl);
+}
+
+.modalContent {
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.modalFooter {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl) var(--spacing-xl);
+  border-top: 1px solid var(--color-border);
+  justify-content: flex-end;
+}
+
+.modalDownloadBtn {
+  padding: 10px 24px;
+  background: linear-gradient(180deg, #0e7490 0%, #0a5f78 55%, #074f66 100%);
+  color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  letter-spacing: 0.01em;
+  transition: all var(--transition-base);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 2px 0 rgba(0, 0, 0, 0.3),
+    0 3px 10px rgba(6, 182, 212, 0.25);
+}
+
+.modalDownloadBtn:hover {
+  background: linear-gradient(180deg, #1590ad 0%, #0d7290 55%, #0a5f78 100%);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 4px 14px rgba(6, 182, 212, 0.35);
+}
+
+.modalDownloadBtn:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.modalCloseBtn {
+  padding: 10px 24px;
+  background: #e2e8f0;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  transition: all var(--transition-base);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.modalCloseBtn:hover {
+  background: #cbd5e1;
+  color: #1e293b;
+  transform: translateY(-1px);
+}
+
+.modalCloseBtn:active {
+  background: linear-gradient(180deg, #1e293b 0%, #111e2e 100%);
+  color: white;
+  transform: translateY(1px);
+  transition: none;
+  border-color: transparent;
+}
+
 @media (max-width: 640px) {
   .item {
     flex-direction: column;
     text-align: center;
+  }
+
+  .thumbnail {
+    width: 100%;
+    height: 120px;
   }
 
   .titleRow {
@@ -154,10 +293,23 @@
 
   .meta {
     justify-content: center;
-    flex-wrap: wrap;
   }
 
   .downloadButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal {
+    max-height: 90vh;
+  }
+
+  .modalFooter {
+    flex-direction: column-reverse;
+  }
+
+  .modalDownloadBtn,
+  .modalCloseBtn {
     width: 100%;
     justify-content: center;
   }

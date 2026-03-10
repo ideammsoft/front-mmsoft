@@ -5,9 +5,7 @@
   padding: 96px 0;
   text-align: center;
   background:
-    radial-gradient(ellipse at 25% 40%, rgba(139, 92, 246, 0.20) 0%, transparent 50%),
-    radial-gradient(ellipse at 78% 65%, rgba(59, 130, 246, 0.16) 0%, transparent 48%),
-    linear-gradient(150deg, rgba(8,4,20,0.80) 0%, rgba(14,8,32,0.75) 50%, rgba(18,10,40,0.78) 100%),
+    linear-gradient(rgba(8, 5, 20, 0.62), rgba(8, 5, 20, 0.62)),
     url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
 }
 

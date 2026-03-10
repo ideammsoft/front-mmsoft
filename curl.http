@@ -3,7 +3,7 @@ POST http://localhost:1882/api/auth/regist
 Content-Type: application/json
 
 {
-    "homepageId": "2222",
+    "homepageId": "3333",
     "password":"1234",
     "name":"기성",
     "email":"ideakslee@gmail.com",
@@ -17,5 +17,5 @@ POST http://localhost:1882/api/auth/idcheck
 Content-Type: application/json
 
 {
-    "homepageId": "2222",
+    "homepageId": "2222"
 }

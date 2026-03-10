@@ -10,7 +10,7 @@ function MainNavigation({ mobileOpen, onCloseMobile }) {
     { path: '/', label: '홈' },
     { path: '/company', label: '회사소개' },
     { path: '/community', label: '커뮤니티' },
-    { path: '/downloads', label: '다운로드' },
+    { path: '/downloads', label: '제품소개' },
     { path: '/projects', label: '프로젝트' },
     { path: '/faq', label: 'FAQ' },
   ];

@@ -16,7 +16,7 @@ function DownloadsPage() {
     <div>
       <section className={styles.hero}>
         <div className={styles.heroContainer}>
-          <h1 className={styles.heroTitle}>다운로드 센터</h1>
+          <h1 className={styles.heroTitle}>제품 소개</h1>
           <p className={styles.heroSubtitle}>프로그램 설치 파일 및 사용자 매뉴얼을 다운로드 받으실 수 있습니다</p>
         </div>
       </section>
