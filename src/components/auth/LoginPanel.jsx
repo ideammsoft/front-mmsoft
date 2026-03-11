@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Input from '../common/Input';
 import Button from '../common/Button';
 import SocialLoginButtons from './SocialLoginButtons';
 import ProfileCompletionPanel from './ProfileCompletionPanel';
 import SignUpPanel from './SignUpPanel';
+import FindIdPanel from './FindIdPanel';
+import FindPasswordPanel from './FindPasswordPanel';
 import styles from './LoginPanel.module.css';
 
 function LoginPanel({ onClose, onLoginSuccess }) {
@@ -11,6 +13,9 @@ function LoginPanel({ onClose, onLoginSuccess }) {
   const [password, setPassword] = useState('');
   const [showProfileCompletion, setShowProfileCompletion] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
+  const [showFindId, setShowFindId] = useState(false);
+  const [showFindPassword, setShowFindPassword] = useState(false);
+  const passwordRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,11 +40,12 @@ function LoginPanel({ onClose, onLoginSuccess }) {
     }
   };
 
-  const handleLinkClick = (action) => {
-    alert(`${action} 기능은 구현 예정입니다.`);
+  const handleFoundId = (foundId) => {
+    setUsername(foundId);
+    setTimeout(() => passwordRef.current?.focus(), 100);
   };
 
-  return (
+return (
     <div className={styles.overlay} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
         <div className={styles.panelHeader}>
@@ -65,6 +71,7 @@ function LoginPanel({ onClose, onLoginSuccess }) {
             <label htmlFor="password" className={styles.fieldLabel}>비밀번호</label>
             <input
               id="password"
+              ref={passwordRef}
               type="password"
               placeholder="비밀번호를 입력하세요"
               value={password}
@@ -87,13 +94,13 @@ function LoginPanel({ onClose, onLoginSuccess }) {
             </span>
             <span
               className={styles.link}
-              onClick={() => handleLinkClick('아이디 찾기')}
+              onClick={() => setShowFindId(true)}
             >
               아이디 찾기
             </span>
             <span
               className={styles.link}
-              onClick={() => handleLinkClick('비밀번호 찾기')}
+              onClick={() => setShowFindPassword(true)}
             >
               비밀번호 찾기
             </span>
@@ -119,6 +126,14 @@ function LoginPanel({ onClose, onLoginSuccess }) {
 
       {showSignUp && (
         <SignUpPanel onClose={() => setShowSignUp(false)} />
+      )}
+
+      {showFindId && (
+        <FindIdPanel onClose={() => setShowFindId(false)} onFoundId={handleFoundId} />
+      )}
+
+      {showFindPassword && (
+        <FindPasswordPanel onClose={() => setShowFindPassword(false)} />
       )}
     </div>
   );

@@ -1,0 +1,42 @@
+.description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.6;
+}
+
+/* 이메일/휴대폰 선택 탭 */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: var(--spacing-lg);
+  background: #e0f2f8;
+  padding: 4px;
+  border-radius: var(--radius-lg);
+}
+
+.tab {
+  flex: 1;
+  padding: 8px 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  font-family: inherit;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: transparent;
+  color: #0e7490;
+  transition: all var(--transition-base);
+}
+
+.tab:hover {
+  background: rgba(255, 255, 255, 0.65);
+  color: #085a73;
+}
+
+.tabActive {
+  background: linear-gradient(180deg, #1590ad 0%, #0e7490 60%, #0a5f78 100%);
+  color: white;
+  font-weight: var(--font-weight-semibold);
+  box-shadow: 0 2px 6px rgba(14, 116, 144, 0.35);
+}

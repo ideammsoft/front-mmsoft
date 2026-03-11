@@ -21,7 +21,7 @@ function DownloadItem({ download }) {
   return (
     <>
       <div className={styles.item}>
-        <div className={styles.thumbnail}>
+        <div className={styles.thumbnail} onClick={handleDownloadClick} style={{ cursor: 'pointer' }}>
           <img
             src={download.imageUrl}
             alt={download.title}
@@ -35,7 +35,7 @@ function DownloadItem({ download }) {
 
         <div className={styles.content}>
           <div className={styles.titleRow}>
-            <h3 className={styles.title}>{download.title}</h3>
+            <h3 className={styles.title} onClick={handleDownloadClick} style={{ cursor: 'pointer' }}>{download.title}</h3>
           </div>
           <p className={styles.description}>{download.description}</p>
           <div className={styles.meta}>
