@@ -1,13 +1,23 @@
+### 로그인
+POST http://localhost:1882/api/auth/login
+Content-Type: application/json
+
+{
+    "homepageId": "3333",
+    "password":"1234"
+}
+
+
 ### 임시회원 등록 (JSON)
 POST http://localhost:1882/api/auth/regist
 Content-Type: application/json
 
 {
-    "homepageId": "3333",
+    "homepageId": "manyman",
     "password":"1234",
     "name":"기성",
-    "email":"ideakslee@gmail.com",
-    "phone":"010-4033-7576",
+    "email":"ideakslee2@gmail.com",
+    "phone":"010-4033-7572",
     "company":"아이디어스"
 }
 
@@ -17,7 +27,7 @@ POST http://localhost:1882/api/auth/idcheck
 Content-Type: application/json
 
 {
-    "homepageId": "2222"
+    "homepageId": "3333"
 }
 
 ### 아이디찾기
@@ -36,7 +46,11 @@ Content-Type: application/json
 
 {
     "idOrPass": "password",
-    "homepageId": "2222",
+    "homepageId": "3333",
     "email": "ideakslee@gmail.com",
     "phone": "010-4033-7576"
 }
+
+### 구글 OAuth 코드 교환 (임시코드 → accessToken)
+POST http://localhost:1882/api/auth/oauth2/exchange?code=b8b21b2e6dbafe2de6332818c0294e7
+Content-Type: application/x-www-form-urlencoded

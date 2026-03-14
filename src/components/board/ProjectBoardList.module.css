@@ -1,0 +1,25 @@
+/* 작성자 + 비밀번호 2컬럼 행 */
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+/* 카테고리 배지 */
+.categoryBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #e0f2f8;
+  color: #0e7490;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}

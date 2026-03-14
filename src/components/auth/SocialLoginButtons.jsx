@@ -1,5 +1,31 @@
+// =====================================================================
+// [SocialLoginButtons.jsx] - 소셜 로그인 버튼 컴포넌트
+// =====================================================================
+//
+// 📌 소셜 로그인 동작 원리
+//   - 버튼 클릭 시 window.location.href로 백엔드 OAuth2 시작 URL로 이동합니다.
+//   - 이 URL에 접근하면 Spring Security가 자동으로 해당 소셜 로그인 페이지로 이동시킵니다.
+//
+//   흐름:
+//   버튼 클릭
+//   → http://localhost:1882/oauth2/authorization/google
+//   → Spring Security가 자동으로 구글 로그인 페이지로 리다이렉트
+//   → 구글 로그인 완료
+//   → 백엔드 OAuth2LoginSuccessHandler 실행
+//   → http://localhost:5173/oauth/callback?code=임시코드 로 리다이렉트
+//   → OAuthCallbackPage.jsx에서 임시코드로 AccessToken 교환
+//
+// 📌 SVG 아이콘이란?
+//   - 벡터 그래픽(확대해도 깨지지 않는 이미지 형식)입니다.
+//   - <svg> 태그 안에 <path>로 모양을 정의합니다.
+//   - fill 속성으로 색상을 지정합니다.
+//   - 외부 이미지 파일 없이 코드로 아이콘을 그립니다.
+
 import styles from './SocialLoginButtons.module.css';
 
+// ─── 아이콘 컴포넌트들 ───
+
+// Google 로고 (파랑, 초록, 노랑, 빨강의 4색 G 마크)
 function GoogleIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
@@ -11,6 +37,7 @@ function GoogleIcon() {
   );
 }
 
+// Naver 로고 (흰색 N 마크)
 function NaverIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -19,6 +46,7 @@ function NaverIcon() {
   );
 }
 
+// Kakao 로고 (검정 말풍선 K 마크)
 function KakaoIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -27,46 +55,63 @@ function KakaoIcon() {
   );
 }
 
+// ─── 메인 컴포넌트 ───
 function SocialLoginButtons() {
+
+  // 소셜 로그인 시작 함수
+  // provider: 'google' | 'naver' | 'kakao'
   const handleSocialLogin = (provider) => {
-    alert(`${provider} 로그인은 구현 예정입니다.`);
+    // window.location.href = URL : 현재 탭에서 해당 URL로 이동
+    // 이 URL에 접근하면 Spring Security가 해당 소셜 로그인 페이지로 자동 리다이렉트합니다
+    window.location.href = `http://localhost:1991/oauth2/authorization/${provider}`;
+    // 예) http://localhost:1882/oauth2/authorization/google
+    //   → 구글 로그인 페이지로 이동
+    // 예) http://localhost:1882/oauth2/authorization/naver
+    //   → 네이버 로그인 페이지로 이동
   };
 
   return (
     <div className={styles.container}>
+      {/* 구분선: ─────── 또는 ─────────── */}
       <div className={styles.divider}>
         <span className={styles.dividerLine} />
         <span className={styles.dividerText}>또는</span>
         <span className={styles.dividerLine} />
       </div>
 
+      {/* 소셜 로그인 버튼 목록 */}
       <div className={styles.buttons}>
+
+        {/* Google 로그인 버튼 */}
         <button
-          type="button"
+          type="button" // form 안에 있어도 submit이 되지 않도록 type="button" 명시
           className={`${styles.socialBtn} ${styles.google}`}
-          onClick={() => handleSocialLogin('Google')}
+          onClick={() => handleSocialLogin('google')}
         >
           <GoogleIcon />
           <span>Google로 계속하기</span>
         </button>
 
+        {/* Naver 로그인 버튼 */}
         <button
           type="button"
           className={`${styles.socialBtn} ${styles.naver}`}
-          onClick={() => handleSocialLogin('네이버')}
+          onClick={() => handleSocialLogin('naver')}
         >
           <NaverIcon />
           <span>네이버로 계속하기</span>
         </button>
 
+        {/* Kakao 로그인 버튼 */}
         <button
           type="button"
           className={`${styles.socialBtn} ${styles.kakao}`}
-          onClick={() => handleSocialLogin('카카오')}
+          onClick={() => handleSocialLogin('kakao')}
         >
           <KakaoIcon />
           <span>카카오로 계속하기</span>
         </button>
+
       </div>
     </div>
   );

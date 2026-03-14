@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import styles from './MainNavigation.module.css';
 
-function MainNavigation({ mobileOpen, onCloseMobile }) {
+function MainNavigation({ mobileOpen, onCloseMobile, user, onLogin, onLogout }) {
   const location = useLocation();
 
   const navItems = [
@@ -62,15 +62,21 @@ function MainNavigation({ mobileOpen, onCloseMobile }) {
               ))}
             </ul>
             <div className={styles.mobileFooter}>
-              <button
-                className={styles.mobileLoginButton}
-                onClick={() => {
-                  onCloseMobile();
-                  alert('로그인 기능은 백엔드 연동 후 제공됩니다.');
-                }}
-              >
-                로그인
-              </button>
+              {user ? (
+                <button
+                  className={styles.mobileLoginButton}
+                  onClick={() => { onCloseMobile(); onLogout(); }}
+                >
+                  로그아웃
+                </button>
+              ) : (
+                <button
+                  className={styles.mobileLoginButton}
+                  onClick={() => { onCloseMobile(); onLogin(); }}
+                >
+                  로그인
+                </button>
+              )}
             </div>
           </nav>
         </div>,

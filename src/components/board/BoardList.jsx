@@ -6,7 +6,10 @@ import Pagination from '../common/Pagination';
 import styles from './BoardList.module.css';
 
 function WriteModal({ onClose }) {
-  const [form, setForm] = useState({ title: '', author: '', content: '' });
+  const loggedInId = (() => {
+    try { return JSON.parse(localStorage.getItem('mmsoft_user'))?.homepageId || ''; } catch { return ''; }
+  })();
+  const [form, setForm] = useState({ title: '', author: loggedInId, content: '' });
   const [fileName, setFileName] = useState('');
   const fileRef = useRef(null);
 
@@ -60,9 +63,8 @@ function WriteModal({ onClose }) {
               type="text"
               name="author"
               value={form.author}
-              onChange={handleChange}
-              placeholder="작성자명을 입력하세요"
-              className={styles.formInput}
+              readOnly
+              className={`${styles.formInput} ${styles.formInputReadonly}`}
             />
           </div>
 

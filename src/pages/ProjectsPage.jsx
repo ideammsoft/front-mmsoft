@@ -1,65 +1,60 @@
-import { useState } from 'react';
-import clsx from 'clsx';
-import { PROJECTS, PROJECT_CATEGORIES } from '../data/projects';
-import styles from './ProjectsPage.module.css';
+import { useState, useEffect, useCallback } from 'react';
+import ProjectBoardList from '../components/board/ProjectBoardList';
+import styles from './CommunityPage.module.css';
+
+// 워크보드 API 응답이 없거나 빈 경우 보여줄 임시 데이터 (1건)
+const DUMMY_POST = [{
+  id: 1,
+  title: '주문제작 ERP 시스템 개발 문의',
+  content: '저희 회사에 맞는 맞춤형 ERP 시스템 개발을 문의드립니다.',
+  author: '관리자',
+  date: '2026-03-10',
+  views: 1,
+  category: '주문제작',
+}];
 
 function ProjectsPage() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [posts, setPosts] = useState([]);
 
-  const filteredProjects = PROJECTS.filter(project => {
-    if (selectedCategory === 'all') return true;
-    return project.category === selectedCategory;
-  });
+  const fetchPosts = useCallback(() => {
+    const token = localStorage.getItem('mmsoft_access_token');
+    fetch('http://localhost:1882/api/workboard/projects', {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
+      .then(r => r.ok ? r.json() : [])
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setPosts(data.map(p => ({
+            id:       p.workboardId,
+            title:    p.title,
+            content:  p.content,
+            author:   p.name,
+            date:     p.regDate ? p.regDate.substring(0, 10) : '',
+            views:    0,
+            category: p.workboardRolename || '일반',
+            url:      p.url || '',
+            passwd:   p.passwd || '',
+          })));
+        } else {
+          setPosts(DUMMY_POST);
+        }
+      })
+      .catch(() => setPosts(DUMMY_POST));
+  }, []);
+
+  useEffect(() => { fetchPosts(); }, [fetchPosts]);
 
   return (
     <div>
       <section className={styles.hero}>
         <div className={styles.heroContainer}>
-          <h1 className={styles.heroTitle}>프로젝트 포트폴리오</h1>
-          <p className={styles.heroSubtitle}>엠앰소프트가 진행한 프로젝트를 소개합니다</p>
+          <h1 className={styles.heroTitle}>프로젝트</h1>
+          <p className={styles.heroSubtitle}>프로젝트 관련 문의 및 소식을 확인하세요</p>
         </div>
       </section>
 
       <div className={styles.content}>
-        <div className={styles.filters}>
-          {PROJECT_CATEGORIES.map(category => (
-            <button
-              key={category.id}
-              className={clsx(
-                styles.filterButton,
-                selectedCategory === category.value && styles.filterButtonActive
-              )}
-              onClick={() => setSelectedCategory(category.value)}
-            >
-              {category.label}
-            </button>
-          ))}
-        </div>
-
-        <div className={styles.grid}>
-          {filteredProjects.map(project => (
-            <div key={project.id} className={styles.card}>
-              <div className={styles.cardImage}>
-                프로젝트 이미지
-                <div className={styles.cardOverlay}>자세히 보기</div>
-              </div>
-              <div className={styles.cardContent}>
-                <h3 className={styles.cardTitle}>{project.title}</h3>
-                <p className={styles.cardDescription}>{project.description}</p>
-                <div className={styles.cardMeta}>
-                  <span>고객사: {project.client}</span>
-                  <span>{project.completedAt}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-
-          {filteredProjects.length === 0 && (
-            <div className={styles.empty}>
-              해당 카테고리에 프로젝트가 없습니다.
-            </div>
-          )}
-        </div>
+        <ProjectBoardList posts={posts} onRefresh={fetchPosts} />
       </div>
     </div>
   );

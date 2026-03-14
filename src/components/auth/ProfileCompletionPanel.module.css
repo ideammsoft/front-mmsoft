@@ -137,3 +137,24 @@
   margin: 0;
   padding-left: 2px;
 }
+
+/* 회원 탈퇴 링크 */
+.withdrawLink {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.withdrawLink:hover {
+  color: var(--color-error);
+}
+
+/* 저장 중 로딩 표시 */
+.saving {
+  opacity: 0.6;
+  pointer-events: none;
+}
