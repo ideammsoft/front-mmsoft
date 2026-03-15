@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-15T13:15:37.175Z",
+  "lastUpdated": "2026-03-15T14:20:49.493Z",
   "activeFeatures": [
     "auth",
     "layout",
@@ -29,9 +29,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-09T05:34:01.063Z",
-        "lastUpdated": "2026-03-15T13:15:37.174Z"
+        "lastUpdated": "2026-03-15T14:20:49.493Z"
       },
-      "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\components\\auth\\SignUpPanel.jsx"
+      "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\components\\auth\\FindPasswordPanel.jsx"
     },
     "layout": {
       "phase": "do",
@@ -159,7 +159,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-13T07:36:27.435Z",
-        "lastUpdated": "2026-03-15T13:05:00.134Z"
+        "lastUpdated": "2026-03-15T14:15:02.772Z"
       },
       "lastFile": "C:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\controller\\AuthController.java"
     },
@@ -198,9 +198,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-15T12:24:58.986Z",
-        "lastUpdated": "2026-03-15T13:04:36.853Z"
+        "lastUpdated": "2026-03-15T14:14:09.571Z"
       },
-      "lastFile": "C:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\member\\service\\AuthService.java"
+      "lastFile": "C:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\service\\EmailService.java"
     },
     "domain": {
       "phase": "do",
@@ -224,7 +224,7 @@
   "session": {
     "startedAt": "2026-03-09T05:34:01.063Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-15T13:15:37.175Z"
+    "lastActivity": "2026-03-15T14:20:49.493Z"
   },
   "history": [
     {
@@ -1183,6 +1183,36 @@
     },
     {
       "timestamp": "2026-03-15T13:15:37.175Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:14:09.571Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:14:33.516Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:14:45.170Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:15:02.772Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:20:49.493Z",
       "feature": "auth",
       "phase": "do",
       "action": "updated"
