@@ -13,6 +13,7 @@ const API = 'http://localhost:1882';
 function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
   const [name, setName]       = useState('');
   const [email, setEmail]     = useState('');
+  const [mphone, setMphone]   = useState('');
   const [phone, setPhone]     = useState('');
   const [company, setCompany] = useState('');
   const [errors, setErrors]   = useState({});
@@ -26,6 +27,7 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
     const stored = JSON.parse(localStorage.getItem('mmsoft_user') || '{}');
     setName(stored.name || '');
     setEmail(stored.email || '');
+    setMphone(stored.mphone || '');
     setPhone(stored.phone || '');
     setCompany(stored.company || '');
 
@@ -40,6 +42,7 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
           if (!data) return;
           setName(data.name || '');
           setEmail(data.email || '');
+          setMphone(data.mphone || '');
           setPhone(data.phone || '');
           setCompany(data.company || '');
         })
@@ -49,7 +52,7 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
 
   const validate = () => {
     const errs = {};
-    if (!phone.trim())  errs.phone  = '휴대폰 번호는 필수 입력 사항입니다';
+    if (!mphone.trim()) errs.mphone = '휴대폰 번호는 필수 입력 사항입니다';
     if (!email.trim())  errs.email  = '이메일은 필수 입력 사항입니다';
     return errs;
   };
@@ -69,12 +72,12 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ name, email, phone, company }),
+      body: JSON.stringify({ name, email, mphone, phone, company }),
     })
       .then(r => { if (!r.ok) throw new Error('저장 실패'); return r.json(); })
       .then(() => {
         const prev    = JSON.parse(localStorage.getItem('mmsoft_user') || '{}');
-        const updated = { ...prev, name, email, phone, company };
+        const updated = { ...prev, name, email, mphone, phone, company };
         localStorage.setItem('mmsoft_user', JSON.stringify(updated));
         onSaved?.(updated);
       })
@@ -125,13 +128,13 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
 
           <div className={styles.fieldWrapper}>
             <div className={styles.labelRow}>
-              <label className={styles.label} htmlFor="phone">휴대폰 번호</label>
+              <label className={styles.label} htmlFor="mphone">휴대폰 번호</label>
               <span className={styles.requiredMark}>필수</span>
             </div>
-            <input id="phone" type="tel" placeholder="010-0000-0000"
-              value={phone} onChange={handleChange(setPhone, 'phone')}
+            <input id="mphone" type="tel" placeholder="010-0000-0000"
+              value={mphone} onChange={handleChange(setMphone, 'mphone')}
               className={styles.input} />
-            {errors.phone && <p className={styles.errorMessage}>{errors.phone}</p>}
+            {errors.mphone && <p className={styles.errorMessage}>{errors.mphone}</p>}
           </div>
 
           <div className={styles.fieldWrapper}>
@@ -156,6 +159,13 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
             <label className={styles.label} htmlFor="company">회사명</label>
             <input id="company" type="text" placeholder="회사명을 입력하세요"
               value={company} onChange={e => setCompany(e.target.value)}
+              className={styles.input} />
+          </div>
+
+          <div className={styles.fieldWrapper}>
+            <label className={styles.label} htmlFor="phone">회사 전화</label>
+            <input id="phone" type="tel" placeholder="회사 전화번호를 입력하세요"
+              value={phone} onChange={e => setPhone(e.target.value)}
               className={styles.input} />
           </div>
 

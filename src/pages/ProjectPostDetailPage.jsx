@@ -105,10 +105,10 @@ function ProjectPostDetailPage() {
   const [loading, setLoading] = useState(!location.state?.post);
   const [editOpen, setEditOpen] = useState(false);
 
-  const loggedInId = (() => {
-    try { return JSON.parse(localStorage.getItem('mmsoft_user'))?.homepageId || ''; } catch { return ''; }
+  const roleName = (() => {
+    try { return JSON.parse(localStorage.getItem('mmsoft_user'))?.roleName || ''; } catch { return ''; }
   })();
-  const canEdit = loggedInId === 'manyman' || loggedInId === 'manyman2';
+  const canEdit = roleName === 'super_admin';
 
   // 비밀번호 확인 상태 (관리자는 바로 통과)
   const [verified, setVerified] = useState(canEdit);

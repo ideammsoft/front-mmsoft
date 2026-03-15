@@ -172,11 +172,10 @@ function ProjectBoardList({ posts, onRefresh }) {
   const [writeOpen,        setWriteOpen]        = useState(false);
 
   // 로그인한 사용자 아이디 (글쓰기 권한 체크)
-  const loggedInId = (() => {
-    try { return JSON.parse(localStorage.getItem('mmsoft_user'))?.homepageId || ''; } catch { return ''; }
+  const roleName = (() => {
+    try { return JSON.parse(localStorage.getItem('mmsoft_user'))?.roleName || ''; } catch { return ''; }
   })();
-  // 특정 계정만 글쓰기 가능 (추후 역할(Role) 기반으로 변경 권장)
-  const canWrite = loggedInId === 'manyman' || loggedInId === 'manyman2';
+  const canWrite = roleName === 'super_admin';
 
   const itemsPerPage = 10; // 한 페이지에 표시할 게시글 수
   const categories   = ['전체', '주문제작', '일반', '기타']; // 카테고리 목록

@@ -37,7 +37,8 @@ function SignUpPanel({ onClose, onSuccess }) {
     userId         : '',  // 아이디
     password       : '',  // 비밀번호
     passwordConfirm: '',  // 비밀번호 확인
-    phone          : '',  // 휴대폰 번호
+    mphone         : '',  // 휴대폰 번호
+    phone          : '',  // 회사 전화 (선택)
     company        : '',  // 회사명 (선택)
     name           : '',  // 이름
     email          : '',  // 이메일
@@ -117,8 +118,8 @@ function SignUpPanel({ onClose, onSuccess }) {
     else if (form.password !== form.passwordConfirm)
       newErrors.passwordConfirm = '비밀번호가 일치하지 않습니다.'; // 두 비밀번호 비교
 
-    if (!form.phone.trim())
-      newErrors.phone = '휴대폰 번호는 필수 입력 사항 입니다.';
+    if (!form.mphone.trim())
+      newErrors.mphone = '휴대폰 번호는 필수 입력 사항 입니다.';
 
     if (!form.email.trim())
       newErrors.email = '이메일은 필수 입력 사항 입니다.';
@@ -144,10 +145,11 @@ function SignUpPanel({ onClose, onSuccess }) {
         method : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body   : JSON.stringify({
-          openId  : form.userId,   // 백엔드 RegistRequest.openId
+          homepageId: form.userId,   // 백엔드 RegistRequest @JsonProperty("homepageId")
           password: form.password,
           name    : form.name,
           email   : form.email,
+          mphone  : form.mphone,
           phone   : form.phone,
           company : form.company,
           // provider는 백엔드에서 "homepage"로 자동 처리
@@ -225,12 +227,12 @@ function SignUpPanel({ onClose, onSuccess }) {
           <div className={styles.gridRow}>
             <div className={styles.fieldWrapper}>
               <div className={styles.labelRow}>
-                <label className={styles.label} htmlFor="phone">휴대폰 번호</label>
+                <label className={styles.label} htmlFor="mphone">휴대폰 번호</label>
                 <span className={styles.requiredMark}>필수</span>
               </div>
-              <input id="phone" type="tel" placeholder="010-0000-0000"
-                value={form.phone} onChange={handleChange('phone')} className={styles.input} />
-              {errors.phone && <p className={styles.errorMessage}>{errors.phone}</p>}
+              <input id="mphone" type="tel" placeholder="010-0000-0000"
+                value={form.mphone} onChange={handleChange('mphone')} className={styles.input} />
+              {errors.mphone && <p className={styles.errorMessage}>{errors.mphone}</p>}
             </div>
             <div className={styles.fieldWrapper}>
               <div className={styles.labelRow}>
@@ -253,6 +255,13 @@ function SignUpPanel({ onClose, onSuccess }) {
               <Input label="회사명" id="company" type="text" placeholder="회사명을 입력하세요"
                 value={form.company} onChange={handleChange('company')} />
             </div>
+          </div>
+
+          {/* 회사 전화 (단일 칸) */}
+          <div className={styles.fieldWrapper}>
+            <label className={styles.label} htmlFor="phone">회사 전화</label>
+            <input id="phone" type="tel" placeholder="회사 전화번호를 입력하세요"
+              value={form.phone} onChange={handleChange('phone')} className={styles.input} />
           </div>
 
           <Button type="submit" variant="primary" size="lg">

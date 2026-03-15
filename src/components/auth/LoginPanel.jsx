@@ -87,9 +87,10 @@ function LoginPanel({ onClose, onLoginSuccess }) {
         localStorage.setItem('mmsoft_access_token', data.accessToken);
       }
 
-      // 사용자 이름 localStorage에 저장 (헤더에 "홍길동님 반갑습니다" 표시용)
+      // 사용자 이름, 역할 localStorage에 저장
       const name = data.name || data.user?.name || username;
-      localStorage.setItem('mmsoft_user', JSON.stringify({ name, homepageId: username }));
+      const roleName = data.roleName || '';
+      localStorage.setItem('mmsoft_user', JSON.stringify({ name, homepageId: username, roleName }));
 
       // 부모(Header)에게 로그인 성공을 알림 → 헤더 UI가 업데이트됨
       onLoginSuccess?.({ name }); // ?.: onLoginSuccess가 undefined일 때 에러 방지
