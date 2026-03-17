@@ -90,7 +90,8 @@ function LoginPanel({ onClose, onLoginSuccess }) {
       // 사용자 이름, 역할 localStorage에 저장
       const name = data.name || data.user?.name || username;
       const roleName = data.roleName || '';
-      localStorage.setItem('mmsoft_user', JSON.stringify({ name, homepageId: username, roleName }));
+      const accountId = data.accountId || null;
+      localStorage.setItem('mmsoft_user', JSON.stringify({ name, homepageId: username, roleName, accountId }));
 
       // 부모(Header)에게 로그인 성공을 알림 → 헤더 UI가 업데이트됨
       onLoginSuccess?.({ name }); // ?.: onLoginSuccess가 undefined일 때 에러 방지

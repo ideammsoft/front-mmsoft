@@ -35,21 +35,20 @@ import projStyles from './ProjectBoardList.module.css';
 // ─── 글쓰기 팝업 컴포넌트 ───
 // ProjectBoardList 안에서만 사용하므로 같은 파일에 정의합니다.
 function WriteModal({ onClose, onSave }) {
-  const loggedInId = (() => {
-    try {
-      return JSON.parse(localStorage.getItem('mmsoft_user'))?.homepageId || '';
-    } catch {
-      return '';
-    }
+  const storedUser = (() => {
+    try { return JSON.parse(localStorage.getItem('mmsoft_user')) || {}; } catch { return {}; }
   })();
+  const loggedInId = storedUser.homepageId || '';
+  const loggedInAccountId = storedUser.accountId || null;
 
   const [form, setForm] = useState({
-    title   : '',
-    author  : loggedInId,
-    passwd  : '',
-    content : '',
-    url     : '',
-    category: '일반',
+    title    : '',
+    author   : loggedInId,
+    accountId: loggedInAccountId,
+    passwd   : '',
+    content  : '',
+    url      : '',
+    category : '일반',
   });
   const [submitting, setSubmitting] = useState(false);
 

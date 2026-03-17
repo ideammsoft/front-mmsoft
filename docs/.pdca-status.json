@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-15T14:20:49.493Z",
+  "lastUpdated": "2026-03-17T10:40:04.206Z",
   "activeFeatures": [
     "auth",
     "layout",
@@ -16,7 +16,10 @@
     "WorkBoardController",
     "filter",
     "service",
-    "domain"
+    "domain",
+    "config",
+    "oauth2",
+    "mysql"
   ],
   "primaryFeature": "auth",
   "features": {
@@ -29,9 +32,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-09T05:34:01.063Z",
-        "lastUpdated": "2026-03-15T14:20:49.493Z"
+        "lastUpdated": "2026-03-17T05:15:17.508Z"
       },
-      "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\components\\auth\\FindPasswordPanel.jsx"
+      "lastFile": "c:/mm_workspace/front-mmsoft/src/components/auth/LoginPanel.jsx"
     },
     "layout": {
       "phase": "do",
@@ -94,9 +97,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-12T06:19:40.052Z",
-        "lastUpdated": "2026-03-15T12:26:42.601Z"
+        "lastUpdated": "2026-03-17T05:15:31.866Z"
       },
-      "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\board\\ProjectBoardList.jsx"
+      "lastFile": "c:/mm_workspace/front-mmsoft/src/components/board/ProjectBoardList.jsx"
     },
     "security": {
       "phase": "do",
@@ -133,9 +136,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-13T07:31:58.595Z",
-        "lastUpdated": "2026-03-13T07:38:24.400Z"
+        "lastUpdated": "2026-03-17T10:21:23.289Z"
       },
-      "lastFile": "/c/mm_workspace/mm-member-service/src/main/java/co/kr/mmsoft/mmmemberservice/jwt/JwtAuthenticationFilter.java"
+      "lastFile": "c:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\jwt\\AdminJwtProvider.java"
     },
     "dto": {
       "phase": "do",
@@ -146,9 +149,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-13T07:34:10.862Z",
-        "lastUpdated": "2026-03-15T13:03:12.658Z"
+        "lastUpdated": "2026-03-17T10:39:16.159Z"
       },
-      "lastFile": "C:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\dto\\OAuthExchangeResponse.java"
+      "lastFile": "c:/mm_workspace/mm-admin-service/src/main/java/co/kr/mmsoft/mmadminservice/dto/AdminLoginResponse.java"
     },
     "controller": {
       "phase": "do",
@@ -159,9 +162,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-13T07:36:27.435Z",
-        "lastUpdated": "2026-03-15T14:15:02.772Z"
+        "lastUpdated": "2026-03-17T08:35:47.273Z"
       },
-      "lastFile": "C:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\controller\\AuthController.java"
+      "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\controller\\MemberController.java"
     },
     "WorkBoardController": {
       "phase": "do",
@@ -172,9 +175,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-13T07:41:28.973Z",
-        "lastUpdated": "2026-03-14T03:38:08.973Z"
+        "lastUpdated": "2026-03-17T07:46:15.504Z"
       },
-      "lastFile": "/c/mm_workspace/mm-workboard-service/src/main/java/co/kr/mmsoft/mmworkboardservice/WorkBoardController/WorkboardController.java"
+      "lastFile": "c:/mm_workspace/mm-workboard-service/src/main/java/co/kr/mmsoft/mmworkboardservice/WorkBoardController/WorkboardController.java"
     },
     "filter": {
       "phase": "do",
@@ -198,9 +201,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-15T12:24:58.986Z",
-        "lastUpdated": "2026-03-15T14:14:09.571Z"
+        "lastUpdated": "2026-03-17T10:39:37.635Z"
       },
-      "lastFile": "C:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\service\\EmailService.java"
+      "lastFile": "c:/mm_workspace/mm-admin-service/src/main/java/co/kr/mmsoft/mmadminservice/service/AdminAuthService.java"
     },
     "domain": {
       "phase": "do",
@@ -211,9 +214,48 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-15T13:01:53.703Z",
-        "lastUpdated": "2026-03-15T13:02:06.025Z"
+        "lastUpdated": "2026-03-17T10:38:55.647Z"
       },
-      "lastFile": "C:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\mybatis\\domain\\Account.java"
+      "lastFile": "c:/mm_workspace/mm-admin-service/src/main/java/co/kr/mmsoft/mmadminservice/mybatis/domain/AdminUser.java"
+    },
+    "config": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-17T07:52:41.250Z",
+        "lastUpdated": "2026-03-17T10:40:04.206Z"
+      },
+      "lastFile": "c:/mm_workspace/mm-admin-service/src/main/java/co/kr/mmsoft/mmadminservice/config/MysqlDataSourceConfig.java"
+    },
+    "oauth2": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-17T09:43:18.602Z",
+        "lastUpdated": "2026-03-17T10:01:43.885Z"
+      },
+      "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\oauth2\\CustomOidcUserService.java"
+    },
+    "mysql": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-17T10:39:05.769Z",
+        "lastUpdated": "2026-03-17T10:39:05.769Z"
+      },
+      "lastFile": "c:/mm_workspace/mm-admin-service/src/main/java/co/kr/mmsoft/mmadminservice/mybatis/mapper/mysql/AdminMapper.java"
     }
   },
   "pipeline": {
@@ -224,7 +266,7 @@
   "session": {
     "startedAt": "2026-03-09T05:34:01.063Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-15T14:20:49.493Z"
+    "lastActivity": "2026-03-17T10:40:04.206Z"
   },
   "history": [
     {
@@ -1214,6 +1256,348 @@
     {
       "timestamp": "2026-03-15T14:20:49.493Z",
       "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T05:14:15.691Z",
+      "feature": "dto",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T05:14:36.172Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T05:14:47.976Z",
+      "feature": "dto",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T05:15:02.661Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T05:15:17.508Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T05:15:31.866Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T05:18:14.972Z",
+      "feature": "WorkBoardController",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T05:18:25.775Z",
+      "feature": "WorkBoardController",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T07:34:12.831Z",
+      "feature": "WorkBoardController",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T07:40:54.865Z",
+      "feature": "WorkBoardController",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T07:46:15.504Z",
+      "feature": "WorkBoardController",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T07:52:41.250Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T07:53:07.649Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T07:53:16.140Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T07:55:27.192Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T07:55:34.250Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T07:55:50.858Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T08:35:17.407Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T08:35:47.273Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T08:47:09.677Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T08:50:08.139Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T08:53:43.841Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:03:33.020Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:03:45.332Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:06:29.078Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:06:59.082Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:13:52.588Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:19:57.093Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:43:02.843Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:43:18.602Z",
+      "feature": "oauth2",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:43:28.611Z",
+      "feature": "oauth2",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:43:39.349Z",
+      "feature": "oauth2",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:43:49.260Z",
+      "feature": "oauth2",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:43:58.835Z",
+      "feature": "oauth2",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:44:08.944Z",
+      "feature": "oauth2",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:44:17.212Z",
+      "feature": "oauth2",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:44:29.172Z",
+      "feature": "oauth2",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:54:41.130Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:55:15.246Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:55:27.252Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:01:43.885Z",
+      "feature": "oauth2",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:04:47.815Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:05:54.356Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:06:10.555Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:06:20.979Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:21:23.289Z",
+      "feature": "jwt",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:24:17.107Z",
+      "feature": "domain",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:29:07.068Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:33:36.381Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:33:47.657Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:38:27.045Z",
+      "feature": "domain",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:38:55.647Z",
+      "feature": "domain",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:39:05.769Z",
+      "feature": "mysql",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:39:16.159Z",
+      "feature": "dto",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:39:37.635Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:39:53.306Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T10:40:04.206Z",
+      "feature": "config",
       "phase": "do",
       "action": "updated"
     }
