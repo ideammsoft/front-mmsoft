@@ -51,7 +51,8 @@ function LoginPanel({ onClose, onLoginSuccess }) {
 
   // 비밀번호 input DOM 요소에 접근하기 위한 ref
   // 아이디 찾기 후 비밀번호 input에 자동 포커스할 때 사용
-  const passwordRef = useRef(null);
+  const passwordRef      = useRef(null);
+  const overlayMouseDown = useRef(false);
 
   // 로그인 폼 제출 처리
   const handleSubmit = async (e) => {
@@ -114,11 +115,8 @@ function LoginPanel({ onClose, onLoginSuccess }) {
     // 오버레이(반투명 배경) - 바깥 영역 클릭 시 패널 닫기
     <div
       className={styles.overlay}
-      onClick={(e) => {
-        // e.target === e.currentTarget: 클릭된 요소가 오버레이 자신인지 확인
-        // 패널 안쪽을 클릭하면 target이 패널 내부 요소 → 닫히지 않음
-        if (e.target === e.currentTarget) onClose();
-      }}
+      onMouseDown={e => { overlayMouseDown.current = e.target === e.currentTarget; }}
+      onMouseUp={e => { if (overlayMouseDown.current && e.target === e.currentTarget) onClose(); }}
     >
       {/* 실제 패널 박스 - 클릭 이벤트가 오버레이로 전파되지 않도록 stopPropagation */}
       <div className={styles.panel} onClick={(e) => e.stopPropagation()}>

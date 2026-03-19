@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import MainNavigation from './MainNavigation';
 import LoginPanel from '../auth/LoginPanel';
@@ -8,6 +8,7 @@ import styles from './Header.module.css';
 import clsx from 'clsx';
 
 function Header() {
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled]             = useState(false);
   const [loginOpen, setLoginOpen]           = useState(false);
@@ -52,6 +53,7 @@ function Header() {
     localStorage.removeItem('mmsoft_user');
     localStorage.removeItem('mmsoft_access_token');
     setUser(null);
+    navigate('/');
   };
 
   // 회원정보수정 클릭

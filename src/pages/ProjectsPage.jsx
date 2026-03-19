@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import ProjectBoardList from '../components/board/ProjectBoardList';
-import styles from './CommunityPage.module.css';
+import styles from './ProjectsPage.module.css';
 
 // 워크보드 API 응답이 없거나 빈 경우 보여줄 임시 데이터 (1건)
 const DUMMY_POST = [{

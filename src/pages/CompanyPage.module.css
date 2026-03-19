@@ -6,7 +6,7 @@
   text-align: center;
   background:
     linear-gradient(rgba(5, 8, 18, 0.62), rgba(5, 8, 18, 0.62)),
-    url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
+    url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
 }
 
 .hero::after {
