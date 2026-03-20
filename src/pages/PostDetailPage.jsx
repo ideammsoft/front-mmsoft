@@ -397,7 +397,7 @@ function PostDetailPage() {
         </div>
       </div>
 
-      {/* 댓글/답글 모달 */}
+      {/* 댓글/ 답글 모달 */}
       {replyOpen && (
         <WriteModal parentPost={replyTarget || post}
           onClose={() => { setReplyOpen(false); setReplyTarget(null); }}
