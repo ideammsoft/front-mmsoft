@@ -357,6 +357,24 @@
   border-color: var(--color-secondary);
 }
 
+/* 비밀글 체크박스 */
+.secretCheckLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  cursor: pointer;
+  user-select: none;
+}
+
+.secretCheckbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
 /* 파일첨부 */
 .fileInputWrapper {
   display: flex;
