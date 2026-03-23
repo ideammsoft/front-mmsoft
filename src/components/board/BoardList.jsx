@@ -188,13 +188,22 @@ function BoardList({ posts, onRefresh }) {
 
   const itemsPerPage = 10;
 
+  // 카테고리 우선순위: 공지(0) → 안내(1) → 일반(2)
+  const CATEGORY_ORDER = { '공지': 0, '안내': 1, '일반': 2 };
+
   // 카테고리 필터 (비밀글: 제목이 가려진 채로 목록에 포함됨)
-  const filtered = posts.filter(post => {
-    const matchCat  = selectedCategory === '전체' || post.freeboardRolename === selectedCategory;
-    const matchWord = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                      (post.name || '').toLowerCase().includes(searchTerm.toLowerCase());
-    return matchCat && matchWord;
-  });
+  const filtered = posts
+    .filter(post => {
+      const matchCat  = selectedCategory === '전체' || post.freeboardRolename === selectedCategory;
+      const matchWord = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        (post.name || '').toLowerCase().includes(searchTerm.toLowerCase());
+      return matchCat && matchWord;
+    })
+    .sort((a, b) => {
+      const oa = CATEGORY_ORDER[a.freeboardRolename] ?? 2;
+      const ob = CATEGORY_ORDER[b.freeboardRolename] ?? 2;
+      return oa - ob;
+    });
 
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
   const startIdx   = (currentPage - 1) * itemsPerPage;
@@ -275,8 +284,7 @@ function BoardList({ posts, onRefresh }) {
                   <tr key={post.freeboardId} onClick={() => handleRowClick(post)}
                     style={{ cursor: isSecret ? 'not-allowed' : 'pointer' }}>
                     <td className={styles.numberCol}>
-                      {isNotice ? <span className={styles.badge}>공지</span>
-                                : startIdx + idx + 1}
+                      {startIdx + idx + 1}
                     </td>
                     <td className={styles.titleCol}>
                       <div className={styles.titleCell}>
@@ -285,8 +293,11 @@ function BoardList({ posts, onRefresh }) {
                             <FaReply size={11} style={{ marginRight: 4 }} />
                           </span>
                         )}
-                        {post.freeboardRolename !== '일반' && !isSecret && (
+                        {post.freeboardRolename === '공지' && !isSecret && (
                           <span className={styles.badge}>{post.freeboardRolename}</span>
+                        )}
+                        {post.freeboardRolename === '안내' && !isSecret && (
+                          <span className={styles.badgeInfo}>{post.freeboardRolename}</span>
                         )}
                         {(isSecret || isMySecret) && <FaLock size={12} style={{ marginRight: 6, color: 'var(--color-text-muted)' }} />}
                         <span style={{ color: isSecret ? 'var(--color-text-muted)' : 'inherit' }}>

@@ -27,10 +27,10 @@ function FindPasswordPanel({ onClose }) {
     // 백엔드 IdPassFindRequest 형식
     // idOrPass: 'password' → 비밀번호 찾기 요청임을 서버에 알림
     const body = {
-      idOrPass: 'password',                               // 비밀번호 찾기 구분자
-      openId  : homepageId.trim(),                       // 아이디 (본인 확인에 필요)
-      email   : method === 'email' ? value.trim() : '',
-      phone   : method === 'phone' ? value.trim() : '',
+      idOrPass   : 'password',                               // 비밀번호 찾기 구분자
+      homepageId : homepageId.trim(),                       // 아이디 (본인 확인에 필요) - @JsonProperty("homepageId")
+      email      : method === 'email' ? value.trim() : '',
+      phone      : method === 'phone' ? value.trim() : '',
     };
 
     setLoading(true);
