@@ -13,7 +13,7 @@ function CommunityPage() {
     if (rolename) params.set('rolename', rolename);
     if (keyword)  params.set('keyword',  keyword);
 
-    fetch(`http://localhost:1882/api/freeboard?${params}`, {
+    fetch(`/api/freeboard?${params}`, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
       .then(r => r.ok ? r.json() : [])

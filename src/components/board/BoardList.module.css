@@ -160,7 +160,7 @@
 }
 
 .table th {
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: 8px var(--spacing-md);
   text-align: left;
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-muted);
@@ -184,24 +184,27 @@
 }
 
 .table td {
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: 8px var(--spacing-md);
   font-size: var(--font-size-sm);
 }
 
 .numberCol {
-  width: 80px;
+  width: 60px;
   text-align: center;
   color: var(--color-text-muted);
+  white-space: nowrap;
 }
 
 .titleCol {
-  flex: 1;
+  max-width: 0;
+  overflow: hidden;
 }
 
 .titleCell {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
+  overflow: hidden;
 }
 
 .badge {
@@ -229,20 +232,23 @@
 }
 
 .authorCol {
-  width: 120px;
+  width: 90px;
   text-align: center;
+  white-space: nowrap;
 }
 
 .dateCol {
-  width: 120px;
+  width: 95px;
   text-align: center;
   color: var(--color-text-muted);
+  white-space: nowrap;
 }
 
 .viewsCol {
-  width: 80px;
+  width: 60px;
   text-align: center;
   color: var(--color-text-muted);
+  white-space: nowrap;
 }
 
 .empty {

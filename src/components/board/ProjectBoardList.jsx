@@ -66,7 +66,7 @@ function WriteModal({ onClose, onSave }) {
     setSubmitting(true);
     try {
       const token = localStorage.getItem('mmsoft_access_token');
-      const res = await fetch('http://localhost:1882/api/workboard/write', {
+      const res = await fetch('/api/workboard/write', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

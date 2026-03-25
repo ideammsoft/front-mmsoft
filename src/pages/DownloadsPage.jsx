@@ -4,7 +4,7 @@ import DownloadCategories from '../components/downloads/DownloadCategories';
 import DownloadItem from '../components/downloads/DownloadItem';
 import styles from './DownloadsPage.module.css';
 
-const API_BASE = 'http://localhost:1882';
+const API_BASE = '';
 
 function DownloadsPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');

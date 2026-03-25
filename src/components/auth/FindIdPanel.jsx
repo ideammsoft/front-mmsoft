@@ -44,7 +44,7 @@ function FindIdPanel({ onClose, onFoundId }) {
     setLoading(true); // 요청 시작: 버튼 비활성화
 
     try {
-      const res = await fetch('http://localhost:1882/api/auth/idpassfind', {
+      const res = await fetch('/api/auth/idpassfind', {
         method : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body   : JSON.stringify(body),
@@ -59,21 +59,23 @@ function FindIdPanel({ onClose, onFoundId }) {
         // 서버 응답이 JSON인 경우 파싱 시도
         // 백엔드 응답: { "foundId": "hong123" }
         let foundId = result;
+        let passwd  = undefined;
         try {
           const parsed = JSON.parse(result);
-          // 다양한 키 이름에 대응 (호환성)
           foundId = parsed.foundId ?? parsed.id ?? parsed.userId ?? result;
+          passwd  = parsed.password ?? undefined;
         } catch {
           // JSON 파싱 실패 시 텍스트 그대로 사용
         }
 
         if (!foundId || foundId === '없음') {
           alert('가입하신 아이디가 없습니다.');
+        } else if (passwd === null || passwd === '') {
+          alert('oAuth 가입자입니다.\n구글, 카카오, 네이버 로그인 회원입니다.');
         } else {
           alert(`가입하신 아이디는 "${foundId}" 입니다.`);
-          // 부모(LoginPanel)에게 찾은 아이디 전달 → 아이디 input에 자동 입력됨
           onFoundId?.(foundId);
-          onClose(); // 패널 닫기
+          onClose();
         }
       }
     } catch {

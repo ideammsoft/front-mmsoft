@@ -8,7 +8,7 @@
 //
 //   흐름:
 //   버튼 클릭
-//   → http://localhost:1882/oauth2/authorization/google
+//   → /oauth2/authorization/google
 //   → Spring Security가 자동으로 구글 로그인 페이지로 리다이렉트
 //   → 구글 로그인 완료
 //   → 백엔드 OAuth2LoginSuccessHandler 실행
@@ -64,9 +64,9 @@ function SocialLoginButtons() {
     // window.location.href = URL : 현재 탭에서 해당 URL로 이동
     // 이 URL에 접근하면 Spring Security가 해당 소셜 로그인 페이지로 자동 리다이렉트합니다
     window.location.href = `http://localhost:1991/oauth2/authorization/${provider}`;
-    // 예) http://localhost:1882/oauth2/authorization/google
+    // 예) /oauth2/authorization/google
     //   → 구글 로그인 페이지로 이동
-    // 예) http://localhost:1882/oauth2/authorization/naver
+    // 예) /oauth2/authorization/naver
     //   → 네이버 로그인 페이지로 이동
   };
 

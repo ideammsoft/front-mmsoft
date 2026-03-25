@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Button from '../common/Button';
 import styles from './ProfileCompletionPanel.module.css';
 
-const API = 'http://localhost:1882';
+const API = '';
 
 /**
  * mode='register' : OAuth 신규회원 추가정보 입력
@@ -27,8 +27,9 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
   const [pwError, setPwError]             = useState('');
   const [pwSaving, setPwSaving]           = useState(false);
 
-  const isEdit = mode === 'edit';
-  const title  = isEdit ? '회원 정보 수정' : '추가 정보 입력';
+  const isEdit  = mode === 'edit';
+  const title   = isEdit ? '회원 정보 수정' : '추가 정보 입력';
+  const loginId = JSON.parse(localStorage.getItem('mmsoft_user') || '{}').homepageId || '';
   const overlayMouseDown = useRef(false);
 
   // 초기값 세팅: localStorage + 서버(수정 모드)
@@ -160,7 +161,12 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
       <div className={`${styles.panel} ${saving ? styles.saving : ''}`}>
 
         <div className={styles.panelHeader}>
-          <h3 className={styles.title}>{title}</h3>
+          <h3 className={styles.title}>
+            {title}
+            {isEdit && loginId && (
+              <span className={styles.loginIdBadge}>{loginId}</span>
+            )}
+          </h3>
           <button className={styles.closeButton} onClick={onClose}>&times;</button>
         </div>
 

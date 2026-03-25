@@ -63,7 +63,7 @@ function LoginPanel({ onClose, onLoginSuccess }) {
     try {
       // 백엔드 POST /api/auth/login API 호출
       // 포트 1882: API Gateway 포트 (또는 member-service 직접 포트)
-      const res = await fetch('http://localhost:1882/api/auth/login', {
+      const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }, // JSON 형식으로 전송
         // JSON.stringify(): 객체 → JSON 문자열 변환

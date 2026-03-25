@@ -4,7 +4,7 @@ import { FaChevronLeft, FaUser, FaCalendar, FaEye, FaReply, FaLock,
          FaPaperclip, FaTimes, FaPen } from 'react-icons/fa';
 import styles from './PostDetailPage.module.css';
 
-const API = 'http://localhost:1882/api/freeboard';
+const API = '/api/freeboard';
 
 function useAuth() {
   try {

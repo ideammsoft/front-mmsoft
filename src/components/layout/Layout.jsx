@@ -18,6 +18,8 @@
 //   - styles.layout → 실제로는 'Layout_layout__xyz12' 같은 고유 이름이 됩니다.
 //   - 다른 컴포넌트의 CSS와 이름이 충돌하지 않아 안전합니다.
 
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from './Header';           // 상단 헤더 (로고, 내비게이션, 로그인 버튼)
 import Footer from './Footer';           // 하단 푸터 (주소, 연락처, 링크 등)
 import ScrollToTop from '../common/ScrollToTop'; // 페이지 이동 시 스크롤을 맨 위로
@@ -27,6 +29,12 @@ import styles from './Layout.module.css'; // CSS Module (레이아웃 스타일)
 // Layout 컴포넌트
 // props에서 children을 꺼냅니다. children = 이 컴포넌트 태그 사이에 들어오는 자식 요소
 function Layout({ children }) {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     // 전체 페이지를 감싸는 div
     <div className={styles.layout}>

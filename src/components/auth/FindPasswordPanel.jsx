@@ -35,7 +35,7 @@ function FindPasswordPanel({ onClose }) {
 
     setLoading(true);
     try {
-      const res    = await fetch('http://localhost:1882/api/auth/idpassfind', {
+      const res    = await fetch('/api/auth/idpassfind', {
         method : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body   : JSON.stringify(body),

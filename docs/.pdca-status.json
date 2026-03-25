@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-23T02:53:16.657Z",
+  "lastUpdated": "2026-03-25T08:45:16.699Z",
   "activeFeatures": [
     "auth",
     "layout",
@@ -28,7 +28,9 @@
     "mmmemberservice",
     "mysql",
     "pds",
-    "db복사"
+    "db복사",
+    "static",
+    "backend"
   ],
   "primaryFeature": "auth",
   "features": {
@@ -41,9 +43,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-09T05:34:01.063Z",
-        "lastUpdated": "2026-03-22T12:06:02.627Z"
+        "lastUpdated": "2026-03-25T08:45:16.699Z"
       },
-      "lastFile": "c:/mm_workspace/front-mmsoft/src/components/auth/FindPasswordPanel.jsx"
+      "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\components\\auth\\FindIdPanel.jsx"
     },
     "layout": {
       "phase": "do",
@@ -54,9 +56,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-09T05:34:49.452Z",
-        "lastUpdated": "2026-03-22T12:50:54.467Z"
+        "lastUpdated": "2026-03-25T08:11:23.070Z"
       },
-      "lastFile": "c:/mm_workspace/front-admin/src/components/layout/Sidebar.jsx"
+      "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\components\\layout\\Footer.jsx"
     },
     "data": {
       "phase": "do",
@@ -67,9 +69,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-10T06:06:00.576Z",
-        "lastUpdated": "2026-03-19T08:06:53.571Z"
+        "lastUpdated": "2026-03-25T07:23:59.596Z"
       },
-      "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\data\\products.js"
+      "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\data\\products.js"
     },
     "downloads": {
       "phase": "do",
@@ -93,9 +95,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-11T13:29:21.892Z",
-        "lastUpdated": "2026-03-22T12:46:37.294Z"
+        "lastUpdated": "2026-03-25T06:33:18.026Z"
       },
-      "lastFile": "c:/mm_workspace/front-mmsoft/src/pages/DownloadsPage.jsx"
+      "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\components\\common\\FloatingChat.jsx"
     },
     "board": {
       "phase": "do",
@@ -106,9 +108,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-12T06:19:40.052Z",
-        "lastUpdated": "2026-03-23T02:04:55.225Z"
+        "lastUpdated": "2026-03-25T08:02:22.571Z"
       },
-      "lastFile": "/c/mm_workspace/front-mmsoft/src/components/board/BoardList.jsx"
+      "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\components\\board\\NoticeBoard.jsx"
     },
     "security": {
       "phase": "do",
@@ -210,9 +212,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:18:23.241Z",
-        "lastUpdated": "2026-03-22T12:46:10.592Z"
+        "lastUpdated": "2026-03-24T23:54:20.247Z"
       },
-      "lastFile": "c:/mm_workspace/mm-member-service/src/main/java/co/kr/mmsoft/mmmemberservice/config/WebMvcConfig.java"
+      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\config\\WebConfig.java"
     },
     "domain": {
       "phase": "do",
@@ -314,9 +316,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:36:32.276Z",
-        "lastUpdated": "2026-03-22T12:51:14.549Z"
+        "lastUpdated": "2026-03-24T10:28:02.595Z"
       },
-      "lastFile": "c:/mm_workspace/front-admin/src/App.jsx"
+      "lastFile": "C:\\mm_workspace\\front-admin\\vite.config.js"
     },
     "customers": {
       "phase": "do",
@@ -382,6 +384,32 @@
         "lastUpdated": "2026-03-22T13:42:22.578Z"
       },
       "lastFile": "C:/1my_project/python/db복사/mssqlTomssql.py"
+    },
+    "static": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-25T05:46:51.959Z",
+        "lastUpdated": "2026-03-25T06:06:23.325Z"
+      },
+      "lastFile": "C:\\mm_workspace\\web-rag\\frontend\\static\\app.js"
+    },
+    "backend": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-25T05:52:44.633Z",
+        "lastUpdated": "2026-03-25T06:39:28.257Z"
+      },
+      "lastFile": "C:\\mm_workspace\\web-rag\\backend\\main.py"
     }
   },
   "pipeline": {
@@ -392,7 +420,7 @@
   "session": {
     "startedAt": "2026-03-09T05:34:01.063Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-23T02:53:16.657Z"
+    "lastActivity": "2026-03-25T08:45:16.699Z"
   },
   "history": [
     {
@@ -2630,6 +2658,258 @@
     {
       "timestamp": "2026-03-23T02:53:16.657Z",
       "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T08:06:45.064Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T08:09:32.882Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T08:39:34.128Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T09:37:21.066Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T09:38:50.270Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T23:56:04.348Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T00:01:17.955Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T01:04:24.521Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T03:51:18.279Z",
+      "feature": "front-admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T10:23:19.094Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T10:28:02.595Z",
+      "feature": "front-admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T23:54:20.248Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:46:51.959Z",
+      "feature": "static",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:48:59.741Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:52:44.633Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T05:58:44.097Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:06:23.325Z",
+      "feature": "static",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:19:58.367Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:24:47.454Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:25:02.429Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:33:18.026Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T06:39:28.257Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:23:05.659Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:23:16.521Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:23:28.182Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:23:36.694Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:23:52.887Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:23:59.596Z",
+      "feature": "data",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:25:24.706Z",
+      "feature": "layout",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:45:06.065Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:45:27.329Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:47:47.770Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:50:50.084Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:56:12.475Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T07:58:25.874Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T08:00:04.433Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T08:00:18.069Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T08:01:58.141Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T08:02:22.571Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T08:11:23.070Z",
+      "feature": "layout",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T08:43:23.418Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T08:45:16.699Z",
+      "feature": "auth",
       "phase": "do",
       "action": "updated"
     }

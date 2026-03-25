@@ -72,7 +72,7 @@ function SignUpPanel({ onClose, onSuccess }) {
 
     try {
       // POST /api/auth/idcheck : 이 아이디가 이미 사용 중인지 확인
-      const res = await fetch('http://localhost:1882/api/auth/idcheck', {
+      const res = await fetch('/api/auth/idcheck', {
         method : 'POST',
         headers: { 'Content-Type': 'application/json' },
         // openId → 백엔드 IdCheckRequest.openId 필드와 매핑
@@ -143,7 +143,7 @@ function SignUpPanel({ onClose, onSuccess }) {
 
     try {
       // POST /api/auth/regist : 백엔드 회원가입 API 호출
-      const res = await fetch('http://localhost:1882/api/auth/regist', {
+      const res = await fetch('/api/auth/regist', {
         method : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body   : JSON.stringify({

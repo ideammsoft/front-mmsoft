@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import Pagination from '../common/Pagination';
 import styles from './BoardList.module.css';
 
-const API = 'http://localhost:1882/api/freeboard';
+const API = '/api/freeboard';
 const CATEGORIES = ['전체', '공지', '안내', '일반'];
 
 // ─── 공통: 현재 로그인 정보 ─────────────────────────────
@@ -300,7 +300,7 @@ function BoardList({ posts, onRefresh }) {
                           <span className={styles.badgeInfo}>{post.freeboardRolename}</span>
                         )}
                         {(isSecret || isMySecret) && <FaLock size={12} style={{ marginRight: 6, color: 'var(--color-text-muted)' }} />}
-                        <span style={{ color: isSecret ? 'var(--color-text-muted)' : 'inherit' }}>
+                        <span style={{ color: isSecret ? 'var(--color-text-muted)' : 'inherit', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>
                           {post.title}
                         </span>
                         {post.url && !isSecret && <FaPaperclip size={11} style={{ color: 'var(--color-text-muted)', flexShrink: 0 }} />}
@@ -312,7 +312,7 @@ function BoardList({ posts, onRefresh }) {
                     </td>
                     <td className={styles.viewsCol}>{post.cnt}</td>
                     {isAdmin && (
-                      <td onClick={e => e.stopPropagation()} style={{ textAlign: 'center' }}>
+                      <td onClick={e => e.stopPropagation()} style={{ textAlign: 'center', whiteSpace: 'nowrap', width: '50px' }}>
                         <button onClick={e => handleDelete(e, post.freeboardId)}
                           style={{ fontSize: '12px', color: '#e53e3e', background: 'none',
                                    border: 'none', cursor: 'pointer' }}>

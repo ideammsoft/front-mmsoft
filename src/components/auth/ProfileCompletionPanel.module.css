@@ -48,6 +48,15 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.loginIdBadge {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
 }
 
 .closeButton {
@@ -150,7 +159,8 @@
 
 .actionLink {
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  font-weight: 600;
+  color: var(--color-text);
   cursor: pointer;
   text-decoration: underline;
 }
