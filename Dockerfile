@@ -29,6 +29,9 @@ RUN rm -rf /usr/share/nginx/html/*
 # build 결과물 복사
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# nginx 설정 복사
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # nginx 기본 포트 80 사용
 EXPOSE 80
 
