@@ -82,7 +82,11 @@ function SignUpPanel({ onClose, onSuccess }) {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        setErrors((prev) => ({ ...prev, userId: data.message || '이미 사용 중인 아이디입니다.' }));
+        if (res.status === 404) {
+          alert('서버 연결에 실패했습니다. (API 없음)');
+        } else {
+          setErrors((prev) => ({ ...prev, userId: data.message || '이미 사용 중인 아이디입니다.' }));
+        }
         setIdChecked(false);
         return;
       }
