@@ -199,10 +199,10 @@ function LoginPanel({ onClose, onLoginSuccess }) {
       {showSignUp && (
         <SignUpPanel
           onClose={() => setShowSignUp(false)}
-          onSuccess={(userId) => {
+          onSuccess={(userId, pw) => {
             setUsername(userId);      // 가입한 아이디를 자동 입력
+            if (pw) setPassword(pw);  // 가입한 비밀번호를 자동 입력
             setShowSignUp(false);     // 회원가입 패널 닫기
-            setTimeout(() => passwordRef.current?.focus(), 100); // 비밀번호 입력으로 포커스
           }}
         />
       )}

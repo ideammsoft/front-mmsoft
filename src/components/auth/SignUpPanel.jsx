@@ -168,7 +168,7 @@ function SignUpPanel({ onClose, onSuccess }) {
       }
 
       alert('회원가입이 완료되었습니다.');
-      onSuccess?.(form.userId); // 부모(LoginPanel)에게 가입된 아이디 전달
+      onSuccess?.(form.userId, form.password); // 부모(LoginPanel)에게 가입된 아이디+비밀번호 전달
       onClose();
 
     } catch {
