@@ -6,7 +6,7 @@ function FloatingChat() {
     const left = window.screenX + (window.outerWidth - w) / 2;
     const top  = window.screenY + (window.outerHeight - h) / 2;
     window.open(
-      'http://127.0.0.1:5500/index.html',
+      `${window.location.protocol}//${window.location.hostname}:8001/`,
       'chatPopup',
       `width=${w},height=${h},left=${left},top=${top},resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,status=no`
     );
