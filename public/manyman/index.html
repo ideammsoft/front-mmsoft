@@ -3,156 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>엠엠소프트 - 문자메시지 충전</title>
+<title>엠엠소프트 - 충전</title>
 <style>
-* { box-sizing:border-box; margin:0; padding:0; }
-html, body { width:100%; overflow-x:hidden; }
-body {
-  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-  background:#eef2f7; padding:8px; font-size:12px;
-}
-.header {
-  background:#1a73e8; color:#fff; text-align:center;
-  padding:7px 8px; border-radius:6px 6px 0 0;
-  font-size:13px; font-weight:bold; letter-spacing:1px;
-  white-space:nowrap; overflow:hidden;
-}
-.card {
-  background:#fff; border:1px solid #d0d8e8;
-  border-radius:0 0 6px 6px; padding:10px;
-}
-.notice {
-  background:#e8f0fe; border-left:3px solid #1a73e8;
-  border-radius:4px; padding:5px 8px; margin-bottom:8px;
-  font-size:11px; color:#3c4858; line-height:1.4;
-}
-.row-label { font-size:11px; font-weight:bold; color:#4a5568; margin-bottom:3px; }
-.amount-wrap { position:relative; margin-bottom:5px; }
-.amount-input {
-  width:100%; padding:7px 30px 7px 8px;
-  font-size:20px; font-weight:bold; color:#1a73e8;
-  border:2px solid #d2d9e6; border-radius:5px;
-  text-align:right; outline:none;
-  font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-}
-.amount-input:focus { border-color:#1a73e8; }
-.amount-unit {
-  position:absolute; right:8px; top:50%; margin-top:-7px;
-  font-size:12px; color:#718096;
-}
-.error-msg { display:none; color:#e53e3e; font-size:10px; margin-bottom:3px; }
-.quick-grid { width:100%; border-collapse:collapse; margin-bottom:5px; }
-.quick-grid td { padding:0 2px; width:25%; }
-.quick-grid td:first-child { padding-left:0; }
-.quick-grid td:last-child  { padding-right:0; }
-.quick-btn {
-  width:100%; padding:4px 0;
-  background:#f7f8fc; border:1px solid #d2d9e6; border-radius:4px;
-  font-size:11px; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-  font-weight:bold; color:#3c4858; cursor:pointer;
-}
-.quick-btn:hover { background:#e8f0fe; border-color:#1a73e8; color:#1a73e8; }
-.reset-btn {
-  width:100%; padding:4px;
-  background:#fff; border:1px dashed #d2d9e6; border-radius:4px;
-  font-size:10px; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-  color:#718096; cursor:pointer; margin-bottom:7px;
-}
-.reset-btn:hover { border-color:#e53e3e; color:#e53e3e; }
-.pay-btn {
-  width:100%; padding:9px;
-  background:#1a73e8; color:#fff; border:none; border-radius:5px;
-  font-size:14px; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-  font-weight:bold; cursor:pointer; margin-bottom:7px;
-}
-.pay-btn:hover { background:#1557b0; }
-.bank-info {
-  background:#f7f8fc; border:1px solid #e2e8f0;
-  border-radius:4px; padding:5px 8px;
-  font-size:10px; color:#718096; line-height:1.7;
-}
-.bank-info strong { color:#4a5568; }
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;overflow-x:hidden}
+body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;padding:5px;font-size:11px}
+.hd{background:#1a73e8;color:#fff;text-align:center;padding:5px;border-radius:4px 4px 0 0;font-size:12px;font-weight:bold}
+.card{background:#fff;border:1px solid #d0d8e8;border-radius:0 0 4px 4px;padding:7px}
+.notice{background:#e8f0fe;border-left:3px solid #1a73e8;border-radius:3px;padding:4px 6px;margin-bottom:6px;font-size:10px;color:#3c4858}
+.lbl{font-size:10px;font-weight:bold;color:#555;margin-bottom:2px}
+.aw{position:relative;margin-bottom:4px}
+.ai{width:100%;padding:4px 24px 4px 6px;font-size:16px;font-weight:bold;color:#1a73e8;border:2px solid #d2d9e6;border-radius:4px;text-align:right;outline:none;font-family:'맑은 고딕','Malgun Gothic',sans-serif}
+.ai:focus{border-color:#1a73e8}
+.au{position:absolute;right:5px;top:50%;margin-top:-5px;font-size:10px;color:#888}
+.err{display:none;color:#e53e3e;font-size:10px;margin-bottom:3px}
+.qg{width:100%;border-collapse:collapse;margin-bottom:3px}
+.qg td{width:25%;padding:0 1px}
+.qg td:first-child{padding-left:0}
+.qg td:last-child{padding-right:0}
+.qb{width:100%;padding:3px 0;background:#f7f8fc;border:1px solid #d2d9e6;border-radius:3px;font-size:10px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;color:#444;cursor:pointer}
+.qb:hover{background:#e8f0fe;border-color:#1a73e8;color:#1a73e8}
+.rb{width:100%;padding:3px;background:#fff;border:1px dashed #ccc;border-radius:3px;font-size:10px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;color:#999;cursor:pointer;margin-bottom:5px}
+.rb:hover{border-color:#e53e3e;color:#e53e3e}
+.pb{width:100%;padding:7px;background:#1a73e8;color:#fff;border:none;border-radius:4px;font-size:13px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;cursor:pointer}
+.pb:hover{background:#1557b0}
 </style>
 </head>
 <body>
-<div class="header">MMSoft &nbsp; 문자메시지 충전</div>
+<div class="hd">MMSoft &nbsp; 문자메시지 충전</div>
 <div class="card">
   <div class="notice">* 충전 방식: 카드결제 및 무통장입금만 가능합니다(최소 1만원 이상)</div>
-  <div class="row-label">충전 금액</div>
-  <div class="amount-wrap">
-    <input type="text" id="price" class="amount-input" value="10000">
-    <span class="amount-unit">원</span>
+  <div class="lbl">충전 금액</div>
+  <div class="aw">
+    <input type="text" id="price" class="ai" value="10000">
+    <span class="au">원</span>
   </div>
-  <p class="error-msg" id="errMsg">최소 결제 금액은 10,000원입니다.</p>
-  <table class="quick-grid"><tr>
-    <td><button type="button" class="quick-btn" onclick="addAmt(10000)">+1만원</button></td>
-    <td><button type="button" class="quick-btn" onclick="addAmt(50000)">+5만원</button></td>
-    <td><button type="button" class="quick-btn" onclick="addAmt(100000)">+10만원</button></td>
-    <td><button type="button" class="quick-btn" onclick="addAmt(500000)">+50만원</button></td>
+  <p class="err" id="err">최소 결제 금액은 10,000원입니다.</p>
+  <table class="qg"><tr>
+    <td><button type="button" class="qb" onclick="add(10000)">+1만원</button></td>
+    <td><button type="button" class="qb" onclick="add(50000)">+5만원</button></td>
+    <td><button type="button" class="qb" onclick="add(100000)">+10만원</button></td>
+    <td><button type="button" class="qb" onclick="add(500000)">+50만원</button></td>
   </tr></table>
-  <button type="button" class="reset-btn" onclick="resetAmt()">금액 초기화</button>
-  <button type="button" class="pay-btn" onclick="goNext()">결&nbsp;&nbsp;제</button>
-  <div class="bank-info">
-    <strong>무통장:</strong> 국민은행 421701-04-121233 &nbsp;
-    <strong>예금주:</strong> 이기성(엠엠소프트) &nbsp;
-    <strong>문의:</strong> 02-864-7576
-  </div>
+  <button type="button" class="rb" onclick="rst()">금액 초기화</button>
+  <button type="button" class="pb" onclick="go()">결&nbsp;&nbsp;제</button>
 </div>
-
 <script>
-function getParam(name) {
-  var search = window.location.search.substring(1);
-  var vars = search.split('&');
-  for (var i = 0; i < vars.length; i++) {
-    var pair = vars[i].split('=');
-    if (decodeURIComponent(pair[0]) === name) {
-      return pair.length > 1 ? decodeURIComponent(pair[1].replace(/\+/g, ' ')) : '';
-    }
-  }
-  return '';
+function gp(n){var s=window.location.search.substring(1).split('&');for(var i=0;i<s.length;i++){var p=s[i].split('=');if(decodeURIComponent(p[0])===n)return p.length>1?decodeURIComponent(p[1].replace(/\+/g,' ')):''}return ''}
+var uid=gp('id'),ph=gp('phone'),em=gp('email')||'man@mmsoft.co.kr';
+function add(v){var el=document.getElementById('price');el.value=(parseInt(el.value,10)||0)+v;he()}
+function rst(){document.getElementById('price').value=10000;he()}
+function he(){var el=document.getElementById('err');el.style.display='none';el.innerHTML='최소 결제 금액은 10,000원입니다.'}
+function go(){
+  var price=parseInt(document.getElementById('price').value,10),el=document.getElementById('err');
+  if(!price||price<10000){el.innerHTML='최소 결제 금액은 10,000원입니다.';el.style.display='block';return}
+  if(price%10000!==0){el.innerHTML='10,000원 단위로 입력해 주세요.';el.style.display='block';return}
+  window.location.href='/manyman/authfrm.html?goods=SMS&price='+price+'&id='+encodeURIComponent(uid)+'&email='+encodeURIComponent(em)+'&phone='+encodeURIComponent(ph);
 }
-var userId = getParam('id');
-var phone  = getParam('phone');
-var email  = getParam('email') || 'man@mmsoft.co.kr';
-
-function addAmt(val) {
-  var inp = document.getElementById('price');
-  var cur = parseInt(inp.value, 10) || 0;
-  inp.value = cur + val;
-  hideErr();
-}
-function resetAmt() {
-  document.getElementById('price').value = 10000;
-  hideErr();
-}
-function hideErr() {
-  var el = document.getElementById('errMsg');
-  el.style.display = 'none';
-  el.innerHTML = '최소 결제 금액은 10,000원입니다.';
-}
-function goNext() {
-  var price = parseInt(document.getElementById('price').value, 10);
-  var el = document.getElementById('errMsg');
-  if (!price || price < 10000) {
-    el.innerHTML = '최소 결제 금액은 10,000원입니다.';
-    el.style.display = 'block'; return;
-  }
-  if (price % 10000 !== 0) {
-    el.innerHTML = '10,000원 단위로 입력해 주세요.';
-    el.style.display = 'block'; return;
-  }
-  var url = '/manyman/authfrm.html?goods=SMS&price=' + price
-    + '&id='    + encodeURIComponent(userId)
-    + '&email=' + encodeURIComponent(email)
-    + '&phone=' + encodeURIComponent(phone);
-  window.location.href = url;
-}
-document.getElementById('price').onkeypress = function(e) {
-  var ev = e || window.event;
-  var key = ev.keyCode || ev.which;
-  if (key === 13) { goNext(); return false; }
-  if (key < 48 || key > 57) { ev.returnValue = false; return false; }
-};
+document.getElementById('price').onkeypress=function(e){var ev=e||window.event,k=ev.keyCode||ev.which;if(k===13){go();return false}if(k<48||k>57){ev.returnValue=false;return false}};
 </script>
 </body>
 </html>
