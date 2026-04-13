@@ -27,11 +27,15 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
 .rb:hover{border-color:#e53e3e;color:#e53e3e}
 .pb{width:100%;padding:7px;background:#1a73e8;color:#fff;border:none;border-radius:4px;font-size:13px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;cursor:pointer}
 .pb:hover{background:#1557b0}
+.msg{display:none;background:#fff8e1;border:2px solid #f59e0b;border-radius:6px;padding:14px 10px;text-align:center;font-size:12px;color:#333;line-height:1.8}
+.msg b{font-size:14px;color:#d97706}
+.mbtn{margin-top:10px;padding:6px 20px;background:#e53e3e;color:#fff;border:none;border-radius:4px;font-size:12px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;cursor:pointer}
+.mbtn:hover{background:#c53030}
 </style>
 </head>
 <body>
 <div class="hd">MMSoft &nbsp; 문자메시지 충전</div>
-<div class="card">
+<div id="main" class="card">
   <div class="notice">* 충전방식은 카드결재와 무통장입금만 가능합니다.<br>* 한번에 최대 5000건까지 발송가능합니다.<br>* 문자 메시지를 발송하시기 위해서는 요금이 충전되어 있어야합니다.<br>* 최소 결제 단위는 1만원입니다.</div>
   <div class="lbl">충전 금액</div>
   <div class="aw">
@@ -48,6 +52,13 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
   <button type="button" class="rb" onclick="rst()">금액 초기화</button>
   <button type="button" class="pb" onclick="go()">결&nbsp;&nbsp;제</button>
 </div>
+<div id="msgBox" class="card msg">
+  <b>&#9432; 결제창이 새 브라우저에서 열렸습니다.</b><br><br>
+  새로 열린 브라우저에서 결제를 완료해 주세요.<br>
+  결제가 끝나면 이 창은 닫아주세요.
+  <br>
+  <button type="button" class="mbtn" onclick="window.close()">이 창 닫기</button>
+</div>
 <script>
 function gp(n){var s=window.location.search.substring(1).split('&');for(var i=0;i<s.length;i++){var p=s[i].split('=');if(decodeURIComponent(p[0])===n)return p.length>1?decodeURIComponent(p[1].replace(/\+/g,' ')):''}return ''}
 var uid=gp('id'),ph=gp('phone'),em=gp('email')||'man@mmsoft.co.kr';
@@ -58,7 +69,10 @@ function go(){
   var price=parseInt(document.getElementById('price').value,10),el=document.getElementById('err');
   if(!price||price<10000){el.innerHTML='최소 결제 금액은 10,000원입니다.';el.style.display='block';return}
   if(price%10000!==0){el.innerHTML='10,000원 단위로 입력해 주세요.';el.style.display='block';return}
-  window.location.href='/manyman/authfrm.html?goods=SMS&price='+price+'&id='+encodeURIComponent(uid)+'&email='+encodeURIComponent(em)+'&phone='+encodeURIComponent(ph);
+  var url='/manyman/authfrm.html?goods=SMS&price='+price+'&id='+encodeURIComponent(uid)+'&email='+encodeURIComponent(em)+'&phone='+encodeURIComponent(ph);
+  window.open(url,'_blank');
+  document.getElementById('main').style.display='none';
+  document.getElementById('msgBox').style.display='block';
 }
 document.getElementById('price').onkeypress=function(e){var ev=e||window.event,k=ev.keyCode||ev.which;if(k===13){go();return false}if(k<48||k>57){ev.returnValue=false;return false}};
 </script>
