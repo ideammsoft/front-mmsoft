@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>엠엠소프트 - 문자메시지 충전</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #f0f4f8;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.10);
+  width: 100%;
+  max-width: 460px;
+  overflow: hidden;
+}
+
+.header {
+  background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+  padding: 28px 32px 24px;
+  text-align: center;
+}
+.header .logo { font-size: 13px; color: rgba(255,255,255,.70); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.header h1 { color: #fff; font-size: 22px; font-weight: 700; }
+
+.body { padding: 28px 28px 32px; }
+
+/* 안내 */
+.notice {
+  background: #e8f0fe;
+  border-left: 4px solid #1a73e8;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+}
+.notice li {
+  list-style: none;
+  font-size: 13px;
+  color: #3c4858;
+  line-height: 1.9;
+  padding-left: 14px;
+  position: relative;
+}
+.notice li::before { content: '•'; color: #1a73e8; position: absolute; left: 0; font-weight: 700; }
+
+/* 금액 입력 */
+.field-label { font-size: 13px; font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; }
+
+.amount-wrap { position: relative; margin-bottom: 12px; }
+.amount-input {
+  width: 100%;
+  padding: 14px 52px 14px 18px;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #1a73e8;
+  border: 2px solid #d2d9e6;
+  border-radius: 10px;
+  text-align: right;
+  outline: none;
+  transition: border-color .2s;
+  -moz-appearance: textfield;
+}
+.amount-input::-webkit-outer-spin-button,
+.amount-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.amount-input:focus { border-color: #1a73e8; box-shadow: 0 0 0 3px rgba(26,115,232,.15); }
+.amount-unit {
+  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  font-size: 16px; font-weight: 600; color: #718096;
+}
+
+.error-msg { display: none; color: #e53e3e; font-size: 12px; margin-bottom: 10px; padding-left: 4px; }
+
+/* 빠른 버튼 */
+.quick-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 10px; }
+.quick-btn {
+  padding: 10px 4px;
+  background: #f7f8fc;
+  border: 1px solid #d2d9e6;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 600;
+  color: #3c4858;
+  cursor: pointer;
+  transition: all .18s;
+  text-align: center;
+}
+.quick-btn:hover { background: #e8f0fe; border-color: #1a73e8; color: #1a73e8; }
+
+.reset-btn {
+  width: 100%; padding: 9px;
+  background: #fff; border: 1px dashed #d2d9e6; border-radius: 8px;
+  font-size: 13px; font-family: 'Noto Sans KR', sans-serif; color: #718096;
+  cursor: pointer; margin-bottom: 22px; transition: all .18s;
+}
+.reset-btn:hover { border-color: #e53e3e; color: #e53e3e; background: #fff5f5; }
+
+/* 결제 버튼 */
+.pay-btn {
+  width: 100%; padding: 16px;
+  background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+  color: #fff; border: none; border-radius: 10px;
+  font-size: 17px; font-family: 'Noto Sans KR', sans-serif; font-weight: 700;
+  cursor: pointer; letter-spacing: .5px; transition: opacity .2s, transform .1s;
+}
+.pay-btn:hover { opacity: .92; }
+.pay-btn:active { transform: scale(.98); }
+
+/* 무통장 */
+.bank-info {
+  margin-top: 20px; padding: 14px 16px;
+  background: #f7f8fc; border-radius: 8px; border: 1px solid #e2e8f0;
+}
+.bank-info p { font-size: 12px; color: #718096; line-height: 1.9; }
+.bank-info strong { color: #4a5568; }
+
+/* 사용자 정보 뱃지 */
+.user-badge {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px; margin-bottom: 20px;
+  background: #f0fff4; border: 1px solid #9ae6b4; border-radius: 8px;
+  font-size: 12px; color: #276749;
+}
+.user-badge svg { flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">MMSoft</div>
+    <h1>문자메시지 충전</h1>
+  </div>
+
+  <div class="body">
+
+    <!-- 사용자 정보 -->
+    <div class="user-badge" id="userBadge" style="display:none">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M10 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-5 0-8 2.2-8 3.5V17h16v-1.5C18 14.2 15 12 10 12z"/>
+      </svg>
+      <span id="userBadgeText"></span>
+    </div>
+
+    <!-- 안내 -->
+    <div class="notice">
+      <ul>
+        <li>충전 방식: 카드결제 및 무통장입금만 가능합니다</li>
+        <li>1회 최대 5,000건까지 발송 가능합니다</li>
+        <li>최소 결제 단위는 10,000원입니다</li>
+        <li>발송하려면 요금이 충전되어 있어야 합니다</li>
+      </ul>
+    </div>
+
+    <label class="field-label" for="price">충전 금액</label>
+    <div class="amount-wrap">
+      <input type="number" id="price" class="amount-input" value="10000" min="10000" step="10000" inputmode="numeric">
+      <span class="amount-unit">원</span>
+    </div>
+    <p class="error-msg" id="errMsg">최소 결제 금액은 10,000원입니다.</p>
+
+    <div class="quick-grid">
+      <button type="button" class="quick-btn" onclick="addAmt(10000)">+1만원</button>
+      <button type="button" class="quick-btn" onclick="addAmt(50000)">+5만원</button>
+      <button type="button" class="quick-btn" onclick="addAmt(100000)">+10만원</button>
+      <button type="button" class="quick-btn" onclick="addAmt(500000)">+50만원</button>
+    </div>
+    <button type="button" class="reset-btn" onclick="resetAmt()">금액 초기화</button>
+
+    <button type="button" class="pay-btn" onclick="goNext()">결제하기</button>
+
+    <div class="bank-info">
+      <p>
+        <strong>무통장 입금 안내</strong><br>
+        입금 후 담당자에게 연락해 주시면 확인 후 충전해 드립니다.<br>
+        문의: <strong>02-864-7576</strong>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+// URL 쿼리 파라미터 파싱
+var params = new URLSearchParams(window.location.search);
+var userId  = params.get('id')    || '';
+var phone   = params.get('phone') || '';
+var email   = params.get('email') || 'man@mmsoft.co.kr';
+
+// 사용자 배지 표시
+if (userId) {
+  document.getElementById('userBadge').style.display = 'flex';
+  document.getElementById('userBadgeText').textContent = '사용자: ' + userId + (phone ? '  |  ' + phone : '');
+}
+
+function addAmt(val) {
+  var inp = document.getElementById('price');
+  var cur = parseInt(inp.value) || 0;
+  inp.value = cur + val;
+  hideErr();
+}
+
+function resetAmt() {
+  document.getElementById('price').value = 10000;
+  hideErr();
+}
+
+function hideErr() {
+  var el = document.getElementById('errMsg');
+  el.style.display = 'none';
+  el.textContent = '최소 결제 금액은 10,000원입니다.';
+}
+
+function goNext() {
+  var price = parseInt(document.getElementById('price').value);
+  var el = document.getElementById('errMsg');
+
+  if (!price || price < 10000) {
+    el.textContent = '최소 결제 금액은 10,000원입니다.';
+    el.style.display = 'block';
+    return;
+  }
+  if (price % 10000 !== 0) {
+    el.textContent = '10,000원 단위로 입력해 주세요.';
+    el.style.display = 'block';
+    return;
+  }
+
+  // authfrm.html 으로 GET 이동 (쿼리 파라미터 전달)
+  var qs = new URLSearchParams({
+    goods: 'SMS',
+    price: price,
+    id:    userId,
+    email: email,
+    phone: phone
+  });
+  window.location.href = '/manyman/authfrm.html?' + qs.toString();
+}
+
+// 숫자 이외 입력 차단
+document.getElementById('price').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') { goNext(); return; }
+  if (!/[0-9]/.test(e.key)) e.preventDefault();
+});
+</script>
+</body>
+</html>
