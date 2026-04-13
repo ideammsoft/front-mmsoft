@@ -6,90 +6,78 @@
 <title>엠엠소프트 - 문자메시지 충전</title>
 <style>
 * { box-sizing:border-box; margin:0; padding:0; }
+html, body { width:100%; overflow-x:hidden; }
 body {
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-  background:#eef2f7; padding:10px; font-size:12px;
+  background:#eef2f7; padding:8px; font-size:12px;
 }
 .header {
   background:#1a73e8; color:#fff; text-align:center;
-  padding:8px; border-radius:8px 8px 0 0;
-  font-size:14px; font-weight:bold; letter-spacing:2px;
+  padding:7px 8px; border-radius:6px 6px 0 0;
+  font-size:13px; font-weight:bold; letter-spacing:1px;
+  white-space:nowrap; overflow:hidden;
 }
 .card {
   background:#fff; border:1px solid #d0d8e8;
-  border-radius:0 0 8px 8px; padding:12px;
+  border-radius:0 0 6px 6px; padding:10px;
 }
 .notice {
   background:#e8f0fe; border-left:3px solid #1a73e8;
-  border-radius:4px; padding:7px 10px; margin-bottom:10px;
+  border-radius:4px; padding:5px 8px; margin-bottom:8px;
+  font-size:11px; color:#3c4858; line-height:1.4;
 }
-.notice ul { list-style:none; padding:0; }
-.notice li {
-  font-size:11px; color:#3c4858; line-height:1.7;
-  padding-left:10px; position:relative;
-}
-.notice li:before { content:'*'; color:#1a73e8; position:absolute; left:0; }
-.user-badge {
-  display:none; background:#f0fff4; border:1px solid #9ae6b4;
-  border-radius:4px; padding:5px 8px; font-size:11px;
-  color:#276749; margin-bottom:8px;
-}
-.row-label { font-size:11px; font-weight:bold; color:#4a5568; margin-bottom:4px; }
-.amount-wrap { position:relative; margin-bottom:6px; }
+.row-label { font-size:11px; font-weight:bold; color:#4a5568; margin-bottom:3px; }
+.amount-wrap { position:relative; margin-bottom:5px; }
 .amount-input {
-  width:100%; padding:8px 36px 8px 10px;
+  width:100%; padding:7px 30px 7px 8px;
   font-size:20px; font-weight:bold; color:#1a73e8;
-  border:2px solid #d2d9e6; border-radius:6px; text-align:right; outline:none;
+  border:2px solid #d2d9e6; border-radius:5px;
+  text-align:right; outline:none;
   font-family:'맑은 고딕','Malgun Gothic',sans-serif;
 }
 .amount-input:focus { border-color:#1a73e8; }
 .amount-unit {
-  position:absolute; right:10px; top:50%; margin-top:-8px;
-  font-size:13px; color:#718096;
+  position:absolute; right:8px; top:50%; margin-top:-7px;
+  font-size:12px; color:#718096;
 }
-.error-msg { display:none; color:#e53e3e; font-size:11px; margin-bottom:4px; }
-.quick-grid { width:100%; border-collapse:separate; border-spacing:4px 0; margin-bottom:6px; }
-.quick-grid td { width:25%; }
+.error-msg { display:none; color:#e53e3e; font-size:10px; margin-bottom:3px; }
+.quick-grid { width:100%; border-collapse:collapse; margin-bottom:5px; }
+.quick-grid td { padding:0 2px; width:25%; }
+.quick-grid td:first-child { padding-left:0; }
+.quick-grid td:last-child  { padding-right:0; }
 .quick-btn {
-  width:100%; padding:6px 2px; background:#f7f8fc;
-  border:1px solid #d2d9e6; border-radius:5px;
-  font-size:12px; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  width:100%; padding:4px 0;
+  background:#f7f8fc; border:1px solid #d2d9e6; border-radius:4px;
+  font-size:11px; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
   font-weight:bold; color:#3c4858; cursor:pointer;
 }
 .quick-btn:hover { background:#e8f0fe; border-color:#1a73e8; color:#1a73e8; }
 .reset-btn {
-  width:100%; padding:5px; background:#fff;
-  border:1px dashed #d2d9e6; border-radius:5px;
-  font-size:11px; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-  color:#718096; cursor:pointer; margin-bottom:8px;
+  width:100%; padding:4px;
+  background:#fff; border:1px dashed #d2d9e6; border-radius:4px;
+  font-size:10px; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  color:#718096; cursor:pointer; margin-bottom:7px;
 }
 .reset-btn:hover { border-color:#e53e3e; color:#e53e3e; }
 .pay-btn {
-  width:100%; padding:10px; background:#1a73e8; color:#fff;
-  border:none; border-radius:6px;
-  font-size:15px; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
-  font-weight:bold; cursor:pointer; margin-bottom:8px;
+  width:100%; padding:9px;
+  background:#1a73e8; color:#fff; border:none; border-radius:5px;
+  font-size:14px; font-family:'맑은 고딕','Malgun Gothic',sans-serif;
+  font-weight:bold; cursor:pointer; margin-bottom:7px;
 }
 .pay-btn:hover { background:#1557b0; }
 .bank-info {
   background:#f7f8fc; border:1px solid #e2e8f0;
-  border-radius:5px; padding:7px 10px;
-  font-size:11px; color:#718096; line-height:1.7;
+  border-radius:4px; padding:5px 8px;
+  font-size:10px; color:#718096; line-height:1.7;
 }
 .bank-info strong { color:#4a5568; }
 </style>
 </head>
 <body>
-<div class="header">MMSoft &nbsp;문자메시지 충전</div>
+<div class="header">MMSoft &nbsp; 문자메시지 충전</div>
 <div class="card">
-  <div class="user-badge" id="userBadge"></div>
-  <div class="notice">
-    <ul>
-      <li>충전 방식: 카드결제 및 무통장입금만 가능합니다</li>
-      <li>1회 최대 5,000건까지 발송 가능합니다</li>
-      <li>최소 결제 단위는 10,000원입니다</li>
-    </ul>
-  </div>
+  <div class="notice">* 충전 방식: 카드결제 및 무통장입금만 가능합니다(최소 1만원 이상)</div>
   <div class="row-label">충전 금액</div>
   <div class="amount-wrap">
     <input type="text" id="price" class="amount-input" value="10000">
@@ -103,10 +91,10 @@ body {
     <td><button type="button" class="quick-btn" onclick="addAmt(500000)">+50만원</button></td>
   </tr></table>
   <button type="button" class="reset-btn" onclick="resetAmt()">금액 초기화</button>
-  <button type="button" class="pay-btn" onclick="goNext()">결&nbsp;&nbsp;&nbsp;제</button>
+  <button type="button" class="pay-btn" onclick="goNext()">결&nbsp;&nbsp;제</button>
   <div class="bank-info">
-    <strong>무통장 입금:</strong> 국민은행 421701-04-121233&nbsp;&nbsp;
-    <strong>예금주:</strong> 이기성(엠엠소프트)&nbsp;&nbsp;
+    <strong>무통장:</strong> 국민은행 421701-04-121233 &nbsp;
+    <strong>예금주:</strong> 이기성(엠엠소프트) &nbsp;
     <strong>문의:</strong> 02-864-7576
   </div>
 </div>
@@ -123,17 +111,9 @@ function getParam(name) {
   }
   return '';
 }
-
 var userId = getParam('id');
 var phone  = getParam('phone');
 var email  = getParam('email') || 'man@mmsoft.co.kr';
-
-if (userId) {
-  var badge = document.getElementById('userBadge');
-  badge.style.display = 'block';
-  badge.innerHTML = '사용자: <strong>' + userId + '</strong>'
-    + (phone ? '&nbsp;|&nbsp;' + phone : '');
-}
 
 function addAmt(val) {
   var inp = document.getElementById('price');
