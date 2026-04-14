@@ -26,6 +26,10 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
 .bb{width:100%;padding:5px;background:#fff;border:1px solid #d2d9e6;border-radius:4px;font-size:11px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;color:#888;cursor:pointer;margin-bottom:5px}
 .bb:hover{background:#f7f8fc}
 .sec{text-align:center;font-size:10px;color:#aaa}
+.result{display:none;border-radius:6px;padding:14px 12px;text-align:center;font-size:12px;line-height:1.8;margin-top:8px}
+.result.ok{background:#e8f0fe;border:2px solid #1a73e8;color:#1a45a0}
+.result.fail{background:#fff5f5;border:2px solid #e53e3e;color:#c53030}
+.result b{display:block;font-size:14px;margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -55,6 +59,7 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
   <button type="button" class="pb" onclick="goOpen()">카드 결제하기</button>
   <button type="button" class="bb" onclick="history.back()">← 금액 변경</button>
   <div class="sec">KSNet 안심결제 · SSL 암호화</div>
+  <div id="result" class="result"></div>
 </div>
 
 <!-- authFrmFrame (KSPay 팝업으로 전송) -->
@@ -111,6 +116,17 @@ function makeOrdNum(){
   return String(d.getFullYear())+p(d.getMonth()+1)+p(d.getDate())+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds())+p(d.getMilliseconds(),3)+p(Math.floor(Math.random()*999999),6);
 }
 
+function paymentResult(ok, amt, msg) {
+  var el = document.getElementById('result');
+  if (ok) {
+    el.className = 'result ok';
+    el.innerHTML = '<b>결제가 완료되었습니다</b>' + (amt ? amt + '원 충전 처리되었습니다.<br>' : '') + '프로그램을 다시 시작해 주세요.';
+  } else {
+    el.className = 'result fail';
+    el.innerHTML = '<b>결제가 완료되지 않았습니다</b>' + (msg ? msg + '<br>' : '') + '창을 닫고 다시 시도해 주세요.';
+  }
+  el.style.display = 'block';
+}
 function goOpen(){
   var inst=document.getElementById('inst').value;
   document.authFrmFrame.sndOrdernumber.value     = makeOrdNum();
