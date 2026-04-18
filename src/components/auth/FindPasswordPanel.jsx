@@ -3,38 +3,31 @@
 // =====================================================================
 //
 // 📌 이 컴포넌트가 하는 일
-//   - 아이디 + 이메일(또는 휴대폰)을 입력받아 본인 확인 후
-//     임시 비밀번호를 발급합니다.
+//   - NICE 본인인증으로 신원 확인 후 임시 비밀번호를 발급합니다.
 //   - 백엔드 POST /api/auth/idpassfind API를 호출합니다.
-//   - 성공 시 "이메일(또는 SMS)로 임시 비밀번호를 보내드렸습니다" 안내
-//     (실제 서비스에서는 이메일/SMS 발송 로직이 백엔드에 추가되어야 함)
+//   - 성공 시 "문자메시지로 임시 비밀번호를 보내드렸습니다" 안내
+//   - 아이디찾기와 10분 내 인증 공유 (세션 캐시)
 
 import { useState } from 'react';
 import Button from '../common/Button';
+import NiceAuthButton, { getNiceAuthCache } from './NiceAuthButton';
 import styles from './LoginPanel.module.css';
 import findStyles from './FindIdPanel.module.css';
 
 function FindPasswordPanel({ onClose }) {
-  const [method,     setMethod]     = useState('email'); // 'email' | 'phone'
-  const [homepageId, setHomepageId] = useState('');      // 아이디 입력값
-  const [value,      setValue]      = useState('');      // 이메일 또는 휴대폰 입력값
-  const [loading,    setLoading]    = useState(false);   // 요청 중 여부
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!homepageId.trim() || !value.trim()) return;
-
-    // 백엔드 IdPassFindRequest 형식
-    // idOrPass: 'password' → 비밀번호 찾기 요청임을 서버에 알림
-    const body = {
-      idOrPass   : 'password',                               // 비밀번호 찾기 구분자
-      homepageId : homepageId.trim(),                       // 아이디 (본인 확인에 필요) - @JsonProperty("homepageId")
-      email      : method === 'email' ? value.trim() : '',
-      phone      : method === 'phone' ? value.trim() : '',
-    };
-
+  // NICE 인증 후 자동으로 비밀번호 찾기 진행
+  const handleNiceAuth = async (niceResult) => {
     setLoading(true);
     try {
+      const body = {
+        idOrPass: 'password',
+        openId  : '',
+        email   : '',
+        phone   : niceResult.mobileNo || '',
+      };
+
       const res    = await fetch('/api/auth/idpassfind', {
         method : 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -43,7 +36,6 @@ function FindPasswordPanel({ onClose }) {
       const text   = await res.text();
       const result = text.trim();
 
-      // 응답 파싱: { "newPassword": "ok" } 이면 성공
       let isOk = false;
       try {
         const parsed = JSON.parse(result);
@@ -53,14 +45,10 @@ function FindPasswordPanel({ onClose }) {
       }
 
       if (isOk) {
-        // 성공: 방법에 따라 다른 안내 메시지 표시
-        const msg = method === 'email'
-          ? '이메일로 임시 비밀번호를 보내드렸습니다. 확인 바랍니다.'
-          : '휴대폰 문자메시지로 임시 비밀번호를 보내드렸습니다. 확인 바랍니다.';
-        alert(msg);
+        alert('휴대폰 문자메시지로 임시 비밀번호를 보내드렸습니다. 확인 바랍니다.');
         onClose();
       } else {
-        alert('입력하신 정보가 일치하지 않습니다.');
+        alert('가입하신 정보가 없거나 일치하지 않습니다.');
       }
     } catch {
       alert('서버 연결에 실패했습니다.');
@@ -69,10 +57,14 @@ function FindPasswordPanel({ onClose }) {
     }
   };
 
-  const handleMethodChange = (newMethod) => {
-    setMethod(newMethod);
-    setValue(''); // 탭 변경 시 입력값 초기화
+  const handleCachedAuth = () => {
+    const cached = getNiceAuthCache();
+    if (cached) {
+      handleNiceAuth(cached);
+    }
   };
+
+  const hasCached = !!getNiceAuthCache();
 
   return (
     <div className={styles.overlay} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
@@ -83,54 +75,37 @@ function FindPasswordPanel({ onClose }) {
         </div>
 
         <p className={findStyles.description}>
-          가입 시 등록한 아이디와 이메일 또는 휴대폰 번호로 임시 비밀번호를 받으실 수 있습니다.
+          NICE 본인인증으로 신원 확인 후 임시 비밀번호를 휴대폰 문자메시지로 발송해 드립니다.
         </p>
 
-        {/* 탭: 이메일로 받기 / 휴대폰으로 받기 */}
-        <div className={findStyles.tabs}>
-          <button type="button"
-            className={`${findStyles.tab} ${method === 'email' ? findStyles.tabActive : ''}`}
-            onClick={() => handleMethodChange('email')}>
-            이메일로 받기
-          </button>
-          <button type="button"
-            className={`${findStyles.tab} ${method === 'phone' ? findStyles.tabActive : ''}`}
-            onClick={() => handleMethodChange('phone')}>
-            휴대폰으로 받기
-          </button>
-        </div>
+        <div className={styles.form}>
+          {hasCached ? (
+            <>
+              <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)', margin: '0 0 8px' }}>
+                이전 본인인증이 유효합니다.
+              </p>
+              <Button variant="primary" size="lg" onClick={handleCachedAuth} disabled={loading}>
+                {loading ? '처리 중...' : '임시 비밀번호 받기'}
+              </Button>
+              <div style={{ textAlign: 'center', margin: '8px 0', fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>또는</div>
+              <NiceAuthButton onAuth={handleNiceAuth} useCache label="다시 본인인증" />
+            </>
+          ) : (
+            <NiceAuthButton onAuth={handleNiceAuth} useCache label="본인인증 후 임시 비밀번호 받기" />
+          )}
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-          {/* 아이디 입력 (필수) */}
-          <div className={styles.fieldRow}>
-            <label className={styles.fieldLabel}>아 이 디</label>
-            <input type="text" placeholder="아이디를 입력하세요"
-              value={homepageId} onChange={(e) => setHomepageId(e.target.value)}
-              className={styles.fieldInput} required autoFocus />
-          </div>
-
-          {/* 이메일 또는 휴대폰 입력 */}
-          <div className={styles.fieldRow}>
-            <label className={styles.fieldLabel}>
-              {method === 'email' ? '이메일' : '휴대폰'}
-            </label>
-            <input
-              type={method === 'email' ? 'email' : 'tel'}
-              placeholder={method === 'email' ? '이메일 주소를 입력하세요' : '휴대폰 번호를 입력하세요'}
-              value={value} onChange={(e) => setValue(e.target.value)}
-              className={styles.fieldInput} required />
-          </div>
-
-          <Button type="submit" variant="primary" size="lg" disabled={loading}>
-            {loading ? '확인 중...' : '비밀번호 찾기'}
-          </Button>
+          {loading && (
+            <p style={{ textAlign: 'center', fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>
+              처리 중...
+            </p>
+          )}
 
           <div className={styles.links}>
             <span className={styles.link} onClick={onClose}>
               로그인으로 돌아가기
             </span>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

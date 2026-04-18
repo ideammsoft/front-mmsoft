@@ -29,6 +29,7 @@
 import { useState, useRef } from 'react';
 import Input from '../common/Input';
 import Button from '../common/Button';
+import NiceAuthButton from './NiceAuthButton';
 import styles from './SignUpPanel.module.css';
 
 function SignUpPanel({ onClose, onSuccess }) {
@@ -51,6 +52,20 @@ function SignUpPanel({ onClose, onSuccess }) {
 
   // 아이디 중복검사 완료 여부
   const [idChecked, setIdChecked] = useState(false);
+
+  // NICE 본인인증 결과 (null이면 인증 전)
+  const [niceResult, setNiceResult] = useState(null);
+
+  // NICE 인증 완료 핸들러 - 이름/휴대폰 자동 입력
+  const handleNiceAuth = (result) => {
+    setNiceResult(result);
+    setForm(prev => ({
+      ...prev,
+      name  : result.name    || prev.name,
+      mphone: result.mobileNo || prev.mphone,
+    }));
+    setErrors(prev => ({ ...prev, niceAuth: '' }));
+  };
 
   // 특정 필드의 값 변경 핸들러 (고차 함수 - 함수를 반환하는 함수)
   // handleChange('userId')를 호출하면 userId를 변경하는 함수를 반환합니다
@@ -109,6 +124,9 @@ function SignUpPanel({ onClose, onSuccess }) {
   // 전체 유효성 검사 - 에러가 있는 필드의 메시지를 반환
   const validate = () => {
     const newErrors = {};
+
+    if (!niceResult)
+      newErrors.niceAuth = '본인인증을 먼저 완료해 주세요.';
 
     if (!form.userId.trim())
       newErrors.userId = '아이디를 입력해 주세요.';
@@ -188,6 +206,27 @@ function SignUpPanel({ onClose, onSuccess }) {
           <button className={styles.closeButton} onClick={onClose}>&times;</button>
         </div>
 
+        {/* NICE 본인인증 영역 */}
+        <div className={styles.fieldWrapper} style={{ marginBottom: '8px' }}>
+          {niceResult ? (
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: '8px',
+              padding: '10px 14px',
+              background: '#f0fdf4', border: '1px solid #86efac',
+              borderRadius: 'var(--radius-md)', fontSize: 'var(--font-size-sm)',
+              color: '#166534',
+            }}>
+              <span>✅</span>
+              <span>본인인증 완료 — <strong>{niceResult.name}</strong> ({niceResult.mobileNo})</span>
+            </div>
+          ) : (
+            <>
+              <NiceAuthButton onAuth={handleNiceAuth} label="본인인증 (필수)" />
+              {errors.niceAuth && <p className={styles.errorMessage}>{errors.niceAuth}</p>}
+            </>
+          )}
+        </div>
+
         <form onSubmit={handleSubmit} className={styles.form}>
 
           {/* 아이디 + 중복검사 버튼 */}
@@ -240,7 +279,8 @@ function SignUpPanel({ onClose, onSuccess }) {
                 <span className={styles.requiredMark}>필수</span>
               </div>
               <input id="mphone" type="tel" placeholder="010-0000-0000"
-                value={form.mphone} onChange={handleChange('mphone')} className={styles.input} />
+                value={form.mphone} onChange={handleChange('mphone')} className={styles.input}
+                readOnly={!!niceResult} style={niceResult ? { background: '#f8fafc', color: '#64748b' } : {}} />
               {errors.mphone && <p className={styles.errorMessage}>{errors.mphone}</p>}
             </div>
             <div className={styles.fieldWrapper}>
@@ -258,7 +298,8 @@ function SignUpPanel({ onClose, onSuccess }) {
           <div className={styles.gridRow}>
             <div className={styles.fieldWrapper}>
               <Input label="성명" id="name" type="text" placeholder="이름을 입력하세요"
-                value={form.name} onChange={handleChange('name')} />
+                value={form.name} onChange={handleChange('name')}
+                readOnly={!!niceResult} style={niceResult ? { background: '#f8fafc', color: '#64748b' } : {}} />
             </div>
             <div className={styles.fieldWrapper}>
               <label className={styles.label} htmlFor="companyPhone">회사전화</label>

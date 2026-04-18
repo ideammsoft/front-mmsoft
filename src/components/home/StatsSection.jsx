@@ -2,8 +2,8 @@ import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import styles from './StatsSection.module.css';
 
 const stats = [
-  { value: '1,000+', label: '고객사' },
-  { value: '25+', label: '운영 연수' },
+  { value: '4,000+', label: '고객사' },
+  { value: '29+', label: '운영 연수' },
   { value: '500+', label: '프로젝트' },
   { value: '98%', label: '고객 만족도' },
 ];

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Button from '../common/Button';
+import NiceAuthButton from './NiceAuthButton';
 import styles from './ProfileCompletionPanel.module.css';
 
 const API = '';
@@ -18,6 +19,15 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
   const [company, setCompany] = useState('');
   const [errors, setErrors]   = useState({});
   const [saving, setSaving]   = useState(false);
+
+  // 회원정보 수정 시 본인인증 여부
+  const [niceVerified, setNiceVerified] = useState(!isEdit);  // register 모드는 인증 불필요
+
+  const handleNiceAuth = (result) => {
+    setNiceVerified(true);
+    if (result.name)     setName(result.name);
+    if (result.mobileNo) setMphone(result.mobileNo);
+  };
 
   // 비밀번호 변경 폼
   const [showPwForm, setShowPwForm]       = useState(false);
@@ -174,7 +184,32 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
           <p className={styles.description}>서비스 이용을 위해 추가 정보를 입력해 주세요.</p>
         )}
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        {/* 회원정보 수정 시 본인인증 필요 */}
+        {isEdit && (
+          <div style={{ marginBottom: '16px' }}>
+            {niceVerified ? (
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '8px',
+                padding: '10px 14px',
+                background: '#f0fdf4', border: '1px solid #86efac',
+                borderRadius: 'var(--radius-md)', fontSize: 'var(--font-size-sm)',
+                color: '#166534',
+              }}>
+                <span>✅</span>
+                <span>본인인증이 완료되었습니다. 정보를 수정하세요.</span>
+              </div>
+            ) : (
+              <>
+                <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)', marginBottom: '8px' }}>
+                  회원정보 수정을 위해 본인인증이 필요합니다.
+                </p>
+                <NiceAuthButton onAuth={handleNiceAuth} label="본인인증 후 정보 수정" />
+              </>
+            )}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className={styles.form} style={isEdit && !niceVerified ? { opacity: 0.4, pointerEvents: 'none' } : {}}>
 
           <div className={styles.fieldWrapper}>
             <div className={styles.labelRow}>
