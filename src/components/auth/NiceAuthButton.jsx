@@ -77,9 +77,27 @@ function NiceAuthButton({ onAuth, useCache = false, label = '본인인증', clas
       if (!res.ok) throw new Error('인증 요청 데이터 수신 실패');
       const { formUrl, encData, requestNo } = await res.json();
 
-      // 2. 부모 창에 콜백 함수 등록 (동일 오리진 환경 fallback)
-      window.niceAuthComplete = (result) => {
+      // 2. 팝업 창 오픈
+      const popup = window.open(
+        '',
+        'niceAuthPopup',
+        'width=500,height=620,scrollbars=yes,resizable=no,left=200,top=100'
+      );
+      if (!popup) {
+        alert('팝업이 차단되었습니다.\n팝업을 허용한 후 다시 시도해 주세요.');
+        setLoading(false);
+        return;
+      }
+
+      // 인증 완료 공통 처리 (중복 실행 방지)
+      let handled = false;
+      const handleResult = (result) => {
+        if (handled) return;
+        handled = true;
+        clearInterval(timer);
+        window.removeEventListener('message', onMessage);
         window.niceAuthComplete = null;
+        if (popup && !popup.closed) popup.close();
         setLoading(false);
         if (result && result.success) {
           if (useCache) setNiceAuthCache(result);
@@ -89,20 +107,17 @@ function NiceAuthButton({ onAuth, useCache = false, label = '본인인증', clas
         }
       };
 
-      // 3. 팝업 창 오픈
-      const popup = window.open(
-        '',
-        'niceAuthPopup',
-        'width=500,height=620,scrollbars=yes,resizable=no,left=200,top=100'
-      );
-      if (!popup) {
-        alert('팝업이 차단되었습니다.\n팝업을 허용한 후 다시 시도해 주세요.');
-        window.niceAuthComplete = null;
-        setLoading(false);
-        return;
-      }
+      // 3. postMessage 수신 (크로스 오리진 주 경로)
+      const onMessage = (event) => {
+        if (!event.data || event.data.type !== 'niceAuthComplete') return;
+        handleResult(event.data.data);
+      };
+      window.addEventListener('message', onMessage);
 
-      // 4. 팝업에 NICE 폼 제출
+      // 4. fallback: 동일 오리진 환경용 직접 콜백
+      window.niceAuthComplete = (result) => handleResult(result);
+
+      // 5. 팝업에 NICE 폼 제출
       const form = document.createElement('form');
       form.method = 'POST';
       form.action = formUrl;
@@ -120,33 +135,32 @@ function NiceAuthButton({ onAuth, useCache = false, label = '본인인증', clas
       form.submit();
       document.body.removeChild(form);
 
-      // 5. 팝업 닫힘 감지 → Redis에서 결과 조회 (크로스 오리진 대응)
+      // 6. 팝업 닫힘 감지 → Redis 폴링 (최후 fallback)
       const timer = setInterval(async () => {
-        if (popup.closed) {
-          clearInterval(timer);
-          // window.opener 콜백이 이미 처리됐으면 스킵
-          if (!window.niceAuthComplete) return;
-          window.niceAuthComplete = null;
+        if (!popup.closed) return;
+        clearInterval(timer);
+        window.removeEventListener('message', onMessage);
+        window.niceAuthComplete = null;
+        if (handled) return;
+        handled = true;
 
-          // Redis 저장된 결과를 API로 조회
-          try {
-            const r = await fetch(`/api/auth/nice/result/${requestNo}`);
-            if (r.ok) {
-              const result = await r.json();
-              setLoading(false);
-              if (result.success) {
-                if (useCache) setNiceAuthCache(result);
-                onAuth(result);
-              } else {
-                alert('본인인증에 실패했습니다.');
-              }
-            } else {
-              // 404: 사용자 취소 또는 인증 미완료
-              setLoading(false);
-            }
-          } catch {
+        // Redis 저장된 결과를 API로 조회
+        try {
+          const r = await fetch(`/api/auth/nice/result/${requestNo}`);
+          if (r.ok) {
+            const result = await r.json();
             setLoading(false);
+            if (result.success) {
+              if (useCache) setNiceAuthCache(result);
+              onAuth(result);
+            } else {
+              alert('본인인증에 실패했습니다.');
+            }
+          } else {
+            setLoading(false); // 취소
           }
+        } catch {
+          setLoading(false);
         }
       }, 500);
 
