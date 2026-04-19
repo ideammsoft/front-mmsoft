@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-04-18T07:35:42.935Z",
+  "lastUpdated": "2026-04-19T09:41:09.766Z",
   "activeFeatures": [
     "auth",
     "layout",
@@ -34,7 +34,8 @@
     "principal",
     "noim",
     "home",
-    "nice"
+    "nice",
+    "mmadminservice"
   ],
   "primaryFeature": "auth",
   "features": {
@@ -47,9 +48,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-09T05:34:01.063Z",
-        "lastUpdated": "2026-04-18T07:35:42.935Z"
+        "lastUpdated": "2026-04-19T00:53:17.766Z"
       },
-      "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\auth\\ProfileCompletionPanel.jsx"
+      "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\auth\\NiceAuthButton.jsx"
     },
     "layout": {
       "phase": "do",
@@ -86,9 +87,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-10T08:17:19.929Z",
-        "lastUpdated": "2026-03-22T12:46:57.598Z"
+        "lastUpdated": "2026-04-18T16:57:17.861Z"
       },
-      "lastFile": "c:/mm_workspace/front-mmsoft/src/components/downloads/DownloadItem.jsx"
+      "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\downloads\\DownloadItem.jsx"
     },
     "front-mmsoft": {
       "phase": "do",
@@ -99,9 +100,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-11T13:29:21.892Z",
-        "lastUpdated": "2026-04-18T06:44:17.557Z"
+        "lastUpdated": "2026-04-19T09:38:37.022Z"
       },
-      "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\SmsPay.jsx"
+      "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\components\\common\\FloatingChat.jsx"
     },
     "board": {
       "phase": "do",
@@ -125,9 +126,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-12T12:18:13.987Z",
-        "lastUpdated": "2026-03-22T12:46:00.174Z"
+        "lastUpdated": "2026-04-18T17:02:39.965Z"
       },
-      "lastFile": "c:/mm_workspace/mm-member-service/src/main/java/co/kr/mmsoft/mmmemberservice/member/security/SecurityConfig.java"
+      "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\member\\security\\SecurityConfig.java"
     },
     "mapper": {
       "phase": "do",
@@ -164,9 +165,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-13T07:34:10.862Z",
-        "lastUpdated": "2026-03-30T02:00:01.860Z"
+        "lastUpdated": "2026-04-19T07:24:10.414Z"
       },
-      "lastFile": "C:/mm_workspace/mm-member-service/src/main/java/co/kr/mmsoft/mmmemberservice/dto/LoginRequest.java"
+      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\dto\\AccountSyncData.java"
     },
     "controller": {
       "phase": "do",
@@ -177,9 +178,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-13T07:36:27.435Z",
-        "lastUpdated": "2026-04-18T07:27:46.696Z"
+        "lastUpdated": "2026-04-19T09:09:03.349Z"
       },
-      "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\controller\\NiceAuthController.java"
+      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\controller\\CustomerController.java"
     },
     "WorkBoardController": {
       "phase": "do",
@@ -203,9 +204,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-13T09:06:28.296Z",
-        "lastUpdated": "2026-03-22T13:15:59.222Z"
+        "lastUpdated": "2026-04-18T08:46:19.223Z"
       },
-      "lastFile": "c:/mm_workspace/mm-gateway-server/src/main/java/co/kr/mmsoft/mmgatewayserver/filter/JwtFilter.java"
+      "lastFile": "c:\\mm_workspace\\mm-gateway-server\\src\\main\\java\\co\\kr\\mmsoft\\mmgatewayserver\\filter\\JwtFilter.java"
     },
     "config": {
       "phase": "do",
@@ -216,9 +217,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:18:23.241Z",
-        "lastUpdated": "2026-03-31T12:26:57.889Z"
+        "lastUpdated": "2026-04-19T05:31:28.945Z"
       },
-      "lastFile": "c:/mm_workspace/mm-admin-service/src/main/java/co/kr/mmsoft/mmadminservice/config/WebConfig.java"
+      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\config\\WebConfig.java"
     },
     "domain": {
       "phase": "do",
@@ -229,9 +230,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:23:33.582Z",
-        "lastUpdated": "2026-03-22T16:36:12.722Z"
+        "lastUpdated": "2026-04-19T08:47:08.291Z"
       },
-      "lastFile": "/c/mm_workspace/mm-admin-service/src/main/java/co/kr/mmsoft/mmadminservice/mybatis/domain/UmsData.java"
+      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\mybatis\\domain\\Customer.java"
     },
     "mssql": {
       "phase": "do",
@@ -242,9 +243,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:29:01.777Z",
-        "lastUpdated": "2026-03-22T11:04:20.853Z"
+        "lastUpdated": "2026-04-19T07:23:30.249Z"
       },
-      "lastFile": "c:/mm_workspace/mm-admin-service/src/main/java/co/kr/mmsoft/mmadminservice/mybatis/mapper/mssql/CustomerMapper.java"
+      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\mybatis\\mapper\\mssql\\CustomerMapper.java"
     },
     "mssqlppurio": {
       "phase": "do",
@@ -268,9 +269,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:31:49.026Z",
-        "lastUpdated": "2026-03-30T09:24:37.837Z"
+        "lastUpdated": "2026-04-19T09:08:54.853Z"
       },
-      "lastFile": "c:/mm_workspace/mm-member-service/src/main/java/co/kr/mmsoft/mmmemberservice/member/service/AuthService.java"
+      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\service\\SyncService.java"
     },
     "api": {
       "phase": "do",
@@ -281,9 +282,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:34:15.823Z",
-        "lastUpdated": "2026-03-30T09:09:12.431Z"
+        "lastUpdated": "2026-04-19T07:45:32.635Z"
       },
-      "lastFile": "c:/mm_workspace/front-admin/src/api/axios.js"
+      "lastFile": "C:\\mm_workspace\\front-admin\\src\\api\\services.js"
     },
     "sms": {
       "phase": "do",
@@ -333,9 +334,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:37:15.890Z",
-        "lastUpdated": "2026-03-22T11:16:20.323Z"
+        "lastUpdated": "2026-04-19T09:09:21.039Z"
       },
-      "lastFile": "c:/mm_workspace/front-admin/src/pages/customers/CustomerDetailPage.jsx"
+      "lastFile": "C:\\mm_workspace\\front-admin\\src\\pages\\customers\\CustomerListPage.jsx"
     },
     "mmmemberservice": {
       "phase": "do",
@@ -346,9 +347,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-19T22:40:37.772Z",
-        "lastUpdated": "2026-03-19T22:40:37.772Z"
+        "lastUpdated": "2026-04-19T01:27:39.921Z"
       },
-      "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\test\\java\\co\\kr\\mmsoft\\mmmemberservice\\MmMemberServiceApplicationTests.java"
+      "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\MmMemberServiceApplication.java"
     },
     "mysql": {
       "phase": "do",
@@ -359,9 +360,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-22T12:47:49.014Z",
-        "lastUpdated": "2026-03-22T12:47:49.014Z"
+        "lastUpdated": "2026-04-19T07:23:56.161Z"
       },
-      "lastFile": "c:/mm_workspace/mm-admin-service/src/main/java/co/kr/mmsoft/mmadminservice/mybatis/mapper/mysql/PdsMapper.java"
+      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\mybatis\\mapper\\mysql\\AccountSyncMapper.java"
     },
     "pds": {
       "phase": "do",
@@ -398,9 +399,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-25T05:46:51.959Z",
-        "lastUpdated": "2026-04-01T03:28:38.001Z"
+        "lastUpdated": "2026-04-19T09:41:09.766Z"
       },
-      "lastFile": "c:/mm_workspace/web-rag/frontend/static/app.js"
+      "lastFile": "C:\\mm_workspace\\web-rag\\frontend\\static\\app.js"
     },
     "backend": {
       "phase": "do",
@@ -463,9 +464,22 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-18T07:26:17.438Z",
-        "lastUpdated": "2026-04-18T07:27:17.627Z"
+        "lastUpdated": "2026-04-19T03:19:08.895Z"
       },
-      "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\nice\\NiceAuthResult.java"
+      "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\nice\\NiceAuthService.java"
+    },
+    "mmadminservice": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-04-19T09:08:22.768Z",
+        "lastUpdated": "2026-04-19T09:08:22.768Z"
+      },
+      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\MmAdminServiceApplication.java"
     }
   },
   "pipeline": {
@@ -476,7 +490,7 @@
   "session": {
     "startedAt": "2026-03-09T05:34:01.063Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-04-18T07:35:42.935Z"
+    "lastActivity": "2026-04-19T09:41:09.766Z"
   },
   "history": [
     {
@@ -3362,6 +3376,402 @@
     {
       "timestamp": "2026-04-18T07:35:42.935Z",
       "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-18T08:46:19.223Z",
+      "feature": "filter",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-18T08:56:56.117Z",
+      "feature": "nice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-18T14:05:38.465Z",
+      "feature": "nice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-18T14:06:31.081Z",
+      "feature": "nice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-18T16:57:17.861Z",
+      "feature": "downloads",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-18T17:02:32.116Z",
+      "feature": "security",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-18T17:02:39.965Z",
+      "feature": "security",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-18T23:52:50.842Z",
+      "feature": "nice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-18T23:54:32.667Z",
+      "feature": "nice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-18T23:57:42.203Z",
+      "feature": "nice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T00:12:16.297Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T00:13:07.559Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T00:21:00.748Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T00:22:32.362Z",
+      "feature": "nice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T00:38:26.974Z",
+      "feature": "nice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T00:40:21.049Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T00:40:31.178Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T00:40:42.904Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T00:52:19.802Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T00:52:35.606Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T00:53:17.766Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T01:02:10.370Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T01:02:20.194Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T01:02:34.996Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T01:11:50.295Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T01:27:39.921Z",
+      "feature": "mmmemberservice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T02:18:54.495Z",
+      "feature": "nice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T02:58:37.191Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T03:08:25.607Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T03:19:08.895Z",
+      "feature": "nice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T03:25:08.326Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T04:26:32.495Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T04:55:16.957Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T05:31:28.945Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:23:30.249Z",
+      "feature": "mssql",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:23:56.161Z",
+      "feature": "mysql",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:24:10.414Z",
+      "feature": "dto",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:24:51.886Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:25:07.808Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:25:21.420Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:25:33.712Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:29:00.149Z",
+      "feature": "api",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:29:08.497Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:29:17.200Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:29:34.002Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:29:41.551Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:29:50.956Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:45:32.635Z",
+      "feature": "api",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:46:11.921Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T07:46:33.933Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T08:32:27.623Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T08:32:37.722Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T08:32:56.603Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T08:47:08.291Z",
+      "feature": "domain",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T08:48:04.414Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T08:48:16.902Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T09:08:22.768Z",
+      "feature": "mmadminservice",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T09:08:34.435Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T09:08:54.853Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T09:09:03.349Z",
+      "feature": "controller",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T09:09:11.508Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T09:09:21.039Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T09:28:52.419Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T09:36:50.068Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T09:38:37.022Z",
+      "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T09:41:09.766Z",
+      "feature": "static",
       "phase": "do",
       "action": "updated"
     }
