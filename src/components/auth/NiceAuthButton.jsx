@@ -75,9 +75,9 @@ function NiceAuthButton({ onAuth, useCache = false, label = '본인인증', clas
       // 1. 서버에서 암호화된 요청 데이터 수신
       const res = await fetch('/api/auth/nice/request?authType=M');
       if (!res.ok) throw new Error('인증 요청 데이터 수신 실패');
-      const { formUrl, encData } = await res.json();
+      const { formUrl, encData, requestNo } = await res.json();
 
-      // 2. 부모 창에 콜백 함수 등록 (NICE 팝업이 호출)
+      // 2. 부모 창에 콜백 함수 등록 (동일 오리진 환경 fallback)
       window.niceAuthComplete = (result) => {
         window.niceAuthComplete = null;
         setLoading(false);
@@ -120,12 +120,31 @@ function NiceAuthButton({ onAuth, useCache = false, label = '본인인증', clas
       form.submit();
       document.body.removeChild(form);
 
-      // 5. 팝업이 닫혔는데 콜백이 없으면 → 사용자가 취소한 것
-      const timer = setInterval(() => {
+      // 5. 팝업 닫힘 감지 → Redis에서 결과 조회 (크로스 오리진 대응)
+      const timer = setInterval(async () => {
         if (popup.closed) {
           clearInterval(timer);
-          if (window.niceAuthComplete) {
-            window.niceAuthComplete = null;
+          // window.opener 콜백이 이미 처리됐으면 스킵
+          if (!window.niceAuthComplete) return;
+          window.niceAuthComplete = null;
+
+          // Redis 저장된 결과를 API로 조회
+          try {
+            const r = await fetch(`/api/auth/nice/result/${requestNo}`);
+            if (r.ok) {
+              const result = await r.json();
+              setLoading(false);
+              if (result.success) {
+                if (useCache) setNiceAuthCache(result);
+                onAuth(result);
+              } else {
+                alert('본인인증에 실패했습니다.');
+              }
+            } else {
+              // 404: 사용자 취소 또는 인증 미완료
+              setLoading(false);
+            }
+          } catch {
             setLoading(false);
           }
         }
