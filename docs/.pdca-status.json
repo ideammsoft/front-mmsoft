@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-04-19T09:41:09.766Z",
+  "lastUpdated": "2026-04-19T13:41:49.838Z",
   "activeFeatures": [
     "auth",
     "layout",
@@ -100,9 +100,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-11T13:29:21.892Z",
-        "lastUpdated": "2026-04-19T09:38:37.022Z"
+        "lastUpdated": "2026-04-19T13:41:49.838Z"
       },
-      "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\components\\common\\FloatingChat.jsx"
+      "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\pages\\PaymentPage.jsx"
     },
     "board": {
       "phase": "do",
@@ -165,9 +165,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-13T07:34:10.862Z",
-        "lastUpdated": "2026-04-19T07:24:10.414Z"
+        "lastUpdated": "2026-04-19T12:52:52.073Z"
       },
-      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\dto\\AccountSyncData.java"
+      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\dto\\CustomerRequest.java"
     },
     "controller": {
       "phase": "do",
@@ -230,7 +230,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:23:33.582Z",
-        "lastUpdated": "2026-04-19T08:47:08.291Z"
+        "lastUpdated": "2026-04-19T12:52:41.268Z"
       },
       "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\mybatis\\domain\\Customer.java"
     },
@@ -269,9 +269,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:31:49.026Z",
-        "lastUpdated": "2026-04-19T09:08:54.853Z"
+        "lastUpdated": "2026-04-19T12:53:38.433Z"
       },
-      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\service\\SyncService.java"
+      "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\service\\AccountSyncService.java"
     },
     "api": {
       "phase": "do",
@@ -334,9 +334,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:37:15.890Z",
-        "lastUpdated": "2026-04-19T09:09:21.039Z"
+        "lastUpdated": "2026-04-19T12:52:23.786Z"
       },
-      "lastFile": "C:\\mm_workspace\\front-admin\\src\\pages\\customers\\CustomerListPage.jsx"
+      "lastFile": "C:\\mm_workspace\\front-admin\\src\\pages\\customers\\CustomerDetailPage.jsx"
     },
     "mmmemberservice": {
       "phase": "do",
@@ -490,7 +490,7 @@
   "session": {
     "startedAt": "2026-03-09T05:34:01.063Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-04-19T09:41:09.766Z"
+    "lastActivity": "2026-04-19T13:41:49.838Z"
   },
   "history": [
     {
@@ -3772,6 +3772,78 @@
     {
       "timestamp": "2026-04-19T09:41:09.766Z",
       "feature": "static",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T09:59:51.899Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T10:00:02.284Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T12:52:02.224Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T12:52:12.759Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T12:52:23.786Z",
+      "feature": "customers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T12:52:32.874Z",
+      "feature": "dto",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T12:52:41.268Z",
+      "feature": "domain",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T12:52:52.073Z",
+      "feature": "dto",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T12:53:10.525Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T12:53:23.356Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T12:53:38.433Z",
+      "feature": "service",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-19T13:41:49.838Z",
+      "feature": "front-mmsoft",
       "phase": "do",
       "action": "updated"
     }

@@ -128,7 +128,10 @@ function PaymentPage() {
 
       // KSPay 결제창 호출 (기존 manyman 결제 방식과 동일)
       const userId = user?.id || user?.userId || '';
-      const payUrl = `/manyman/index.html?product=${encodeURIComponent(productName)}&amount=${amount}&id=${encodeURIComponent(userId)}`;
+      const userName = user?.name || user?.nickname || userId;
+      const userPhone = user?.phone || user?.mphone || '';
+      const userEmail = user?.email || '';
+      const payUrl = `/manyman/index.html?product=${encodeURIComponent(productName)}&amount=${amount}&id=${encodeURIComponent(userId)}&name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&email=${encodeURIComponent(userEmail)}`;
 
       // 결제 팝업 오픈
       const popup = window.open(

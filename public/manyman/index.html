@@ -6,26 +6,26 @@
 <title>엠엠소프트 - 충전</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;max-width:502px;overflow-x:hidden}
-body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;padding:5px;font-size:11px}
-.hd{background:#1a73e8;color:#fff;text-align:center;padding:5px;border-radius:4px 4px 0 0;font-size:12px;font-weight:bold}
-.card{background:#fff;border:1px solid #d0d8e8;border-radius:0 0 4px 4px;padding:7px}
-.notice{background:#e8f0fe;border-left:3px solid #1a73e8;border-radius:3px;padding:4px 6px;margin-bottom:6px;font-size:10px;color:#3c4858}
-.lbl{font-size:10px;font-weight:bold;color:#555;margin-bottom:2px}
-.aw{position:relative;margin-bottom:4px}
-.ai{width:100%;padding:4px 24px 4px 6px;font-size:16px;font-weight:bold;color:#1a73e8;border:2px solid #d2d9e6;border-radius:4px;text-align:right;outline:none;font-family:'맑은 고딕','Malgun Gothic',sans-serif}
+html,body{width:100%;overflow-x:hidden}
+body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;padding:12px;font-size:14px}
+.hd{background:#1a73e8;color:#fff;text-align:center;padding:10px;border-radius:6px 6px 0 0;font-size:15px;font-weight:bold}
+.card{background:#fff;border:1px solid #d0d8e8;border-radius:0 0 6px 6px;padding:16px}
+.notice{background:#e8f0fe;border-left:4px solid #1a73e8;border-radius:4px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:#3c4858;line-height:1.8}
+.lbl{font-size:13px;font-weight:bold;color:#555;margin-bottom:6px}
+.aw{position:relative;margin-bottom:8px}
+.ai{width:100%;padding:10px 30px 10px 12px;font-size:20px;font-weight:bold;color:#1a73e8;border:2px solid #d2d9e6;border-radius:6px;text-align:right;outline:none;font-family:'맑은 고딕','Malgun Gothic',sans-serif}
 .ai:focus{border-color:#1a73e8}
-.au{position:absolute;right:5px;top:50%;margin-top:-5px;font-size:10px;color:#888}
-.err{display:none;color:#e53e3e;font-size:10px;margin-bottom:3px}
-.qg{width:100%;border-collapse:collapse;margin-bottom:3px}
-.qg td{width:25%;padding:0 1px}
+.au{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:13px;color:#888}
+.err{display:none;color:#e53e3e;font-size:12px;margin-bottom:6px}
+.qg{width:100%;border-collapse:collapse;margin-bottom:8px}
+.qg td{width:25%;padding:0 3px}
 .qg td:first-child{padding-left:0}
 .qg td:last-child{padding-right:0}
-.qb{width:100%;padding:3px 0;background:#f7f8fc;border:1px solid #d2d9e6;border-radius:3px;font-size:10px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;color:#444;cursor:pointer}
+.qb{width:100%;padding:8px 0;background:#f7f8fc;border:1px solid #d2d9e6;border-radius:4px;font-size:13px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;color:#444;cursor:pointer}
 .qb:hover{background:#e8f0fe;border-color:#1a73e8;color:#1a73e8}
-.rb{width:100%;padding:3px;background:#fff;border:1px dashed #ccc;border-radius:3px;font-size:10px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;color:#999;cursor:pointer;margin-bottom:5px}
+.rb{width:100%;padding:8px;background:#fff;border:1px dashed #ccc;border-radius:4px;font-size:12px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;color:#999;cursor:pointer;margin-bottom:10px}
 .rb:hover{border-color:#e53e3e;color:#e53e3e}
-.pb{width:100%;padding:7px;background:#1a73e8;color:#fff;border:none;border-radius:4px;font-size:13px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;cursor:pointer}
+.pb{width:100%;padding:13px;background:#1a73e8;color:#fff;border:none;border-radius:6px;font-size:16px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;cursor:pointer}
 .pb:hover{background:#1557b0}
 </style>
 </head>
@@ -50,15 +50,15 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
 </div>
 <script>
 function gp(n){var s=window.location.search.substring(1).split('&');for(var i=0;i<s.length;i++){var p=s[i].split('=');if(decodeURIComponent(p[0])===n)return p.length>1?decodeURIComponent(p[1].replace(/\+/g,' ')):''}return ''}
-var uid=gp('id'),ph=gp('phone'),em=gp('email')||'man@mmsoft.co.kr';
-function add(v){var el=document.getElementById('price');el.value=(parseInt(el.value,10)||0)+v;he()}
+var uid=gp('id'),ph=gp('phone'),em=gp('email')||'man@mmsoft.co.kr',nm=gp('name')||uid;
+function add(v){var el=document.getElementById('price');el.value=(parseInt(el.value.replace(/,/g,''),10)||0)+v;he()}
 function rst(){document.getElementById('price').value=10000;he()}
-function he(){var el=document.getElementById('err');el.style.display='none';el.innerHTML='최소 결제 금액은 10,000원입니다.'}
+function he(){var el=document.getElementById('err');el.style.display='none'}
 function go(){
-  var price=parseInt(document.getElementById('price').value,10),el=document.getElementById('err');
+  var price=parseInt(document.getElementById('price').value.replace(/,/g,''),10),el=document.getElementById('err');
   if(!price||price<10000){el.innerHTML='최소 결제 금액은 10,000원입니다.';el.style.display='block';return}
   if(price%10000!==0){el.innerHTML='10,000원 단위로 입력해 주세요.';el.style.display='block';return}
-  window.location.href='/manyman/authfrm.html?goods=SMS&price='+price+'&id='+encodeURIComponent(uid)+'&email='+encodeURIComponent(em)+'&phone='+encodeURIComponent(ph);
+  window.location.href='/manyman/authfrm.html?goods=SMS&price='+price+'&id='+encodeURIComponent(uid)+'&name='+encodeURIComponent(nm)+'&email='+encodeURIComponent(em)+'&phone='+encodeURIComponent(ph);
 }
 document.getElementById('price').onkeypress=function(e){var ev=e||window.event,k=ev.keyCode||ev.which;if(k===13){go();return false}if(k<48||k>57){ev.returnValue=false;return false}};
 </script>
