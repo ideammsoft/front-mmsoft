@@ -48,17 +48,53 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
   <button type="button" class="rb" onclick="rst()">금액 초기화</button>
   <button type="button" class="pb" onclick="go()">결&nbsp;&nbsp;제</button>
 </div>
+
+<!-- KSPay WebHost V1.4 (크롬/모던브라우저 지원) -->
+<div style="display:none">
+<form name="payFrm" method="post" action="https://kspay.ksnet.to/store/KSAuthTOT/PC/web_host/post_send.jsp">
+  <input type="hidden" name="sndStoreid"        value="2900100006">
+  <input type="hidden" name="sndBackUrl"         id="sndBackUrl" value="">
+  <input type="hidden" name="sndReply"           id="sndReply" value="">
+  <input type="hidden" name="sndPaymethod"       value="10000">
+  <input type="hidden" name="sndOrdernumber"     value="">
+  <input type="hidden" name="sndGoodname"        value="SMS">
+  <input type="hidden" name="sndInstallmenttype" value="0">
+  <input type="hidden" name="sndAmount"          value="">
+  <input type="hidden" name="sndOrdername"       value="">
+  <input type="hidden" name="sndAllregid"        value="7109051018914">
+  <input type="hidden" name="sndEmail"           value="">
+  <input type="hidden" name="sndMobile"          value="">
+  <input type="hidden" name="sndInteresttype"    value="NONE">
+  <input type="hidden" name="sndCurrencytype"    value="WON">
+  <input type="hidden" name="sndCashbag"         value="0">
+  <input type="hidden" name="sndWptype"          value="1">
+  <input type="hidden" name="sndAdulttype"       value="1">
+  <input type="hidden" name="sndStoreName"       value="엠엠소프트">
+  <input type="hidden" name="sndStoreNameEng"    value="manyman_soft">
+  <input type="hidden" name="sndStoreDomain"     value="http://www.mmsoft.co.kr">
+</form>
+</div>
+
 <script>
 function gp(n){var s=window.location.search.substring(1).split('&');for(var i=0;i<s.length;i++){var p=s[i].split('=');if(decodeURIComponent(p[0])===n)return p.length>1?decodeURIComponent(p[1].replace(/\+/g,' ')):''}return ''}
 var uid=gp('id'),ph=gp('phone'),em=gp('email')||'man@mmsoft.co.kr',nm=gp('name')||uid;
 function add(v){var el=document.getElementById('price');el.value=(parseInt(el.value.replace(/,/g,''),10)||0)+v;he()}
 function rst(){document.getElementById('price').value=10000;he()}
 function he(){var el=document.getElementById('err');el.style.display='none'}
+function mkord(){var d=new Date();function p(n,l){var s=String(n);while(s.length<(l||2))s='0'+s;return s}return String(d.getFullYear())+p(d.getMonth()+1)+p(d.getDate())+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds())+p(d.getMilliseconds(),3)+p(Math.floor(Math.random()*999999),6)}
 function go(){
   var price=parseInt(document.getElementById('price').value.replace(/,/g,''),10),el=document.getElementById('err');
   if(!price||price<10000){el.innerHTML='최소 결제 금액은 10,000원입니다.';el.style.display='block';return}
   if(price%10000!==0){el.innerHTML='10,000원 단위로 입력해 주세요.';el.style.display='block';return}
-  window.location.href='/manyman/authfrm.html?goods=SMS&price='+price+'&id='+encodeURIComponent(uid)+'&name='+encodeURIComponent(nm)+'&email='+encodeURIComponent(em)+'&phone='+encodeURIComponent(ph);
+  var replyUrl=window.location.protocol+'//'+window.location.host+'/manyman/KSPayRcv.asp?id='+encodeURIComponent(uid);
+  document.payFrm.sndBackUrl.value=replyUrl;
+  document.payFrm.sndReply.value=replyUrl;
+  document.payFrm.sndOrdernumber.value=mkord();
+  document.payFrm.sndAmount.value=price;
+  document.payFrm.sndOrdername.value=nm||uid;
+  document.payFrm.sndEmail.value=em;
+  document.payFrm.sndMobile.value=ph.replace(/-/g,'');
+  document.payFrm.submit();
 }
 document.getElementById('price').onkeypress=function(e){var ev=e||window.event,k=ev.keyCode||ev.which;if(k===13){go();return false}if(k<48||k>57){ev.returnValue=false;return false}};
 </script>

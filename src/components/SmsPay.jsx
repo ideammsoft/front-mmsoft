@@ -25,9 +25,10 @@ function formatComma(n) {
   return n.toLocaleString('ko-KR');
 }
 
-function SmsPay({ userId, phone, email, onResult }) {
+function SmsPay({ userId, name, phone, email, onResult }) {
   // URL 파라미터 또는 props에서 사용자 정보 가져오기
   const uid   = userId || getParam('id');
+  const nm    = name   || getParam('name') || uid;
   const ph    = phone  || getParam('phone');
   const em    = email  || getParam('email') || 'man@mmsoft.co.kr';
 
@@ -82,7 +83,7 @@ function SmsPay({ userId, phone, email, onResult }) {
     setLoading(true);
     setError('');
 
-    const payUrl = `/manyman/authfrm.html?goods=SMS&price=${amount}&id=${encodeURIComponent(uid)}&email=${encodeURIComponent(em)}&phone=${encodeURIComponent(ph)}`;
+    const payUrl = `/manyman/authfrm.html?goods=SMS&price=${amount}&id=${encodeURIComponent(uid)}&name=${encodeURIComponent(nm)}&email=${encodeURIComponent(em)}&phone=${encodeURIComponent(ph)}`;
 
     const popup = window.open(payUrl, 'kspaypopup', 'width=502,height=600,scrollbars=yes');
 

@@ -6,42 +6,75 @@
 <title>엠엠소프트 - 카드 결제</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;overflow-x:hidden}
-body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;padding:12px;font-size:14px}
-.hd{background:#1a73e8;color:#fff;text-align:center;padding:10px;border-radius:6px 6px 0 0;font-size:15px;font-weight:bold}
-.card{background:#fff;border:1px solid #d0d8e8;border-radius:0 0 6px 6px;padding:16px}
-.obox{background:#f7f8fc;border:1px solid #e2e8f0;border-radius:6px;padding:14px 16px;margin-bottom:16px}
-.otitle{font-size:13px;font-weight:bold;color:#555;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-bottom:10px}
-.orow{width:100%;border-collapse:collapse;margin-bottom:4px}
-.orow td{font-size:13px;padding:3px 0}
-.orow td:first-child{color:#888;width:70px}
-.orow td:last-child{font-weight:bold;color:#333;text-align:right}
-.total td:first-child{font-weight:bold;color:#333}
-.total td:last-child{font-size:20px;color:#1a73e8}
-.lbl{font-size:13px;font-weight:bold;color:#555;margin-bottom:8px}
-.sel{width:100%;padding:10px 12px;font-size:14px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;border:2px solid #d2d9e6;border-radius:6px;color:#333;background:#fff;outline:none;cursor:pointer;margin-bottom:16px}
-.sel:focus{border-color:#1a73e8}
-.pb{width:100%;padding:13px;background:#1a73e8;color:#fff;border:none;border-radius:6px;font-size:16px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;cursor:pointer;margin-bottom:8px}
-.pb:hover{background:#1557b0}
-.bb{width:100%;padding:10px;background:#fff;border:1px solid #d2d9e6;border-radius:6px;font-size:13px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;color:#888;cursor:pointer;margin-bottom:10px}
-.bb:hover{background:#f7f8fc}
-.sec{text-align:center;font-size:12px;color:#aaa}
-.result{display:none;border-radius:8px;padding:20px 16px;text-align:center;font-size:14px;line-height:1.8;margin-top:12px}
-.result.ok{background:#e8f0fe;border:2px solid #1a73e8;color:#1a45a0}
-.result.fail{background:#fff5f5;border:2px solid #e53e3e;color:#c53030}
-.result b{display:block;font-size:16px;margin-bottom:6px}
+html,body{width:100%;height:100%;overflow-x:hidden}
+body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:linear-gradient(135deg,#f0f4ff 0%,#e8edf8 100%);min-height:100%;padding:16px;font-size:14px;color:#1a1f36}
+
+/* 헤더 */
+.hd{background:linear-gradient(135deg,#1a73e8 0%,#0d47a1 100%);color:#fff;text-align:center;padding:14px 16px;border-radius:12px 12px 0 0;font-size:16px;font-weight:700;letter-spacing:0.5px;box-shadow:0 2px 8px rgba(26,115,232,.3)}
+
+/* 메인 카드 */
+.card{background:#fff;border-radius:0 0 12px 12px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+
+/* 주문 정보 박스 */
+.obox{background:linear-gradient(135deg,#f8faff 0%,#f0f4ff 100%);border:1px solid #d8e3f8;border-radius:10px;padding:16px 18px;margin-bottom:18px}
+.otitle{font-size:12px;font-weight:700;color:#5f6dab;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.otitle::before{content:'';display:inline-block;width:3px;height:14px;background:#1a73e8;border-radius:2px}
+.orow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #edf0f8}
+.orow:last-child{border-bottom:none;padding-top:10px;margin-top:4px}
+.orow-label{font-size:13px;color:#6b7280}
+.orow-val{font-size:13px;font-weight:600;color:#1a1f36}
+.orow-total .orow-label{font-size:14px;font-weight:700;color:#1a1f36}
+.orow-total .orow-val{font-size:22px;font-weight:800;color:#1a73e8;letter-spacing:-0.5px}
+
+/* 할부 선택 */
+.section-label{font-size:12px;font-weight:700;color:#5f6dab;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.sel{width:100%;padding:11px 14px;font-size:14px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;border:1.5px solid #d8e3f8;border-radius:8px;color:#1a1f36;background:#fff;outline:none;cursor:pointer;margin-bottom:18px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231a73e8' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;transition:border-color .2s}
+.sel:focus{border-color:#1a73e8;box-shadow:0 0 0 3px rgba(26,115,232,.1)}
+
+/* 버튼 */
+.pb{width:100%;padding:14px;background:linear-gradient(135deg,#1a73e8 0%,#1557b0 100%);color:#fff;border:none;border-radius:10px;font-size:15px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:700;cursor:pointer;margin-bottom:10px;letter-spacing:0.5px;box-shadow:0 4px 12px rgba(26,115,232,.35);transition:all .2s;position:relative;overflow:hidden}
+.pb:hover{background:linear-gradient(135deg,#1557b0 0%,#0d3b87 100%);box-shadow:0 6px 16px rgba(26,115,232,.45);transform:translateY(-1px)}
+.pb:active{transform:translateY(0);box-shadow:0 2px 8px rgba(26,115,232,.3)}
+
+.bb{width:100%;padding:11px;background:#fff;border:1.5px solid #d8e3f8;border-radius:10px;font-size:13px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;color:#6b7280;cursor:pointer;margin-bottom:14px;transition:all .2s}
+.bb:hover{border-color:#1a73e8;color:#1a73e8;background:#f0f4ff}
+
+/* 보안 뱃지 */
+.sec{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;color:#9ca3af}
+.sec::before,.sec::after{content:'';flex:1;height:1px;background:#e5e7eb}
+.sec-inner{display:flex;align-items:center;gap:5px;white-space:nowrap;padding:0 8px}
+.lock-icon{width:12px;height:12px;opacity:.6}
+
+/* 결과 */
+.result{display:none;border-radius:10px;padding:20px;text-align:center;font-size:14px;line-height:1.8;margin-top:14px}
+.result.ok{background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border:1.5px solid #66bb6a;color:#2e7d32}
+.result.fail{background:linear-gradient(135deg,#fff5f5,#fce4ec);border:1.5px solid #ef9a9a;color:#c62828}
+.result b{display:block;font-size:16px;margin-bottom:8px}
 </style>
 </head>
 <body>
 <div class="hd">MMSoft &nbsp; 카드 결제</div>
 <div class="card">
+
+  <!-- 주문 정보 -->
   <div class="obox">
     <div class="otitle">주문 정보</div>
-    <table class="orow"><tr><td>상품명</td><td id="dGoods">-</td></tr></table>
-    <table class="orow"><tr><td>충전 ID</td><td id="dId">-</td></tr></table>
-    <table class="orow total"><tr><td>결제 금액</td><td id="dPrice">-</td></tr></table>
+    <div class="orow">
+      <span class="orow-label">상품명</span>
+      <span class="orow-val" id="dGoods">-</span>
+    </div>
+    <div class="orow">
+      <span class="orow-label">ID</span>
+      <span class="orow-val" id="dId">-</span>
+    </div>
+    <div class="orow orow-total">
+      <span class="orow-label">결제 금액</span>
+      <span class="orow-val" id="dPrice">-</span>
+    </div>
   </div>
-  <div class="lbl">할부 개월 선택</div>
+
+  <!-- 할부 -->
+  <div class="section-label">할부 개월 선택</div>
   <select id="inst" class="sel">
     <option value="0">일시불</option>
     <option value="2">2개월</option>
@@ -56,17 +89,24 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
     <option value="11">11개월</option>
     <option value="12">12개월</option>
   </select>
+
   <button type="button" class="pb" onclick="goOpen()">카드 결제하기</button>
   <button type="button" class="bb" onclick="history.back()">← 금액 변경</button>
-  <div class="sec">KSNet 안심결제 · SSL 암호화</div>
+
+  <div class="sec">
+    <div class="sec-inner">
+      🔒 KSNet 안심결제 &nbsp;·&nbsp; SSL 암호화
+    </div>
+  </div>
+
   <div id="result" class="result"></div>
 </div>
 
-<!-- authFrmFrame (KSPay 팝업으로 전송) -->
+<!-- KSPay WebHost V1.4 form (크롬/모던브라우저 지원) -->
 <div style="display:none">
-<form name="authFrmFrame" target="AuthFrame" method="post">
+<form name="authFrmFrame" method="post" action="https://kspay.ksnet.to/store/KSAuthTOT/PC/web_host/post_send.jsp">
   <input type="hidden" name="sndStoreid"        value="2900100006">
-  <input type="hidden" name="sndBackUrl"         value="">
+  <input type="hidden" name="sndBackUrl"         id="sndBackUrl" value="">
   <input type="hidden" name="sndReply"           id="sndReply" value="">
   <input type="hidden" name="sndPaymethod"       value="10000">
   <input type="hidden" name="sndOrdernumber"     value="">
@@ -89,11 +129,10 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
   <input type="hidden" name="sndStoreDomain"     value="http://www.mmsoft.co.kr">
 </form>
 </div>
-<IFRAME id="AuthFrame" name="AuthFrame" style="display:none" src="/manyman/dummy.html"></IFRAME>
 
 <script>
 function gp(n){var s=window.location.search.substring(1).split('&');for(var i=0;i<s.length;i++){var p=s[i].split('=');if(decodeURIComponent(p[0])===n)return p.length>1?decodeURIComponent(p[1].replace(/\+/g,' ')):''}return ''}
-function comma(n){var s=String(n),r='',c=0;for(var i=s.length-1;i>=0;i--){r=s.charAt(i)+r;if(++c%3===0&&i!==0)r=','+r}return r}
+function comma(n){return Number(n).toLocaleString('ko-KR')}
 
 var goods  = gp('goods') || 'SMS';
 var price  = parseInt(gp('price'), 10) || 0;
@@ -102,13 +141,15 @@ var name   = gp('name')  || userId;
 var email  = gp('email') || '';
 var phone  = gp('phone') || '';
 
-document.getElementById('dGoods').innerHTML = goods;
-document.getElementById('dId').innerHTML    = userId || '-';
-document.getElementById('dPrice').innerHTML = comma(price) + '원';
+document.getElementById('dGoods').textContent = goods;
+document.getElementById('dId').textContent    = userId || '-';
+document.getElementById('dPrice').textContent = comma(price) + '원';
 
-document.getElementById('sndReply').value =
-  window.location.protocol + '//' + window.location.host +
+// sndReply: 서버→서버 결제 결과 통보 URL (KSPayRcv.asp가 처리 후 operner에 결과 전달)
+var replyUrl = window.location.protocol + '//' + window.location.host +
   '/manyman/KSPayRcv.asp?id=' + encodeURIComponent(userId);
+document.getElementById('sndReply').value   = replyUrl;
+document.getElementById('sndBackUrl').value = replyUrl;
 
 function makeOrdNum(){
   var d=new Date();
@@ -116,30 +157,16 @@ function makeOrdNum(){
   return String(d.getFullYear())+p(d.getMonth()+1)+p(d.getDate())+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds())+p(d.getMilliseconds(),3)+p(Math.floor(Math.random()*999999),6);
 }
 
-function paymentResult(ok, amt, msg) {
-  var el = document.getElementById('result');
-  if (ok) {
-    el.className = 'result ok';
-    el.innerHTML = '<b>결제가 완료되었습니다</b>' + (amt ? amt + '원 충전 처리되었습니다.<br>' : '') + '프로그램을 다시 시작해 주세요.';
-  } else {
-    el.className = 'result fail';
-    el.innerHTML = '<b>결제가 완료되지 않았습니다</b>' + (msg ? msg + '<br>' : '') + '창을 닫고 다시 시도해 주세요.';
-  }
-  el.style.display = 'block';
-}
 function goOpen(){
-  var inst=document.getElementById('inst').value;
+  var inst = document.getElementById('inst').value;
   document.authFrmFrame.sndOrdernumber.value     = makeOrdNum();
   document.authFrmFrame.sndGoodname.value        = goods;
   document.authFrmFrame.sndInstallmenttype.value = inst;
   document.authFrmFrame.sndAmount.value          = price;
-  document.authFrmFrame.sndOrdername.value       = name;   // 주문자명 = 실명
+  document.authFrmFrame.sndOrdername.value       = name;
   document.authFrmFrame.sndEmail.value           = email;
   document.authFrmFrame.sndMobile.value          = phone.replace(/-/g,'');
-  var h=560,w=430,left=Math.floor(screen.width/2-w/2),top=Math.floor(screen.height/2-h/2);
-  window.open('about:blank','AuthFrmUp','height='+h+',width='+w+',status=yes,scrollbars=yes,resizable=no,left='+left+',top='+top);
-  document.authFrmFrame.target='AuthFrmUp';
-  document.authFrmFrame.action='https://kspay.ksnet.to/store/KSPayWebV1.3/KSPayWeb.jsp';
+  // V1.4 WebHost: 팝업 없이 현재 창에서 직접 리다이렉트 (크롬 지원)
   document.authFrmFrame.submit();
 }
 </script>

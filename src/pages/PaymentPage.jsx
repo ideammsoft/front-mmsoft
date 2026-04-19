@@ -127,7 +127,7 @@ function PaymentPage() {
       const productName = selectedProduct.name;
 
       // KSPay 결제창 호출 (기존 manyman 결제 방식과 동일)
-      const userId = user?.id || user?.userId || '';
+      const userId = user?.id || user?.userId || user?.homepageId || '';
       const userName = user?.name || user?.nickname || userId;
       const userPhone = user?.phone || user?.mphone || '';
       const userEmail = user?.email || '';
