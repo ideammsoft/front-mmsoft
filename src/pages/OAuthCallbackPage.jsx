@@ -16,7 +16,7 @@ function OAuthCallbackPage() {
     }
 
     // 임시코드 → AccessToken + 사용자 정보 교환
-    fetch(`http://localhost:1882/api/auth/oauth2/exchange?code=${code}`, {
+    fetch(`/api/auth/oauth2/exchange?code=${code}`, {
       method: 'POST',
       credentials: 'include',
     })

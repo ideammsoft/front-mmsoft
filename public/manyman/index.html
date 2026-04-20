@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>엠엠소프트 - 결제</title>
+<!-- KSNET 통합모듈 V1.4 JS 라이브러리 -->
+<script language="javascript" src="https://kspay.ksnet.to/store/KSPayWebV1.4/js/kspay_web_ssl.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;overflow-x:hidden}
+body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;padding:12px;font-size:14px}
+.hd{background:#1a73e8;color:#fff;text-align:center;padding:10px;border-radius:6px 6px 0 0;font-size:15px;font-weight:bold}
+.card{background:#fff;border:1px solid #d0d8e8;border-radius:0 0 6px 6px;padding:16px}
+.info-table{width:100%;border-collapse:collapse;margin-bottom:14px}
+.info-table td{padding:8px 10px;border-bottom:1px solid #eef0f5;font-size:13px}
+.info-table td:first-child{color:#555;font-weight:bold;width:80px}
+.info-table td:last-child{color:#1a73e8;font-weight:bold}
+.amount-cell{font-size:18px!important}
+.notice{background:#e8f0fe;border-left:4px solid #1a73e8;border-radius:4px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:#3c4858;line-height:1.8}
+.pb{width:100%;padding:13px;background:#1a73e8;color:#fff;border:none;border-radius:6px;font-size:16px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;cursor:pointer}
+.pb:hover{background:#1557b0}
+.pb:disabled{background:#9fb8e8;cursor:not-allowed}
+</style>
+</head>
+<body>
+
+<div class="hd">MMSoft &nbsp; 결제</div>
+<div class="card">
+  <table class="info-table">
+    <tr>
+      <td>상품명</td>
+      <td id="tdProduct">-</td>
+    </tr>
+    <tr>
+      <td>결제금액</td>
+      <td id="tdAmount" class="amount-cell">-</td>
+    </tr>
+    <tr>
+      <td>결제수단</td>
+      <td>신용카드 / 체크카드</td>
+    </tr>
+  </table>
+  <div class="notice">
+    ※ 아래 버튼을 누르면 카드 결제 창이 열립니다.<br>
+    ※ 결제 완료 후 자동으로 창이 닫힙니다.
+  </div>
+  <button type="button" class="pb" id="payBtn" onclick="go()">카드 결제하기</button>
+</div>
+
+<!-- ────────────────────────────────────────────
+     KSPay 통합모듈 V1.4 Form
+     (form name 반드시 KSPayWeb, action 미설정)
+──────────────────────────────────────────────── -->
+<form name="KSPayWeb" method="post">
+  <!-- 가맹점 정보 -->
+  <input type="hidden" name="sndStoreid"         value="2900100006">
+  <!-- 결제수단: 신용카드만 -->
+  <input type="hidden" name="sndPaymethod"       value="1000000000">
+  <!-- 주문 정보 (go()에서 동적 설정) -->
+  <input type="hidden" name="sndOrdernumber"     value="">
+  <input type="hidden" name="sndGoodname"        value="">
+  <input type="hidden" name="sndAmount"          value="">
+  <input type="hidden" name="sndOrdername"       value="">
+  <input type="hidden" name="sndEmail"           value="">
+  <input type="hidden" name="sndMobile"          value="">
+  <!-- 콜백 URL (go()에서 동적 설정) -->
+  <input type="hidden" name="sndReply"           value="">
+  <!-- V1.4 필수 설정 -->
+  <input type="hidden" name="iframeYn"           value="Y">
+  <input type="hidden" name="sndCharSet"         value="utf-8">
+  <input type="hidden" name="sndGoodType"        value="2">
+  <input type="hidden" name="sndShowcard"        value="C">
+  <input type="hidden" name="sndInstallmenttype" value="ALL(0:2:3:4:5:6:7:8:9:10:11:12)">
+  <input type="hidden" name="sndInteresttype"    value="NONE">
+  <input type="hidden" name="sndCurrencytype"    value="WON">
+  <!-- 결과 수신 (KSPayRcv.asp에서 채워짐) -->
+  <input type="hidden" name="reCommConId"        value="">
+  <input type="hidden" name="reCommType"         value="">
+  <input type="hidden" name="reHash"             value="">
+</form>
+
+<script>
+/* ── URL 파라미터 파싱 ── */
+function gp(n) {
+  var s = window.location.search.substring(1).split('&');
+  for (var i = 0; i < s.length; i++) {
+    var p = s[i].split('=');
+    if (decodeURIComponent(p[0]) === n)
+      return p.length > 1 ? decodeURIComponent(p[1].replace(/\+/g, ' ')) : '';
+  }
+  return '';
+}
+
+var uid     = gp('id');
+var ph      = gp('phone');
+var em      = gp('email') || 'man@mmsoft.co.kr';
+var nm      = gp('name') || uid;
+var product = gp('product') || 'MMSoft 서비스';
+var amount  = parseInt(gp('amount'), 10) || 0;
+
+/* ── 화면 표시 ── */
+document.getElementById('tdProduct').textContent = product;
+document.getElementById('tdAmount').textContent  = amount.toLocaleString('ko-KR') + '원';
+
+/* ── 주문번호 생성 ── */
+function mkord() {
+  var d = new Date();
+  function p(n, l) { var s = String(n); while (s.length < (l || 2)) s = '0' + s; return s; }
+  return String(d.getFullYear()) + p(d.getMonth()+1) + p(d.getDate())
+       + p(d.getHours()) + p(d.getMinutes()) + p(d.getSeconds())
+       + p(d.getMilliseconds(), 3) + p(Math.floor(Math.random() * 999999), 6);
+}
+
+/* ── KSPayRcv.asp에서 postMessage로 결과 수신 ── */
+window.addEventListener('message', function(e) {
+  if (!e.data || e.data.type !== 'KSPAY_RCV') return;
+  var data = e.data;
+
+  if (data.cancel) {
+    /* 결제 취소 */
+    if (window.opener) {
+      window.opener.postMessage({ type: 'KSPAY_RESULT', ok: false, msg: '결제가 취소되었습니다.' }, '*');
+    }
+    window.close();
+    return;
+  }
+
+  /* reCommConId / reCommType / reHash 세팅 후 결과 페이지로 제출 */
+  document.KSPayWeb.reCommConId.value = data.rcid   || '';
+  document.KSPayWeb.reCommType.value  = data.rctype || '';
+  document.KSPayWeb.reHash.value      = data.rhash  || '';
+  document.KSPayWeb.target = '';
+  document.KSPayWeb.action = window.location.protocol + '//' + window.location.host + '/manyman/KSPayResult.asp';
+  document.KSPayWeb.submit();
+});
+
+/* ── 결제 실행 ── */
+function go() {
+  if (!amount || amount < 1000) {
+    alert('결제 금액이 올바르지 않습니다.');
+    return;
+  }
+  document.getElementById('payBtn').disabled = true;
+  document.getElementById('payBtn').textContent = '결제창 열리는 중...';
+
+  var replyUrl = window.location.protocol + '//' + window.location.host + '/manyman/KSPayRcv.asp';
+
+  document.KSPayWeb.sndOrdernumber.value = mkord();
+  document.KSPayWeb.sndGoodname.value    = product;
+  document.KSPayWeb.sndAmount.value      = amount;
+  document.KSPayWeb.sndOrdername.value   = nm || uid;
+  document.KSPayWeb.sndEmail.value       = em;
+  document.KSPayWeb.sndMobile.value      = ph.replace(/-/g, '');
+  document.KSPayWeb.sndReply.value       = replyUrl;
+
+  _pay(document.KSPayWeb);
+}
+</script>
+</body>
+</html>

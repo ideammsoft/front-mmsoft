@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Button from '../common/Button';
+import NiceAuthButton from './NiceAuthButton';
 import styles from './ProfileCompletionPanel.module.css';
 
-const API = 'http://localhost:1882';
+const API = '';
 
 /**
  * mode='register' : OAuth 신규회원 추가정보 입력
@@ -13,14 +14,33 @@ const API = 'http://localhost:1882';
 function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
   const [name, setName]       = useState('');
   const [email, setEmail]     = useState('');
-  const [mphone, setMphone]   = useState('');
-  const [phone, setPhone]     = useState('');
+  const [mphone, setMphone]   = useState('');  // 휴대폰
+  const [phone, setPhone]     = useState('');  // 회사전화
   const [company, setCompany] = useState('');
   const [errors, setErrors]   = useState({});
   const [saving, setSaving]   = useState(false);
 
-  const isEdit = mode === 'edit';
-  const title  = isEdit ? '회원 정보 수정' : '추가 정보 입력';
+  // 회원정보 수정 시 본인인증 여부
+  const [niceVerified, setNiceVerified] = useState(!isEdit);  // register 모드는 인증 불필요
+
+  const handleNiceAuth = (result) => {
+    setNiceVerified(true);
+    if (result.name)     setName(result.name);
+    if (result.mobileNo) setMphone(result.mobileNo);
+  };
+
+  // 비밀번호 변경 폼
+  const [showPwForm, setShowPwForm]       = useState(false);
+  const [currentPw, setCurrentPw]         = useState('');
+  const [newPw, setNewPw]                 = useState('');
+  const [confirmPw, setConfirmPw]         = useState('');
+  const [pwError, setPwError]             = useState('');
+  const [pwSaving, setPwSaving]           = useState(false);
+
+  const isEdit  = mode === 'edit';
+  const title   = isEdit ? '회원 정보 수정' : '추가 정보 입력';
+  const loginId = JSON.parse(localStorage.getItem('mmsoft_user') || '{}').homepageId || '';
+  const overlayMouseDown = useRef(false);
 
   // 초기값 세팅: localStorage + 서버(수정 모드)
   useEffect(() => {
@@ -85,6 +105,38 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
       .finally(() => setSaving(false));
   };
 
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    setPwError('');
+    if (!currentPw) { setPwError('현재 비밀번호를 입력해주세요.'); return; }
+    if (newPw.length < 4) { setPwError('새 비밀번호는 4자 이상이어야 합니다.'); return; }
+    if (newPw !== confirmPw) { setPwError('새 비밀번호가 일치하지 않습니다.'); return; }
+
+    const token = localStorage.getItem('mmsoft_access_token');
+    if (!token) { alert('로그인이 필요합니다.'); return; }
+
+    setPwSaving(true);
+    try {
+      const res = await fetch(`${API}/api/members/me/password`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ currentPassword: currentPw, newPassword: newPw }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        setPwError(err.message || '비밀번호 변경에 실패했습니다.');
+        return;
+      }
+      alert('비밀번호가 변경되었습니다.');
+      setShowPwForm(false);
+      setCurrentPw(''); setNewPw(''); setConfirmPw('');
+    } catch {
+      setPwError('서버 연결에 실패했습니다.');
+    } finally {
+      setPwSaving(false);
+    }
+  };
+
   const handleWithdraw = () => {
     if (!window.confirm('정말로 탈퇴 하시겠습니까?')) return;
     const token = localStorage.getItem('mmsoft_access_token');
@@ -111,12 +163,20 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
   };
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
-      <div className={`${styles.panel} ${saving ? styles.saving : ''}`}
-           onClick={e => e.stopPropagation()}>
+    <div
+      className={styles.overlay}
+      onMouseDown={e => { overlayMouseDown.current = e.target === e.currentTarget; }}
+      onMouseUp={e => { if (overlayMouseDown.current && e.target === e.currentTarget) onClose(); }}
+    >
+      <div className={`${styles.panel} ${saving ? styles.saving : ''}`}>
 
         <div className={styles.panelHeader}>
-          <h3 className={styles.title}>{title}</h3>
+          <h3 className={styles.title}>
+            {title}
+            {isEdit && loginId && (
+              <span className={styles.loginIdBadge}>{loginId}</span>
+            )}
+          </h3>
           <button className={styles.closeButton} onClick={onClose}>&times;</button>
         </div>
 
@@ -124,7 +184,32 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
           <p className={styles.description}>서비스 이용을 위해 추가 정보를 입력해 주세요.</p>
         )}
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        {/* 회원정보 수정 시 본인인증 필요 */}
+        {isEdit && (
+          <div style={{ marginBottom: '16px' }}>
+            {niceVerified ? (
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '8px',
+                padding: '10px 14px',
+                background: '#f0fdf4', border: '1px solid #86efac',
+                borderRadius: 'var(--radius-md)', fontSize: 'var(--font-size-sm)',
+                color: '#166534',
+              }}>
+                <span>✅</span>
+                <span>본인인증이 완료되었습니다. 정보를 수정하세요.</span>
+              </div>
+            ) : (
+              <>
+                <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)', marginBottom: '8px' }}>
+                  회원정보 수정을 위해 본인인증이 필요합니다.
+                </p>
+                <NiceAuthButton onAuth={handleNiceAuth} label="본인인증 후 정보 수정" />
+              </>
+            )}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className={styles.form} style={isEdit && !niceVerified ? { opacity: 0.4, pointerEvents: 'none' } : {}}>
 
           <div className={styles.fieldWrapper}>
             <div className={styles.labelRow}>
@@ -156,16 +241,16 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
           </div>
 
           <div className={styles.fieldWrapper}>
-            <label className={styles.label} htmlFor="company">회사명</label>
-            <input id="company" type="text" placeholder="회사명을 입력하세요"
-              value={company} onChange={e => setCompany(e.target.value)}
+            <label className={styles.label} htmlFor="phone">회사전화</label>
+            <input id="phone" type="tel" placeholder="회사 전화번호를 입력하세요"
+              value={phone} onChange={handleChange(setPhone, 'phone')}
               className={styles.input} />
           </div>
 
           <div className={styles.fieldWrapper}>
-            <label className={styles.label} htmlFor="phone">회사 전화</label>
-            <input id="phone" type="tel" placeholder="회사 전화번호를 입력하세요"
-              value={phone} onChange={e => setPhone(e.target.value)}
+            <label className={styles.label} htmlFor="company">회사명</label>
+            <input id="company" type="text" placeholder="회사명을 입력하세요"
+              value={company} onChange={e => setCompany(e.target.value)}
               className={styles.input} />
           </div>
 
@@ -175,9 +260,38 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
         </form>
 
         {isEdit && (
-          <span className={styles.withdrawLink} onClick={handleWithdraw}>
-            회원 탈퇴
-          </span>
+          <div className={styles.bottomLinks}>
+            <span className={styles.actionLink} onClick={() => { setShowPwForm(v => !v); setPwError(''); }}>
+              비밀번호 변경
+            </span>
+            <span className={styles.withdrawLink} onClick={handleWithdraw}>
+              회원 탈퇴
+            </span>
+          </div>
+        )}
+
+        {isEdit && showPwForm && (
+          <form onSubmit={handlePasswordChange} className={styles.pwForm}>
+            <div className={styles.fieldWrapper}>
+              <label className={styles.label}>현재 비밀번호</label>
+              <input type="password" value={currentPw} onChange={e => setCurrentPw(e.target.value)}
+                placeholder="현재 비밀번호" className={styles.input} />
+            </div>
+            <div className={styles.fieldWrapper}>
+              <label className={styles.label}>새 비밀번호</label>
+              <input type="password" value={newPw} onChange={e => setNewPw(e.target.value)}
+                placeholder="새 비밀번호 (4자 이상)" className={styles.input} />
+            </div>
+            <div className={styles.fieldWrapper}>
+              <label className={styles.label}>새 비밀번호 확인</label>
+              <input type="password" value={confirmPw} onChange={e => setConfirmPw(e.target.value)}
+                placeholder="새 비밀번호 재입력" className={styles.input} />
+            </div>
+            {pwError && <p className={styles.errorMessage}>{pwError}</p>}
+            <button type="submit" className={styles.pwSubmitButton} disabled={pwSaving}>
+              {pwSaving ? '변경 중...' : '비밀번호 변경'}
+            </button>
+          </form>
         )}
       </div>
     </div>

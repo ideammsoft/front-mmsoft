@@ -5,8 +5,11 @@ import styles from './NoticeItem.module.css';
 function NoticeItem({ notice }) {
   return (
     <Link to={`/community/${notice.id}`} className={styles.item}>
-      {notice.pinned && (
+      {notice.category === '공지' && (
         <span className={styles.badge}>공지</span>
+      )}
+      {notice.category === '안내' && (
+        <span className={styles.badgeInfo}>안내</span>
       )}
 
       <div className={styles.content}>

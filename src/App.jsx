@@ -83,6 +83,7 @@ const DownloadsPage         = lazy(() => import('./pages/DownloadsPage'));
 const ProjectsPage          = lazy(() => import('./pages/ProjectsPage'));
 const ProjectPostDetailPage = lazy(() => import('./pages/ProjectPostDetailPage'));
 const FAQPage               = lazy(() => import('./pages/FAQPage'));
+const PaymentPage           = lazy(() => import('./pages/PaymentPage'));
 const SitemapPage           = lazy(() => import('./pages/SitemapPage'));
 const NotFoundPage          = lazy(() => import('./pages/NotFoundPage'));
 // 소셜 로그인(OAuth2) 완료 후 리다이렉트되는 콜백 페이지
@@ -109,6 +110,7 @@ function App() {
             <Route path="/projects"           element={<ProjectsPage />} />
             <Route path="/projects/:postId"   element={<ProjectPostDetailPage />} />
             <Route path="/faq"                element={<FAQPage />} />
+            <Route path="/payment"            element={<PaymentPage />} />
             <Route path="/sitemap"            element={<SitemapPage />} />
             {/* 소셜 로그인 후 서버가 이 경로로 리다이렉트합니다 */}
             {/* 예) http://localhost:5173/oauth/callback?code=UUID임시코드 */}

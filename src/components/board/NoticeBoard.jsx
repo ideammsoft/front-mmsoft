@@ -1,18 +1,41 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaChevronRight } from 'react-icons/fa';
-import { NOTICES } from '../../data/notices';
 import NoticeItem from './NoticeItem';
 import styles from './NoticeBoard.module.css';
 
 function NoticeBoard({ limit = 5 }) {
-  // Show pinned notices first, then sort by date
-  const sortedNotices = [...NOTICES]
-    .sort((a, b) => {
-      if (a.pinned && !b.pinned) return -1;
-      if (!a.pinned && b.pinned) return 1;
-      return new Date(b.date) - new Date(a.date);
+  const [notices, setNotices] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('mmsoft_access_token');
+
+    fetch(`/api/freeboard`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
-    .slice(0, limit);
+      .then(r => r.ok ? r.json() : [])
+      .then(data => {
+        const list = Array.isArray(data) ? data : [];
+        const ORDER = { '공지': 0, '안내': 1 };
+        const filtered = list
+          .filter(n => n.freeboardRolename === '공지' || n.freeboardRolename === '안내')
+          .sort((a, b) => (ORDER[a.freeboardRolename] ?? 9) - (ORDER[b.freeboardRolename] ?? 9))
+          .slice(0, limit);
+        setNotices(filtered);
+      })
+      .catch(() => setNotices([]));
+  }, [limit]);
+
+  // API 데이터를 NoticeItem 형식으로 변환
+  const toNotice = (post) => ({
+    id:       post.freeboardId ?? post.id,
+    title:    post.title,
+    author:   post.writerName ?? post.author ?? '',
+    date:     (post.createdAt ?? post.date ?? '').slice(0, 10),
+    views:    post.viewCount ?? post.views ?? 0,
+    pinned:   post.freeboardRolename === '공지',
+    category: post.freeboardRolename ?? '',
+  });
 
   return (
     <section className={styles.section}>
@@ -24,14 +47,12 @@ function NoticeBoard({ limit = 5 }) {
       </div>
 
       <div className={styles.board}>
-        {sortedNotices.length > 0 ? (
-          sortedNotices.map((notice) => (
-            <NoticeItem key={notice.id} notice={notice} />
+        {notices.length > 0 ? (
+          notices.map(post => (
+            <NoticeItem key={toNotice(post).id} notice={toNotice(post)} />
           ))
         ) : (
-          <div className={styles.empty}>
-            공지사항이 없습니다.
-          </div>
+          <div className={styles.empty}>공지사항이 없습니다.</div>
         )}
       </div>
     </section>

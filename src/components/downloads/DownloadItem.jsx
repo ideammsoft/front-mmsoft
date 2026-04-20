@@ -2,42 +2,55 @@ import { useState } from 'react';
 import { FaDownload, FaTimes, FaTag, FaFile, FaCalendar } from 'react-icons/fa';
 import styles from './DownloadItem.module.css';
 
-function DownloadItem({ download }) {
-  const [modalOpen, setModalOpen] = useState(false);
+function DownloadItem({ download, apiBase }) {
+  const [modalOpen, setModalOpen]             = useState(false);
+  const [downloadCount, setDownloadCount]     = useState(download.downloadCount ?? 0);
 
-  const handleDownloadClick = () => {
-    setModalOpen(true);
-  };
+  const thumbnailUrl = download.thumbnail
+    ? `${apiBase}/images/pds/${download.thumbnail}`
+    : null;
 
-  const handleConfirmDownload = () => {
-    window.open(download.fileUrl, '_blank', 'noopener,noreferrer');
+  const handleDownloadClick = () => setModalOpen(true);
+
+  const handleConfirmDownload = async () => {
+    try {
+      const res = await fetch(`${apiBase}/api/pds/${download.pdsId}/download`, { method: 'POST' });
+      const data = await res.json();
+      setDownloadCount(prev => prev + 1);
+      window.open(data.url, '_blank', 'noopener,noreferrer');
+    } catch {
+      // 실패해도 직접 열기
+      window.open(download.downloadUrl, '_blank', 'noopener,noreferrer');
+    }
     setModalOpen(false);
   };
 
-  const handleClose = () => {
-    setModalOpen(false);
-  };
+  const handleClose = () => setModalOpen(false);
 
   return (
     <>
       <div className={styles.item}>
         <div className={styles.thumbnail} onClick={handleDownloadClick} style={{ cursor: 'pointer' }}>
-          <img
-            src={download.imageUrl}
-            alt={download.title}
-            className={styles.thumbnailImg}
-            onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
-          />
-          <div className={styles.thumbnailFallback}>
+          {thumbnailUrl ? (
+            <img
+              src={thumbnailUrl}
+              alt={download.title}
+              className={styles.thumbnailImg}
+              onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+            />
+          ) : null}
+          <div className={styles.thumbnailFallback} style={{ display: thumbnailUrl ? 'none' : 'flex' }}>
             <FaFile size={28} />
           </div>
         </div>
 
         <div className={styles.content}>
           <div className={styles.titleRow}>
-            <h3 className={styles.title} onClick={handleDownloadClick} style={{ cursor: 'pointer' }}>{download.title}</h3>
+            <h3 className={styles.title} onClick={handleDownloadClick} style={{ cursor: 'pointer' }}>
+              {download.title}
+            </h3>
           </div>
-          <p className={styles.description}>{download.description}</p>
+          <p className={styles.description}>{download.osInfo}</p>
           <div className={styles.meta}>
             <span className={styles.metaItem}>
               <FaTag size={11} />
@@ -49,7 +62,11 @@ function DownloadItem({ download }) {
             </span>
             <span className={styles.metaItem}>
               <FaCalendar size={11} />
-              {download.uploadedAt}
+              {download.publishedAt}
+            </span>
+            <span className={styles.metaItem}>
+              <FaDownload size={11} />
+              {downloadCount.toLocaleString()}
             </span>
           </div>
         </div>

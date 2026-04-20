@@ -1,15 +1,21 @@
 import styles from './FloatingChat.module.css';
 
 function FloatingChat() {
-  const handleClick = (e) => {
-    e.preventDefault();
-    alert('카카오톡 상담 서비스 (데모)');
+  const handleClick = () => {
+    const w = 440, h = 730;
+    const left = window.screenX + (window.outerWidth - w) / 2;
+    const top  = window.screenY + (window.outerHeight - h) / 2;
+    window.open(
+      `${window.location.origin}/chat/`,
+      'chatPopup',
+      `width=${w},height=${h},left=${left},top=${top},resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,status=no`
+    );
   };
 
   return (
-    <a href="#" className={styles.floatingChat} onClick={handleClick} aria-label="카카오톡 상담">
+    <button className={styles.floatingChat} onClick={handleClick} aria-label="고객센터 상담">
       <span className={styles.chatIcon}>💬</span>
-    </a>
+    </button>
   );
 }
 

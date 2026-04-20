@@ -9,11 +9,14 @@ function Footer() {
           <div className={styles.footerSection}>
             <h3 className={styles.footerTitle}>엠엠소프트</h3>
             <div className={styles.companyInfo}>
-              <p>대표: 홍길동</p>
-              <p>서울특별시 강남구 테헤란로 123</p>
-              <p>전화: 1234-5678</p>
-              <p>이메일: info@mmsoft.co.kr</p>
-              <p>사업자등록번호: 123-45-67890</p>
+              <p>대표: 이기성</p>
+              <p>경기 고양시 일산동구 월드고양로21 상가동 350호</p>
+              <p>(장항동, 킨텍스원시티 3블럭)</p>
+              <p>전화: 02-864-7576</p>
+              <p>이메일: man@mmsoft.co.kr</p>
+              <p>사업자등록번호: 207-01-55869</p>
+              <p>통신판매업 신고: 제2019-고양덕양구-1361호</p>
+              <p>개인정보보호책임자: 이기성</p>
             </div>
           </div>
 

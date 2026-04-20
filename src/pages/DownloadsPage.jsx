@@ -1,16 +1,25 @@
-import { useState } from 'react';
-import { DOWNLOADS, DOWNLOAD_CATEGORIES } from '../data/downloads';
+import { useState, useEffect } from 'react';
+import { DOWNLOAD_CATEGORIES } from '../data/downloads';
 import DownloadCategories from '../components/downloads/DownloadCategories';
 import DownloadItem from '../components/downloads/DownloadItem';
 import styles from './DownloadsPage.module.css';
 
+const API_BASE = '';
+
 function DownloadsPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [downloads, setDownloads]               = useState([]);
+  const [loading, setLoading]                   = useState(true);
 
-  const filteredDownloads = DOWNLOADS.filter(download => {
-    if (selectedCategory === 'all') return true;
-    return download.category === selectedCategory;
-  });
+  useEffect(() => {
+    const category = selectedCategory === 'all' ? '' : selectedCategory;
+    setLoading(true);
+    fetch(`${API_BASE}/api/pds${category ? `?category=${category}` : ''}`)
+      .then(res => res.json())
+      .then(data => setDownloads(data))
+      .catch(() => setDownloads([]))
+      .finally(() => setLoading(false));
+  }, [selectedCategory]);
 
   return (
     <div>
@@ -28,17 +37,19 @@ function DownloadsPage() {
           onSelectCategory={setSelectedCategory}
         />
 
-        <div className={styles.grid}>
-          {filteredDownloads.length > 0 ? (
-            filteredDownloads.map(download => (
-              <DownloadItem key={download.id} download={download} />
-            ))
-          ) : (
-            <div className={styles.empty}>
-              다운로드 항목이 없습니다.
-            </div>
-          )}
-        </div>
+        {loading ? (
+          <div className={styles.empty}>불러오는 중...</div>
+        ) : (
+          <div className={styles.grid}>
+            {downloads.length > 0 ? (
+              downloads.map(download => (
+                <DownloadItem key={download.pdsId} download={download} apiBase={API_BASE} />
+              ))
+            ) : (
+              <div className={styles.empty}>다운로드 항목이 없습니다.</div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

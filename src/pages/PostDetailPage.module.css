@@ -292,6 +292,112 @@
   cursor: not-allowed;
 }
 
+/* 첨부파일 */
+.attachment {
+  display: flex;
+  align-items: center;
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-background-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* 댓글 섹션 */
+.replySection {
+  border-top: 1px solid var(--color-border);
+}
+
+.replySectionTitle {
+  padding: var(--spacing-md) var(--spacing-2xl);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-light);
+  background: var(--color-background-light);
+}
+
+.replyItem {
+  padding: var(--spacing-md) var(--spacing-2xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.replyMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.replyAuthor {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.replyDate {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.replyActions {
+  margin-left: auto;
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.replyContent {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  white-space: pre-wrap;
+  line-height: var(--line-height-relaxed);
+}
+
+/* 댓글 버튼 */
+.replyButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 8px 20px;
+  background: white;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.replyButton:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* 파일 업로드 */
+.fileInputWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.fileButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 6px 14px;
+  background: white;
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.fileName {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
 /* Not Found */
 .notFound {
   text-align: center;

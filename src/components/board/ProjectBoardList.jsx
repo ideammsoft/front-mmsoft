@@ -65,7 +65,7 @@ function WriteModal({ onClose, onSave }) {
     setSubmitting(true);
     try {
       const token = localStorage.getItem('mmsoft_access_token');
-      const res = await fetch('http://localhost:1882/api/workboard/write', {
+      const res = await fetch('/api/workboard/write', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -187,9 +187,8 @@ function ProjectBoardList({ posts, onRefresh }) {
     return matchesCategory && matchesSearch;
   });
 
-  // 2단계: 최신순 정렬 (날짜 내림차순)
-  // [...filtered]: 원본 배열을 복사 후 정렬 (원본 변경 방지)
-  const sorted = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
+  // 2단계: 서버에서 workboard_id DESC로 정렬되어 오므로 순서 유지
+  const sorted = filtered;
 
   // 3단계: 페이지네이션 계산
   const totalPages  = Math.ceil(sorted.length / itemsPerPage); // 올림 나눗셈
@@ -258,8 +257,8 @@ function ProjectBoardList({ posts, onRefresh }) {
               {paginated.map((post, index) => (
                 // 행 클릭 시 해당 게시글 상세 페이지로 이동
                 <tr key={post.id} onClick={() => handleRowClick(post)}>
-                  {/* 실제 번호 = 시작 인덱스 + 현재 인덱스 + 1 */}
-                  <td className={styles.numberCol}>{startIndex + index + 1}</td>
+                  {/* 실제 번호 = 전체 수 - 시작 인덱스 - 현재 인덱스 */}
+                  <td className={styles.numberCol}>{sorted.length - startIndex - index}</td>
                   <td className={styles.titleCol}>
                     <div className={styles.titleCell}>
                       <span className={projStyles.categoryBadge}>{post.category}</span>

@@ -13,6 +13,7 @@ function MainNavigation({ mobileOpen, onCloseMobile, user, onLogin, onLogout }) 
     { path: '/downloads', label: '제품소개' },
     { path: '/projects', label: '프로젝트' },
     { path: '/faq', label: 'FAQ' },
+    { path: '/payment', label: '충전 및 결제' },
   ];
 
   const isActive = (path) => {

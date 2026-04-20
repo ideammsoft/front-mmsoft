@@ -28,6 +28,8 @@
   padding: var(--spacing-xl);
   width: 100%;
   max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
   margin: var(--spacing-md);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
   animation: slideUp 0.3s ease;
@@ -46,6 +48,15 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.loginIdBadge {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
 }
 
 .closeButton {
@@ -138,11 +149,28 @@
   padding-left: 2px;
 }
 
+/* 하단 링크 행 (비밀번호 변경 | 회원 탈퇴) */
+.bottomLinks {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin-top: 16px;
+}
+
+.actionLink {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.actionLink:hover {
+  color: var(--color-secondary);
+}
+
 /* 회원 탈퇴 링크 */
 .withdrawLink {
-  display: block;
-  text-align: center;
-  margin-top: 16px;
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
   cursor: pointer;
@@ -151,6 +179,40 @@
 
 .withdrawLink:hover {
   color: var(--color-error);
+}
+
+/* 비밀번호 변경 폼 */
+.pwForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: var(--color-background-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.pwSubmitButton {
+  padding: 10px;
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+  margin-top: 4px;
+}
+
+.pwSubmitButton:hover:not(:disabled) {
+  background-color: var(--color-primary);
+}
+
+.pwSubmitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* 저장 중 로딩 표시 */

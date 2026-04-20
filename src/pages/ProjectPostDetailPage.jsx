@@ -25,7 +25,7 @@ function EditModal({ post, onClose, onSave }) {
     setSubmitting(true);
     try {
       const token = localStorage.getItem('mmsoft_access_token');
-      const res = await fetch(`http://localhost:1882/api/workboard/update/${post.id}`, {
+      const res = await fetch(`/api/workboard/update/${post.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ function ProjectPostDetailPage() {
   useEffect(() => {
     if (post) return;
     const token = localStorage.getItem('mmsoft_access_token');
-    fetch('http://localhost:1882/api/workboard/projects', {
+    fetch('/api/workboard/projects', {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
       .then(r => r.ok ? r.json() : [])
@@ -150,7 +150,7 @@ function ProjectPostDetailPage() {
     setPwError('');
     try {
       const token = localStorage.getItem('mmsoft_access_token');
-      const res = await fetch('http://localhost:1882/api/workboard/checkpw', {
+      const res = await fetch('/api/workboard/checkpw', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ function ProjectPostDetailPage() {
     if (!window.confirm('게시글을 삭제하시겠습니까?')) return;
     try {
       const token = localStorage.getItem('mmsoft_access_token');
-      const res = await fetch(`http://localhost:1882/api/workboard/delete/${postId}`, {
+      const res = await fetch(`/api/workboard/delete/${postId}`, {
         method: 'DELETE',
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });

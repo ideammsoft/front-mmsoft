@@ -22,19 +22,20 @@
 .imageWrapper {
   width: 100%;
   height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: var(--spacing-lg);
-  background: var(--gradient-card);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
 .image {
-  width: 80%;
-  height: 80%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.06);
 }
 
 .title {

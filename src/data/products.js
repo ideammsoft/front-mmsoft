@@ -4,42 +4,42 @@ export const PRODUCTS = [
     id: 'customer-mgmt',
     title: '고객관리',
     description: '체계적인 고객정보 관리 시스템',
-    image: '/images/products/customer.svg',
-    link: '/products/customer'
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format&fit=crop',
+    link: '/downloads'
   },
   {
     id: 'hr-mgmt',
     title: '인사관리',
     description: '효율적인 인사 관리 솔루션',
-    image: '/images/products/hr.svg',
-    link: '/products/hr'
+    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80&auto=format&fit=crop',
+    link: '/downloads'
   },
   {
-    id: 'name-mgmt',
-    title: '명칭관리',
-    description: '명칭 및 명부 관리 시스템',
-    image: '/images/products/name.svg',
-    link: '/products/name'
+    id: 'giro-mgmt',
+    title: '지로도우미',
+    description: '손쉬운 지로발행 시스템',
+    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&q=80&auto=format&fit=crop',
+    link: '/downloads'
   },
   {
     id: 'gym-mgmt',
     title: '체육관 운영',
     description: '체육관 회원 및 시설 관리',
-    image: '/images/products/gym.svg',
-    link: '/products/gym'
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80&auto=format&fit=crop',
+    link: '/downloads'
   },
   {
     id: 'insurance-mgmt',
     title: '보험고객 관리',
     description: '보험 고객 정보 관리 솔루션',
-    image: '/images/products/insurance.svg',
-    link: '/products/insurance'
+    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80&auto=format&fit=crop',
+    link: '/downloads'
   },
   {
-    id: 'facility-mgmt',
-    title: '시설관리',
-    description: '시설물 통합 관리 시스템',
-    image: '/images/products/facility.svg',
-    link: '/products/facility'
+    id: 'housing-mgmt',
+    title: '주택관리',
+    description: '소규모 빌라,건물,빌딩 관리 시스템',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80&auto=format&fit=crop',
+    link: '/downloads'
   }
 ];
