@@ -45,8 +45,8 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;f
     </div>
   </div>
   <div class="notice">
-    ※ 결제하기 클릭 시 기본 브라우저에서 결제창이 열립니다.<br>
-    ※ 결제 완료 후 브라우저 창을 닫아주세요.
+    ※ 결제하기 클릭 시 Microsoft Edge에서 결제창이 열립니다.<br>
+    ※ 결제 완료 후 Edge 창을 닫아주세요.
   </div>
   <button type="button" class="pay-btn" id="payBtn" onclick="go()">카드 결제하기</button>
 </div>
@@ -111,38 +111,21 @@ function go() {
     + '&phone=' + encodeURIComponent(ph)
     + '&email=' + encodeURIComponent(em);
 
-  var fullUrl = window.location.protocol + '//' + window.location.host + payPath;
+  var fullUrl = 'https://' + window.location.host + payPath;
 
-  function openInPopup() {
-    var popup = window.open(payPath, 'kspaypopup', 'width=850,height=900,scrollbars=yes');
-    var timer = setInterval(function() {
-      if (popup && popup.closed) {
-        clearInterval(timer);
-        btn.disabled = false; btn.innerHTML = '카드 결제하기';
-      }
-    }, 1000);
-  }
+  /* microsoft-edge: 프로토콜로 Edge 강제 실행 (VB6 WebBrowser 포함 모든 IE 버전 동작) */
+  try {
+    var link = document.createElement('a');
+    link.href = 'microsoft-edge:' + fullUrl;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch(e) {}
 
-  /* IE10/11 공식 API: 기본 브라우저로 URL 열기 */
-  if (navigator.msLaunchUri) {
-    navigator.msLaunchUri(
-      fullUrl,
-      function() {
-        /* 성공: 기본 브라우저 열림 */
-        btn.innerHTML = '기본 브라우저에서 결제 진행 중...';
-        setTimeout(function() {
-          btn.disabled = false; btn.innerHTML = '카드 결제하기';
-        }, 8000);
-      },
-      function() {
-        /* 실패: IE 팝업으로 폴백 */
-        openInPopup();
-      }
-    );
-  } else {
-    /* IE10 미만 또는 비IE: 팝업으로 열기 */
-    openInPopup();
-  }
+  btn.innerHTML = 'Edge 브라우저에서 결제 진행 중...';
+  setTimeout(function() {
+    btn.disabled = false; btn.innerHTML = '카드 결제하기';
+  }, 8000);
 }
 </script>
 </body>
