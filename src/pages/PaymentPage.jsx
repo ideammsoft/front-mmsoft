@@ -76,6 +76,7 @@ function PaymentPage() {
   const [customAmount, setCustomAmount] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [showContactModal, setShowContactModal] = useState(false);
 
   // 로그인 필요
   useEffect(() => {
@@ -86,12 +87,13 @@ function PaymentPage() {
   }, [user, navigate]);
 
   const handleProductSelect = (product) => {
+    if (product.type === 'contact') {
+      setShowContactModal(true);
+      return;
+    }
     setSelectedProduct(product);
     setSelectedPrice(null);
     setCustomAmount('');
-    if (product.type === 'contact') {
-      setStep('contact');
-    }
   };
 
   const handleNext = () => {
@@ -237,41 +239,44 @@ function PaymentPage() {
                 {(selectedProduct.type === 'sms_charge' || selectedProduct.hasCustom) && (
                   <div className={styles.customAmount}>
                     <label>직접 입력</label>
-                    <input
-                      type="text"
-                      placeholder="금액 직접 입력"
-                      value={customAmount}
-                      onChange={(e) => {
-                        const raw = e.target.value.replace(/[^0-9]/g, '');
-                        setCustomAmount(raw ? formatNumber(parseInt(raw, 10)) : '');
-                        setSelectedPrice(null);
-                      }}
-                      className={styles.amountInput}
-                    />
+                    <div className={styles.customAmountRow}>
+                      <input
+                        type="text"
+                        placeholder="금액 직접 입력"
+                        value={customAmount}
+                        onChange={(e) => {
+                          const raw = e.target.value.replace(/[^0-9]/g, '');
+                          setCustomAmount(raw ? formatNumber(parseInt(raw, 10)) : '');
+                          setSelectedPrice(null);
+                        }}
+                        className={styles.amountInput}
+                      />
+                      <button className={styles.nextBtn} onClick={handleNext}>
+                        다음 단계 →
+                      </button>
+                    </div>
                   </div>
                 )}
-
-                <button className={styles.nextBtn} onClick={handleNext}>
-                  다음 단계 →
-                </button>
               </div>
             )}
           </div>
         )}
 
-        {/* ── 기타 (견적문의) ── */}
-        {step === 'contact' && (
-          <div className={styles.contactBox}>
-            <div className={styles.contactIcon}>📩</div>
-            <h2>기타 서비스 문의</h2>
-            <p>기타 서비스 및 커스텀 개발 관련 문의는 아래 연락처로 문의해주세요.</p>
-            <div className={styles.contactInfo}>
-              <p>📞 전화: 02-864-7576</p>
-              <p>📧 이메일: man@mmsoft.co.kr</p>
+        {/* ── 기타 서비스 문의 모달 ── */}
+        {showContactModal && (
+          <div className={styles.modalOverlay} onClick={() => setShowContactModal(false)}>
+            <div className={styles.modalBox} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.contactIcon}>📩</div>
+              <h2>기타 서비스 문의</h2>
+              <p>기타 서비스 및 커스텀 개발 관련 문의는<br />아래 연락처로 문의해주세요.</p>
+              <div className={styles.contactInfo}>
+                <p>📞 전화: 02-864-7576</p>
+                <p>📧 이메일: man@mmsoft.co.kr</p>
+              </div>
+              <button className={styles.backBtn} onClick={() => setShowContactModal(false)}>
+                닫기
+              </button>
             </div>
-            <button className={styles.backBtn} onClick={handleReset}>
-              돌아가기
-            </button>
           </div>
         )}
 
