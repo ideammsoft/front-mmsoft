@@ -113,28 +113,7 @@ function go() {
 
   var fullUrl = window.location.protocol + '//' + window.location.host + payPath;
 
-  /* 기본 브라우저(Chrome 등)로 열기 - Windows Shell 이용 */
-  var openedExternally = false;
-  try {
-    var shell = new ActiveXObject('Shell.Application');
-    shell.ShellExecute(fullUrl, '', '', 'open', 1);
-    openedExternally = true;
-  } catch(e1) {
-    try {
-      var ws = new ActiveXObject('WScript.Shell');
-      ws.Run(fullUrl);
-      openedExternally = true;
-    } catch(e2) {}
-  }
-
-  if (openedExternally) {
-    /* 외부 브라우저로 열림 - 5초 후 버튼 복원 */
-    setTimeout(function() {
-      btn.disabled = false;
-      btn.innerHTML = '카드 결제하기';
-    }, 5000);
-  } else {
-    /* ActiveX 불가 시 IE 팝업으로 폴백 */
+  function openInPopup() {
     var popup = window.open(payPath, 'kspaypopup', 'width=850,height=900,scrollbars=yes');
     var timer = setInterval(function() {
       if (popup && popup.closed) {
@@ -142,6 +121,27 @@ function go() {
         btn.disabled = false; btn.innerHTML = '카드 결제하기';
       }
     }, 1000);
+  }
+
+  /* IE10/11 공식 API: 기본 브라우저로 URL 열기 */
+  if (navigator.msLaunchUri) {
+    navigator.msLaunchUri(
+      fullUrl,
+      function() {
+        /* 성공: 기본 브라우저 열림 */
+        btn.innerHTML = '기본 브라우저에서 결제 진행 중...';
+        setTimeout(function() {
+          btn.disabled = false; btn.innerHTML = '카드 결제하기';
+        }, 8000);
+      },
+      function() {
+        /* 실패: IE 팝업으로 폴백 */
+        openInPopup();
+      }
+    );
+  } else {
+    /* IE10 미만 또는 비IE: 팝업으로 열기 */
+    openInPopup();
   }
 }
 </script>
