@@ -202,7 +202,9 @@ function BoardList({ posts, onRefresh }) {
     .sort((a, b) => {
       const oa = CATEGORY_ORDER[a.freeboardRolename] ?? 2;
       const ob = CATEGORY_ORDER[b.freeboardRolename] ?? 2;
-      return oa - ob;
+      if (oa !== ob) return oa - ob;
+      // 같은 카테고리 내에서는 최신 글(ref 높을수록) 우선
+      return (b.ref ?? 0) - (a.ref ?? 0);
     });
 
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
@@ -278,7 +280,6 @@ function BoardList({ posts, onRefresh }) {
               {paginated.map((post, idx) => {
                 const isSecret   = post.title === '비밀 게시글입니다.';  // 서버 마스킹
                 const isMySecret = post.isSecret === 'Y';               // 내가 볼 수 있는 비밀글
-                const isNotice   = post.freeboardRolename === '공지';
                 const isReplyRow = post.depth > 0;
                 return (
                   <tr key={post.freeboardId} onClick={() => handleRowClick(post)}
