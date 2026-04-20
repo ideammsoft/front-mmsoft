@@ -125,7 +125,16 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
       });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        setPwError(err.message || '비밀번호 변경에 실패했습니다.');
+        const msg = err.message || '';
+        if (res.status === 401 || msg.includes('만료')) {
+          alert('로그인 세션이 만료되었습니다. 다시 로그인해주세요.');
+          localStorage.removeItem('mmsoft_user');
+          localStorage.removeItem('mmsoft_access_token');
+          onClose?.();
+          window.location.reload();
+          return;
+        }
+        setPwError(msg || '비밀번호 변경에 실패했습니다.');
         return;
       }
       alert('비밀번호가 변경되었습니다.');
