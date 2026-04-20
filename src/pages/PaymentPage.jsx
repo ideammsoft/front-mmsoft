@@ -172,14 +172,6 @@ function PaymentPage() {
 
   return (
     <div className={styles.page}>
-      {/* Hero */}
-      <section className={styles.hero}>
-        <div className={styles.heroInner}>
-          <h1 className={styles.heroTitle}>충전 및 결제</h1>
-          <p className={styles.heroSub}>엠엠소프트 제품 구매 및 충전 서비스</p>
-        </div>
-      </section>
-
       <div className={styles.container}>
         {/* 단계 표시 */}
         <div className={styles.steps}>
@@ -342,7 +334,7 @@ function PaymentPage() {
               {result.ok ? '결제가 완료되었습니다' : '결제가 완료되지 않았습니다'}
             </h2>
             {result.ok && result.amt && (
-              <p className={styles.resultMsg}>{result.amt}원이 처리되었습니다.</p>
+              <p className={styles.resultMsg}>{Number(result.amt).toLocaleString('ko-KR')}원이 처리되었습니다.</p>
             )}
             {!result.ok && result.msg && (
               <p className={styles.resultMsg}>{result.msg}</p>
