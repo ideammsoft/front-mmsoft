@@ -43,6 +43,27 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
   const loginId = JSON.parse(localStorage.getItem('mmsoft_user') || '{}').homepageId || '';
   const overlayMouseDown = useRef(false);
 
+  // 패널 열릴 때 토큰 만료 여부 즉시 확인
+  useEffect(() => {
+    if (!isEdit) return;
+    const token = localStorage.getItem('mmsoft_access_token');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      onClose?.();
+      return;
+    }
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      if (payload.exp * 1000 < Date.now()) {
+        alert('로그인 세션이 만료되었습니다. 다시 로그인해주세요.');
+        localStorage.removeItem('mmsoft_user');
+        localStorage.removeItem('mmsoft_access_token');
+        onClose?.();
+        window.location.reload();
+      }
+    } catch { /* 토큰 파싱 실패 시 무시 */ }
+  }, [isEdit, onClose]);
+
   // 초기값 세팅: localStorage + 서버(수정 모드)
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('mmsoft_user') || '{}');
