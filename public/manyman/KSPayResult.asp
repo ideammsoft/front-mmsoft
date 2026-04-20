@@ -1,13 +1,17 @@
 <!-- #include file="KSPayWebHost.inc" -->
+<!-- #include virtual="/include_ideakslee/dbconn_idea.asp" -->
+<!-- #include virtual="/include_ideakslee/DB_SMS_PPURIO.asp" -->
 <%@LANGUAGE="VBSCRIPT" CODEPAGE="65001"%>
 <%
 Response.CharSet = "utf-8"
 Response.ContentType = "text/html"
 
-Dim rcid   : rcid   = Request.Form("reCommConId")
-Dim rctype : rctype = Request.Form("reCommType")
-Dim rhash  : rhash  = Request.Form("reHash")
-Dim payamt : payamt = Request.Form("sndAmount")
+Dim rcid    : rcid    = Request.Form("reCommConId")
+Dim rctype  : rctype  = Request.Form("reCommType")
+Dim rhash   : rhash   = Request.Form("reHash")
+Dim payamt  : payamt  = Request.Form("sndAmount")
+Dim uid     : uid     = Trim(Request.Form("a"))
+Dim pamount : pamount = Trim(Request.Form("b"))
 
 ' KSNET 서버와 통신하여 결제 결과 검증
 Dim authyn : authyn = "X"
@@ -22,6 +26,44 @@ If kspay_send_msg("1") Then
     amt    = kspay_get_value("amt")
     msg1   = kspay_get_value("msg1")
     trno   = kspay_get_value("trno")
+End If
+
+' DB 업데이트 및 SMS 알림 (결제 성공 시)
+If authyn = "O" And uid <> "" And IsNumeric(pamount) And CLng(pamount) > 0 Then
+    Dim pamt   : pamt   = CLng(pamount)
+    Dim safeId : safeId = Replace(uid, "'", "''")
+    Dim sql, rs
+
+    ' 잔액 업데이트
+    sql = "UPDATE manyman SET payment = payment + " & pamt & " WHERE id = '" & safeId & "'"
+    Dbcon.Execute(sql)
+
+    ' 충전 이력 기록
+    sql = "INSERT INTO M_sms (id, title, payment) VALUES ('" & safeId & "', '카드충전', " & pamt & ")"
+    Dbcon.Execute(sql)
+
+    ' SMS 발송 (ppurio)
+    sql = "SELECT mphone FROM manyman WHERE id = '" & safeId & "'"
+    Set rs = Dbcon.Execute(sql)
+    If Not rs.EOF Then
+        Dim mphone : mphone = Trim(rs("mphone"))
+        If Left(mphone, 2) = "01" Then
+            Dim hv, mv, sv
+            hv = Hour(Now)   : If Len(hv) < 2 Then hv = "0" & hv
+            mv = Minute(Now) : If Len(mv) < 2 Then mv = "0" & mv
+            sv = Second(Now) : If Len(sv) < 2 Then sv = "0" & sv
+            Dim cmid2
+            Randomize
+            cmid2 = Replace(FormatDateTime(Now(), 2), "-", "") & hv & mv & sv & _
+                    Replace(CStr(Timer()), ".", "") & Replace(CStr(Rnd()), ".", "")
+            Dim msgBody : msgBody = "문자메시지 " & FormatNumber(pamt, 0) & "원이 충전되었습니다(카드결제). - 엠엠소프트"
+            sql = "INSERT INTO ums_data (cmid, msg_type, status, request_time, dest_phone, send_phone, msg_body, etc1, etc2, etc3, etc4) " & _
+                  "VALUES ('" & cmid2 & "', '0', '0', GETDATE(), '" & Replace(mphone, "-", "") & "', '028647576', '" & msgBody & "', '', 'manyman', '', '')"
+            Db_ppu.Execute(sql)
+        End If
+    End If
+    rs.Close
+    Set rs = Nothing
 End If
 
 ' XSS 방지
@@ -40,14 +82,16 @@ End Function
 <title>결제 결과 처리 중...</title>
 <style>
 body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
-.box{text-align:center;color:#555;font-size:14px}
-.icon{font-size:36px;margin-bottom:12px}
+.box{text-align:center;color:#555;font-size:15px}
+.icon{font-size:40px;margin-bottom:12px}
+.msg{margin-top:8px;font-size:13px;color:#777}
 </style>
 </head>
 <body>
 <div class="box">
-  <div class="icon">⏳</div>
-  <p>결제 결과를 처리하고 있습니다...<br>잠시 기다려 주세요.</p>
+  <div class="icon" id="ico">⏳</div>
+  <p id="txt">결제 결과를 처리하고 있습니다...<br>잠시 기다려 주세요.</p>
+  <p class="msg" id="sub"></p>
 </div>
 <script language="javascript">
 (function() {
@@ -63,10 +107,17 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;d
       amt  : amt,
       msg  : msg
     }, '*');
+    setTimeout(function() { window.close(); }, 1200);
+  } else {
+    // 단독 사용 시 결과 인라인 표시
+    document.getElementById('ico').textContent = ok ? '✅' : '❌';
+    document.getElementById('txt').innerHTML   = ok
+      ? '결제가 완료되었습니다.'
+      : '결제가 완료되지 않았습니다.';
+    document.getElementById('sub').textContent = ok
+      ? amt + '원이 처리되었습니다.'
+      : (msg || '');
   }
-
-  // 1초 후 자동 닫기
-  setTimeout(function() { window.close(); }, 1000);
 })();
 </script>
 </body>
