@@ -108,13 +108,19 @@ function ProjectPostDetailPage() {
   const roleName = (() => {
     try { return JSON.parse(localStorage.getItem('mmsoft_user'))?.roleName || ''; } catch { return ''; }
   })();
-  const canEdit = roleName === 'super_admin';
+  const canEdit = roleName.toLowerCase() === 'super_admin';
 
-  // 비밀번호 확인 상태 (관리자는 바로 통과)
+  // 비밀번호 확인 상태 (super_admin은 바로 통과, 비밀번호 없는 글도 통과)
+  const needPw = !canEdit && !!post?.passwd;
   const [verified, setVerified] = useState(canEdit);
   const [pwInput, setPwInput] = useState('');
   const [pwError, setPwError] = useState('');
   const [pwChecking, setPwChecking] = useState(false);
+
+  // 글이 로드된 후 비밀번호 없으면 자동 통과
+  useEffect(() => {
+    if (post && !canEdit && !post.passwd) setVerified(true);
+  }, [post, canEdit]);
 
   // 직접 URL 접근 시 API에서 글 찾기
   useEffect(() => {
@@ -214,44 +220,10 @@ function ProjectPostDetailPage() {
     );
   }
 
-  // 비밀번호 확인 화면 (비관리자)
-  if (!verified) {
-    return (
-      <div className={styles.pageWrapper}>
-        <div className={styles.card}>
-          <div className={styles.cardHeader}>
-            <span className={styles.categoryTag}>{post.category}</span>
-            <h1 className={styles.title}>{post.title}</h1>
-          </div>
-          <div className={styles.content}>
-            <p style={{ marginBottom: '16px', color: 'var(--color-text-muted)' }}>
-              이 게시글은 비밀번호로 보호되어 있습니다.
-            </p>
-            <form onSubmit={handlePasswordCheck} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', flexDirection: 'column', maxWidth: '300px' }}>
-              <input
-                type="password"
-                value={pwInput}
-                onChange={e => setPwInput(e.target.value)}
-                placeholder="비밀번호를 입력하세요"
-                style={{ padding: '8px 12px', border: '1px solid var(--color-border)', borderRadius: '4px', fontSize: 'var(--font-size-sm)', width: '100%' }}
-                autoFocus
-              />
-              {pwError && <p style={{ color: 'red', fontSize: 'var(--font-size-sm)', margin: 0 }}>{pwError}</p>}
-              <button type="submit" disabled={pwChecking}
-                style={{ padding: '8px 20px', background: 'var(--color-primary)', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-                {pwChecking ? '확인 중...' : '확인'}
-              </button>
-            </form>
-          </div>
-          <div className={styles.footer}>
-            <Link to="/projects" className={styles.backButton}>
-              <FaChevronLeft /> 목록으로
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // 파일명만 있는 url을 /work_down/ 경로로 변환
+  const fileUrl = post.url
+    ? (post.url.startsWith('http') ? post.url : `/work_down/${post.url}`)
+    : '';
 
   return (
     <div className={styles.pageWrapper}>
@@ -274,7 +246,7 @@ function ProjectPostDetailPage() {
         <div className={styles.content}>
           <p style={{ whiteSpace: 'pre-wrap' }}>{post.content}</p>
 
-          {post.url && (
+          {fileUrl && (
             <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid var(--color-border)' }}>
               <div style={{ marginBottom: '8px' }}>
                 <FaLink size={12} style={{ marginRight: '6px', verticalAlign: 'middle', color: 'var(--color-text-muted)' }} />
@@ -282,7 +254,7 @@ function ProjectPostDetailPage() {
                   첨부 링크
                 </span>
                 <a
-                  href={post.url}
+                  href={fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-primary)', textDecoration: 'underline', wordBreak: 'break-all' }}
@@ -291,7 +263,7 @@ function ProjectPostDetailPage() {
                 </a>
               </div>
               <a
-                href={post.url}
+                href={fileUrl}
                 download
                 style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', background: 'var(--color-primary)', color: '#fff', borderRadius: '4px', fontSize: 'var(--font-size-sm)', textDecoration: 'none' }}
               >
@@ -324,6 +296,37 @@ function ProjectPostDetailPage() {
           onClose={() => setEditOpen(false)}
           onSave={handleEditSave}
         />
+      )}
+
+      {/* 비밀번호 모달 */}
+      {!verified && post.passwd && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal} style={{ maxWidth: '320px' }} onClick={e => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h2 className={styles.modalTitle}>비밀번호 확인</h2>
+            </div>
+            <form id="pwForm" onSubmit={handlePasswordCheck} className={styles.modalBody}>
+              <p style={{ marginBottom: '12px', fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>
+                이 게시글은 비밀번호로 보호되어 있습니다.
+              </p>
+              <input
+                type="password"
+                value={pwInput}
+                onChange={e => setPwInput(e.target.value)}
+                placeholder="비밀번호를 입력하세요"
+                style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--color-border)', borderRadius: '4px', fontSize: 'var(--font-size-sm)' }}
+                autoFocus
+              />
+              {pwError && <p style={{ color: 'red', fontSize: 'var(--font-size-sm)', margin: '6px 0 0' }}>{pwError}</p>}
+            </form>
+            <div className={styles.modalFooter}>
+              <button type="button" className={styles.cancelButton} onClick={() => navigate('/projects')}>취소</button>
+              <button type="submit" form="pwForm" className={styles.submitButton} disabled={pwChecking}>
+                {pwChecking ? '확인 중...' : '확인'}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

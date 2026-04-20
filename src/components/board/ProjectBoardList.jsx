@@ -174,7 +174,7 @@ function ProjectBoardList({ posts, onRefresh }) {
   const roleName = (() => {
     try { return JSON.parse(localStorage.getItem('mmsoft_user'))?.roleName || ''; } catch { return ''; }
   })();
-  const canWrite = roleName === 'super_admin';
+  const canWrite = roleName.toLowerCase() === 'super_admin';
 
   const itemsPerPage = 10; // 한 페이지에 표시할 게시글 수
   const categories   = ['전체', '주문제작', '일반', '기타']; // 카테고리 목록
