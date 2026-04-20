@@ -12,6 +12,8 @@ const API = '';
  * onSaved(updatedUser) : 저장 완료 후 콜백
  */
 function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
+  const isEdit  = mode === 'edit';
+
   const [name, setName]       = useState('');
   const [email, setEmail]     = useState('');
   const [mphone, setMphone]   = useState('');  // 휴대폰
@@ -37,7 +39,6 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
   const [pwError, setPwError]             = useState('');
   const [pwSaving, setPwSaving]           = useState(false);
 
-  const isEdit  = mode === 'edit';
   const title   = isEdit ? '회원 정보 수정' : '추가 정보 입력';
   const loginId = JSON.parse(localStorage.getItem('mmsoft_user') || '{}').homepageId || '';
   const overlayMouseDown = useRef(false);
