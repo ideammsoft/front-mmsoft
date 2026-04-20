@@ -134,7 +134,7 @@ window.addEventListener('message', function(e) {
   document.KSPayWeb.reCommType.value  = data.rctype || '';
   document.KSPayWeb.reHash.value      = data.rhash  || '';
   document.KSPayWeb.target = '';
-  document.KSPayWeb.action = window.location.protocol + '//' + window.location.host + '/manyman/KSPayResult.asp';
+  document.KSPayWeb.action = '/manyman/KSPayResult.asp';
   document.KSPayWeb.submit();
 });
 
@@ -147,7 +147,7 @@ function go() {
   document.getElementById('payBtn').disabled = true;
   document.getElementById('payBtn').textContent = '결제창 열리는 중...';
 
-  var replyUrl = window.location.protocol + '//' + window.location.host + '/manyman/KSPayRcv.asp';
+  var replyUrl = window.location.origin + '/manyman/KSPayRcv.asp';
 
   document.KSPayWeb.sndOrdernumber.value = mkord();
   document.KSPayWeb.sndGoodname.value    = product;
