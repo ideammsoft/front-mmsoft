@@ -2,31 +2,27 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <title>엠엠소프트 - 결제</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;font-size:13px}
-.hd{background:#1a73e8;color:#fff;text-align:center;padding:9px;font-size:14px;font-weight:bold}
-.card{background:#fff;padding:12px 14px}
-.row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f0f0f0;font-size:12px}
-.row:last-child{border-bottom:none}
+body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;font-size:12px}
+.hd{background:#1a73e8;color:#fff;text-align:center;padding:6px;font-size:13px;font-weight:bold}
+.card{background:#fff;padding:7px 12px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:12px}
 .lbl{color:#666}
-.sep{height:1px;background:#e0e0e0;margin:8px 0}
-.amt-wrap{padding:8px 0 4px}
-.amt-label{font-size:11px;color:#555;margin-bottom:5px}
-.amt-row{display:flex;align-items:center;gap:5px;margin-bottom:5px}
-.amt-input{width:100px;text-align:right;padding:5px 7px;border:1px solid #bbb;border-radius:4px;font-size:14px;font-weight:bold;color:#c62828}
-.btn-plus{padding:4px 7px;border:1px solid #bbb;background:#f5f5f5;border-radius:4px;cursor:pointer;font-size:11px;white-space:nowrap}
+.sep{height:1px;background:#e0e0e0;margin:5px 0}
+.amt-label{font-size:11px;color:#555;margin-bottom:3px}
+.amt-row{display:flex;align-items:center;gap:4px;margin-bottom:3px}
+.amt-input{width:88px;text-align:right;padding:3px 6px;border:1px solid #bbb;border-radius:3px;font-size:13px;font-weight:bold;color:#c62828}
+.btn-plus{padding:3px 5px;border:1px solid #bbb;background:#f5f5f5;border-radius:3px;cursor:pointer;font-size:11px}
 .btn-plus:hover{background:#e0e0e0}
-.notice{background:#e8f0fe;border-left:3px solid #1a73e8;padding:7px 10px;margin:8px 0;font-size:11px;color:#333;line-height:1.7}
-.pay-btn{width:100%;padding:10px;background:#1a73e8;color:#fff;border:none;border-radius:5px;font-size:14px;font-weight:bold;cursor:pointer;margin-top:4px}
+.notice{background:#e8f0fe;border-left:3px solid #1a73e8;padding:4px 8px;margin:5px 0;font-size:10px;color:#333;line-height:1.6}
+.pay-btn{width:100%;padding:7px;background:#1a73e8;color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:bold;cursor:pointer;margin-top:2px}
 .pay-btn:hover{background:#1557b0}
-.pay-btn:disabled{background:#9fb8e8;cursor:not-allowed}
-.result-box{padding:20px 14px;text-align:center}
-.result-icon{font-size:40px;margin-bottom:10px}
-.result-msg{font-size:14px;font-weight:bold;margin-bottom:6px}
-.result-sub{font-size:12px;color:#666}
+.result-box{padding:14px 12px;text-align:center}
+.result-msg{font-size:13px;font-weight:bold;margin-bottom:4px}
+.result-sub{font-size:11px;color:#666}
 </style>
 </head>
 <body>
@@ -34,9 +30,8 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;f
 <div class="hd">MMSoft&nbsp; 결제</div>
 <div class="card" id="formArea">
   <div class="row"><span class="lbl">상품명</span><span style="font-weight:bold;color:#1a73e8">문자 및 카카오톡</span></div>
-  <div class="row"><span class="lbl">결제수단</span><span>신용카드 / 체크카드</span></div>
   <div class="sep"></div>
-  <div class="amt-wrap">
+  <div style="padding:3px 0">
     <div class="amt-label">충전 금액 (최소 10,000원)</div>
     <div class="amt-row">
       <input type="text" id="amtInput" class="amt-input" value="10,000">원
@@ -50,60 +45,104 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;f
     </div>
   </div>
   <div class="notice">
-    ※ 아래 버튼을 누르면 카드 결제 창이 열립니다.<br>
-    ※ 결제 완료 후 자동으로 창이 닫힙니다.
+    ※ 결제하기 클릭 시 기본 브라우저에서 결제창이 열립니다.<br>
+    ※ 결제 완료 후 브라우저 창을 닫아주세요.
   </div>
   <button type="button" class="pay-btn" id="payBtn" onclick="go()">카드 결제하기</button>
 </div>
 
 <script>
-function gp(n){
-  var s=window.location.search.substring(1).split('&');
-  for(var i=0;i<s.length;i++){var p=s[i].split('=');if(decodeURIComponent(p[0])===n)return p.length>1?decodeURIComponent(p[1].replace(/\+/g,' ')):''}
+function gp(n) {
+  var s = window.location.search.substring(1).split('&');
+  for (var i = 0; i < s.length; i++) {
+    var p = s[i].split('=');
+    if (decodeURIComponent(p[0]) === n)
+      return p.length > 1 ? decodeURIComponent(p[1].replace(/\+/g, ' ')) : '';
+  }
   return '';
 }
 
-var uid=gp('id'), ph=gp('phone'), em=gp('email')||'man@mmsoft.co.kr', nm=gp('name')||gp('id');
+var uid = gp('id'), ph = gp('phone'), em = gp('email') || 'man@mmsoft.co.kr', nm = gp('name') || gp('id');
 
-function getAmt(){return parseInt((document.getElementById('amtInput').value||'').replace(/,/g,''),10)||0;}
-function addAmt(n){var v=getAmt()+n;document.getElementById('amtInput').value=v.toLocaleString('ko-KR');}
-function resetAmt(){document.getElementById('amtInput').value='10,000';}
+function commaNum(n) {
+  var s = String(parseInt(n, 10) || 0), out = '';
+  for (var i = 0; i < s.length; i++) {
+    if (i > 0 && (s.length - i) % 3 === 0) out += ',';
+    out += s[i];
+  }
+  return out;
+}
 
-/* KSPayResult.asp → 팝업 → window.opener.postMessage → 여기서 수신 */
-window.addEventListener('message', function(e){
-  if(!e.data||e.data.type!=='KSPAY_RESULT') return;
-  var ok=e.data.ok, amt=e.data.amt, msg=e.data.msg;
+function getAmt() {
+  return parseInt((document.getElementById('amtInput').value || '').replace(/,/g, ''), 10) || 0;
+}
+function addAmt(n) { document.getElementById('amtInput').value = commaNum(getAmt() + n); }
+function resetAmt() { document.getElementById('amtInput').value = '10,000'; }
+
+/* postMessage 수신 (팝업 방식 폴백용) - IE 호환 */
+function handleMessage(e) {
+  var data = e.data;
+  if (!data || data.type !== 'KSPAY_RESULT') return;
   document.getElementById('formArea').innerHTML =
     '<div class="result-box">'
-    +'<div class="result-icon">'+(ok?'✅':'❌')+'</div>'
-    +'<div class="result-msg">'+(ok?'결제가 완료되었습니다':'결제가 완료되지 않았습니다')+'</div>'
-    +(ok&&amt?'<div class="result-sub">'+Number(amt).toLocaleString('ko-KR')+'원이 처리되었습니다.</div>':'')
-    +(!ok&&msg?'<div class="result-sub">'+msg+'</div>':'')
-    +'</div>';
-});
+    + '<div class="result-msg">' + (data.ok ? '&#10003; 결제가 완료되었습니다' : '&#10007; 결제 미완료') + '</div>'
+    + (data.ok && data.amt ? '<div class="result-sub">' + commaNum(data.amt) + '원 처리 완료</div>' : '')
+    + (!data.ok && data.msg ? '<div class="result-sub">' + data.msg + '</div>' : '')
+    + '</div>';
+}
+if (window.addEventListener) {
+  window.addEventListener('message', handleMessage);
+} else if (window.attachEvent) {
+  window.attachEvent('onmessage', handleMessage);
+}
 
-function go(){
-  var amount=getAmt();
-  if(!amount||amount<10000){alert('최소 결제 금액은 10,000원입니다.');return;}
-  var btn=document.getElementById('payBtn');
-  btn.disabled=true; btn.textContent='결제창 열리는 중...';
+function go() {
+  var amount = getAmt();
+  if (!amount || amount < 10000) { alert('최소 결제 금액은 10,000원입니다.'); return; }
 
-  var payUrl='/manyman/index.html'
-    +'?product='+encodeURIComponent('문자 및 카카오톡 충전')
-    +'&amount='+amount
-    +'&id='+encodeURIComponent(uid)
-    +'&name='+encodeURIComponent(nm||uid)
-    +'&phone='+encodeURIComponent(ph)
-    +'&email='+encodeURIComponent(em);
+  var btn = document.getElementById('payBtn');
+  btn.disabled = true; btn.innerHTML = '결제창 열리는 중...';
 
-  var popup=window.open(payUrl,'kspaypopup','width=850,height=900,scrollbars=yes');
+  var payPath = '/manyman/index.html'
+    + '?product=' + encodeURIComponent('문자 및 카카오톡 충전')
+    + '&amount=' + amount
+    + '&id=' + encodeURIComponent(uid)
+    + '&name=' + encodeURIComponent(nm || uid)
+    + '&phone=' + encodeURIComponent(ph)
+    + '&email=' + encodeURIComponent(em);
 
-  var timer=setInterval(function(){
-    if(popup&&popup.closed){
-      clearInterval(timer);
-      btn.disabled=false; btn.textContent='카드 결제하기';
-    }
-  },1000);
+  var fullUrl = window.location.protocol + '//' + window.location.host + payPath;
+
+  /* 기본 브라우저(Chrome 등)로 열기 - Windows Shell 이용 */
+  var openedExternally = false;
+  try {
+    var shell = new ActiveXObject('Shell.Application');
+    shell.ShellExecute(fullUrl, '', '', 'open', 1);
+    openedExternally = true;
+  } catch(e1) {
+    try {
+      var ws = new ActiveXObject('WScript.Shell');
+      ws.Run(fullUrl);
+      openedExternally = true;
+    } catch(e2) {}
+  }
+
+  if (openedExternally) {
+    /* 외부 브라우저로 열림 - 5초 후 버튼 복원 */
+    setTimeout(function() {
+      btn.disabled = false;
+      btn.innerHTML = '카드 결제하기';
+    }, 5000);
+  } else {
+    /* ActiveX 불가 시 IE 팝업으로 폴백 */
+    var popup = window.open(payPath, 'kspaypopup', 'width=850,height=900,scrollbars=yes');
+    var timer = setInterval(function() {
+      if (popup && popup.closed) {
+        clearInterval(timer);
+        btn.disabled = false; btn.innerHTML = '카드 결제하기';
+      }
+    }, 1000);
+  }
 }
 </script>
 </body>
