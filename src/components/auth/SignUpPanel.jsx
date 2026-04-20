@@ -227,7 +227,8 @@ function SignUpPanel({ onClose, onSuccess }) {
           )}
         </div>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.form}
+          style={!niceResult ? { opacity: 0.4, pointerEvents: 'none' } : {}}>
 
           {/* 아이디 + 중복검사 버튼 */}
           <div className={styles.fieldWrapper}>
