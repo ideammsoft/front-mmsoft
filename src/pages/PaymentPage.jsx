@@ -227,7 +227,7 @@ function PaymentPage() {
                     <button
                       key={p.amount}
                       className={`${styles.priceBtn} ${selectedPrice?.amount === p.amount ? styles.priceBtnActive : ''}`}
-                      onClick={() => { setSelectedPrice(p); setCustomAmount(''); }}
+                      onClick={() => { setSelectedPrice(p); setCustomAmount(formatNumber(p.amount)); }}
                     >
                       {p.label}
                       <span className={styles.priceAmount}>{formatNumber(p.amount)}원</span>
