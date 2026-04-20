@@ -130,7 +130,7 @@ function PaymentPage() {
       const userEmail = user?.email || '';
       const payUrl = `/manyman/index.html?product=${encodeURIComponent(productName)}&amount=${amount}&id=${encodeURIComponent(userId)}&name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&email=${encodeURIComponent(userEmail)}`;
 
-      const popup = window.open(payUrl, 'kspaypopup', 'width=560,height=720,scrollbars=yes');
+      const popup = window.open(payUrl, 'kspaypopup', 'width=700,height=800,scrollbars=yes');
 
       // KSPayResult.asp에서 postMessage로 결과 수신
       const onMessage = (e) => {
