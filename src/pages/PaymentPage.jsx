@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './PaymentPage.module.css';
 
-// 제품 목록 (PPT Slide 5 기준)
+// 제품 목록
 const PRODUCTS = [
   {
     id: 'sms',
@@ -10,45 +10,44 @@ const PRODUCTS = [
     description: '문자 메시지 및 카카오톡 알림톡 충전 서비스',
     icon: '💬',
     prices: [
-      { label: '1만원', amount: 10000 },
-      { label: '3만원', amount: 30000 },
-      { label: '5만원', amount: 50000 },
+      { label: '1만원',  amount: 10000 },
+      { label: '3만원',  amount: 30000 },
+      { label: '5만원',  amount: 50000 },
       { label: '10만원', amount: 100000 },
+      { label: '20만원', amount: 200000 },
     ],
     type: 'sms_charge',
   },
   {
-    id: 'yeoreosaram',
-    name: '여러 사람',
-    description: '다중 사용자를 위한 인사/급여 관리 솔루션',
-    icon: '👥',
+    id: 'software',
+    name: '소프트웨어 구매',
+    description: '엠엠소프트 소프트웨어 초기 구매 비용',
+    icon: '💻',
     prices: [
-      { label: '1년 라이선스', amount: 330000 },
-      { label: '3년 라이선스', amount: 880000 },
+      { label: '110,000원', amount: 110000 },
+      { label: '220,000원', amount: 220000 },
+      { label: '330,000원', amount: 330000 },
+      { label: '660,000원', amount: 660000 },
+      { label: '770,000원', amount: 770000 },
     ],
     type: 'license',
+    hasCustom: true,
   },
   {
-    id: 'jiro',
-    name: '지로출력도우미',
-    description: '지로 출력 및 관리 전문 소프트웨어',
-    icon: '🖨️',
+    id: 'monthly',
+    name: '연회비 / 월비용',
+    description: '정기 납부 비용 (연회비 또는 월 구독료)',
+    icon: '📅',
     prices: [
-      { label: '1년 라이선스', amount: 220000 },
-      { label: '3년 라이선스', amount: 550000 },
+      { label: '11,000원',  amount: 11000 },
+      { label: '33,000원',  amount: 33000 },
+      { label: '55,000원',  amount: 55000 },
+      { label: '110,000원', amount: 110000 },
+      { label: '220,000원', amount: 220000 },
+      { label: '330,000원', amount: 330000 },
     ],
     type: 'license',
-  },
-  {
-    id: 'uridongmun',
-    name: '우리동문',
-    description: '동문/동창회 회원 관리 솔루션',
-    icon: '🎓',
-    prices: [
-      { label: '1년 라이선스', amount: 220000 },
-      { label: '3년 라이선스', amount: 550000 },
-    ],
-    type: 'license',
+    hasCustom: true,
   },
   {
     id: 'etc',
@@ -95,10 +94,6 @@ function PaymentPage() {
     }
   };
 
-  const handlePriceSelect = (price) => {
-    setSelectedPrice(price);
-  };
-
   const handleNext = () => {
     if (!selectedProduct) return;
     if (selectedProduct.type === 'sms_charge') {
@@ -107,9 +102,12 @@ function PaymentPage() {
         alert('충전 금액을 선택하거나 최소 10,000원 이상 입력해주세요.');
         return;
       }
-    } else if (selectedProduct.prices.length > 0 && !selectedPrice) {
-      alert('라이선스 종류를 선택해주세요.');
-      return;
+    } else if (selectedProduct.type === 'license') {
+      const amt = selectedPrice ? selectedPrice.amount : parseInt(customAmount.replace(/,/g, ''), 10);
+      if (!amt || amt < 1000) {
+        alert('금액을 선택하거나 직접 입력해주세요.');
+        return;
+      }
     }
     setStep('confirm');
   };
@@ -126,21 +124,14 @@ function PaymentPage() {
       const amount = getPayAmount();
       const productName = selectedProduct.name;
 
-      // KSPay 결제창 호출 (기존 manyman 결제 방식과 동일)
       const userId = user?.id || user?.userId || user?.homepageId || '';
       const userName = user?.name || user?.nickname || userId;
       const userPhone = user?.phone || user?.mphone || '';
       const userEmail = user?.email || '';
       const payUrl = `/manyman/index.html?product=${encodeURIComponent(productName)}&amount=${amount}&id=${encodeURIComponent(userId)}&name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&email=${encodeURIComponent(userEmail)}`;
 
-      // 결제 팝업 오픈
-      const popup = window.open(
-        payUrl,
-        'kspaypopup',
-        'width=502,height=600,scrollbars=yes'
-      );
+      const popup = window.open(payUrl, 'kspaypopup', 'width=502,height=600,scrollbars=yes');
 
-      // 결제 완료 콜백 (authfrm.html의 paymentResult와 연동)
       window.paymentResult = (ok, amt, msg) => {
         if (popup && !popup.closed) popup.close();
         setResult({ ok, amt, msg });
@@ -148,13 +139,10 @@ function PaymentPage() {
         setLoading(false);
       };
 
-      // 팝업이 닫혔는지 폴링 (사용자가 직접 닫은 경우)
       const timer = setInterval(() => {
         if (popup && popup.closed) {
           clearInterval(timer);
-          if (step !== 'result') {
-            setLoading(false);
-          }
+          if (step !== 'result') setLoading(false);
         }
       }, 1000);
 
@@ -233,49 +221,34 @@ function PaymentPage() {
                   {selectedProduct.name} — 금액 선택
                 </h3>
 
-                {selectedProduct.type === 'sms_charge' && (
-                  <>
-                    <div className={styles.priceOptions}>
-                      {selectedProduct.prices.map((p) => (
-                        <button
-                          key={p.amount}
-                          className={`${styles.priceBtn} ${selectedPrice?.amount === p.amount ? styles.priceBtnActive : ''}`}
-                          onClick={() => { setSelectedPrice(p); setCustomAmount(''); }}
-                        >
-                          {p.label}
-                          <span className={styles.priceAmount}>{formatNumber(p.amount)}원</span>
-                        </button>
-                      ))}
-                    </div>
-                    <div className={styles.customAmount}>
-                      <label>직접 입력 (최소 10,000원)</label>
-                      <input
-                        type="text"
-                        placeholder="충전 금액 입력"
-                        value={customAmount}
-                        onChange={(e) => {
-                          const raw = e.target.value.replace(/[^0-9]/g, '');
-                          setCustomAmount(raw ? formatNumber(parseInt(raw, 10)) : '');
-                          setSelectedPrice(null);
-                        }}
-                        className={styles.amountInput}
-                      />
-                    </div>
-                  </>
-                )}
+                <div className={styles.priceOptions}>
+                  {selectedProduct.prices.map((p) => (
+                    <button
+                      key={p.amount}
+                      className={`${styles.priceBtn} ${selectedPrice?.amount === p.amount ? styles.priceBtnActive : ''}`}
+                      onClick={() => { setSelectedPrice(p); setCustomAmount(''); }}
+                    >
+                      {p.label}
+                      <span className={styles.priceAmount}>{formatNumber(p.amount)}원</span>
+                    </button>
+                  ))}
+                </div>
 
-                {selectedProduct.type === 'license' && (
-                  <div className={styles.priceOptions}>
-                    {selectedProduct.prices.map((p) => (
-                      <button
-                        key={p.amount}
-                        className={`${styles.priceBtn} ${selectedPrice?.amount === p.amount ? styles.priceBtnActive : ''}`}
-                        onClick={() => setSelectedPrice(p)}
-                      >
-                        {p.label}
-                        <span className={styles.priceAmount}>{formatNumber(p.amount)}원</span>
-                      </button>
-                    ))}
+                {/* 직접 입력 (sms_charge 또는 hasCustom 제품) */}
+                {(selectedProduct.type === 'sms_charge' || selectedProduct.hasCustom) && (
+                  <div className={styles.customAmount}>
+                    <label>직접 입력</label>
+                    <input
+                      type="text"
+                      placeholder="금액 직접 입력"
+                      value={customAmount}
+                      onChange={(e) => {
+                        const raw = e.target.value.replace(/[^0-9]/g, '');
+                        setCustomAmount(raw ? formatNumber(parseInt(raw, 10)) : '');
+                        setSelectedPrice(null);
+                      }}
+                      className={styles.amountInput}
+                    />
                   </div>
                 )}
 
@@ -294,8 +267,8 @@ function PaymentPage() {
             <h2>기타 서비스 문의</h2>
             <p>기타 서비스 및 커스텀 개발 관련 문의는 아래 연락처로 문의해주세요.</p>
             <div className={styles.contactInfo}>
-              <p>📞 전화: 02-000-0000</p>
-              <p>📧 이메일: info@mmsoft.co.kr</p>
+              <p>📞 전화: 02-864-7576</p>
+              <p>📧 이메일: man@mmsoft.co.kr</p>
             </div>
             <button className={styles.backBtn} onClick={handleReset}>
               돌아가기

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaDownload, FaTimes, FaTag, FaFile, FaCalendar, FaEye } from 'react-icons/fa';
+import { FaDownload, FaTimes, FaTag, FaFile, FaCalendar } from 'react-icons/fa';
 import styles from './DownloadItem.module.css';
 
 function DownloadItem({ download, apiBase }) {
@@ -65,7 +65,7 @@ function DownloadItem({ download, apiBase }) {
               {download.publishedAt}
             </span>
             <span className={styles.metaItem}>
-              <FaEye size={11} />
+              <FaDownload size={11} />
               {downloadCount.toLocaleString()}
             </span>
           </div>
