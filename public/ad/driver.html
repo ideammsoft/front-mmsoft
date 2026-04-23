@@ -170,10 +170,10 @@
 
   </div>
   <div class="slider-ctrl">
-    <button class="arrow-btn" onclick="slide('driver',-1)">&#10094;</button>
-    <span class="dot active" id="dot-driver-0" onclick="goSlide('driver',0)"></span>
-    <span class="dot" id="dot-driver-1" onclick="goSlide('driver',1)"></span>
-    <button class="arrow-btn" onclick="slide('driver',1)">&#10095;</button>
+    <button class="arrow-btn" onclick="slide('driver',-1,true)">&#10094;</button>
+    <span class="dot active" id="dot-driver-0" onclick="goSlide('driver',0,true)"></span>
+    <span class="dot" id="dot-driver-1" onclick="goSlide('driver',1,true)"></span>
+    <button class="arrow-btn" onclick="slide('driver',1,true)">&#10095;</button>
   </div>
 </div>
 
@@ -227,10 +227,10 @@
 
   </div>
   <div class="slider-ctrl">
-    <button class="arrow-btn" onclick="slide('company',-1)">&#10094;</button>
-    <span class="dot active" id="dot-company-0" onclick="goSlide('company',0)"></span>
-    <span class="dot" id="dot-company-1" onclick="goSlide('company',1)"></span>
-    <button class="arrow-btn" onclick="slide('company',1)">&#10095;</button>
+    <button class="arrow-btn" onclick="slide('company',-1,true)">&#10094;</button>
+    <span class="dot active" id="dot-company-0" onclick="goSlide('company',0,true)"></span>
+    <span class="dot" id="dot-company-1" onclick="goSlide('company',1,true)"></span>
+    <button class="arrow-btn" onclick="slide('company',1,true)">&#10095;</button>
   </div>
 </div>
 
@@ -275,6 +275,12 @@
 
 <script>
   const state = { driver: 0, company: 0 };
+  let autoTimers = [];
+
+  function stopAuto() {
+    autoTimers.forEach(t => clearInterval(t));
+    autoTimers = [];
+  }
 
   function switchTab(tab) {
     document.querySelectorAll('.tab-btn').forEach((b,i) => {
@@ -288,16 +294,21 @@
     if (tab === 'company') sel.value = '지입기사를 고용하는 업체';
   }
 
-  function goSlide(panel, idx) {
+  function goSlide(panel, idx, manual) {
+    if (manual) stopAuto();
     state[panel] = idx;
     document.getElementById('track-' + panel).style.transform = `translateX(-${idx * 100}%)`;
     document.querySelectorAll(`[id^="dot-${panel}-"]`).forEach((d,i) => d.classList.toggle('active', i===idx));
   }
 
-  function slide(panel, dir) {
+  function slide(panel, dir, manual) {
     const max = 1;
-    goSlide(panel, Math.max(0, Math.min(max, state[panel] + dir)));
+    goSlide(panel, Math.max(0, Math.min(max, state[panel] + dir)), manual);
   }
+
+  // 자동 슬라이드 (5초) — 수동 조작 시 중단
+  autoTimers.push(setInterval(() => slide('driver',  state.driver  < 1 ? 1 : -1, false), 5000));
+  autoTimers.push(setInterval(() => slide('company', state.company < 1 ? 1 : -1, false), 6000));
 
   function scrollToForm() {
     document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth' });
