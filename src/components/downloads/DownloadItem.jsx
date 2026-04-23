@@ -90,7 +90,22 @@ function DownloadItem({ download, apiBase }) {
               </button>
             </div>
             <div className={styles.modalBody}>
-              <pre className={styles.modalContent}>{download.content}</pre>
+              {thumbnailUrl && (
+                <div className={styles.modalHero}>
+                  <img src={thumbnailUrl} alt={download.title} className={styles.modalHeroImg}
+                    onError={(e) => { e.target.parentElement.style.display = 'none' }} />
+                </div>
+              )}
+              <div className={styles.modalMeta}>
+                {download.version && <span className={styles.modalMetaTag}>v{download.version}</span>}
+                {download.fileSize && <span className={styles.modalMetaTag}>{download.fileSize}</span>}
+                {download.osInfo && <span className={styles.modalMetaTag}>{download.osInfo}</span>}
+              </div>
+              {download.content && (
+                download.content.trim().startsWith('<')
+                  ? <div className={styles.modalContent} dangerouslySetInnerHTML={{ __html: download.content }} />
+                  : <pre className={styles.modalContent}>{download.content}</pre>
+              )}
             </div>
             <div className={styles.modalFooter}>
               <button className={styles.modalDownloadBtn} onClick={handleConfirmDownload}>
