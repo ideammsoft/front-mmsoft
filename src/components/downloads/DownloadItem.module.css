@@ -67,6 +67,21 @@
   -webkit-box-orient: vertical;
 }
 
+.newBadge {
+  display: inline-block;
+  padding: 2px 7px;
+  background: #ef4444;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  vertical-align: middle;
+  margin-left: 6px;
+  line-height: 1.5;
+}
+
 .description {
   font-size: var(--font-size-xs);
   color: var(--color-text-light);

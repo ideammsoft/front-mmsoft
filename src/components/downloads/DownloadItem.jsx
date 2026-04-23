@@ -10,6 +10,14 @@ function DownloadItem({ download, apiBase }) {
     ? `${apiBase}/images/pds/${download.thumbnail}`
     : null;
 
+  const isNew = (() => {
+    if (!download.publishedAt) return false
+    const pub = new Date(download.publishedAt)
+    const twoMonthsAgo = new Date()
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2)
+    return pub >= twoMonthsAgo
+  })()
+
   const handleDownloadClick = () => setModalOpen(true);
 
   const handleConfirmDownload = async () => {
@@ -52,6 +60,7 @@ function DownloadItem({ download, apiBase }) {
             <h3 className={styles.title} onClick={handleDownloadClick} style={{ cursor: 'pointer' }}>
               {download.title}
             </h3>
+            {isNew && <span className={styles.newBadge}>NEW</span>}
           </div>
           <p className={styles.description}>{download.osInfo}</p>
           <div className={styles.meta}>
@@ -84,7 +93,10 @@ function DownloadItem({ download, apiBase }) {
         <div className={styles.overlay} onClick={handleClose}>
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
-              <h2 className={styles.modalTitle}>{download.title}</h2>
+              <h2 className={styles.modalTitle}>
+                {download.title}
+                {isNew && <span className={styles.newBadge}>NEW</span>}
+              </h2>
               <button className={styles.closeIcon} onClick={handleClose}>
                 <FaTimes />
               </button>
