@@ -208,8 +208,9 @@ export const DOWNLOADS = [
 
 // 카테고리 목록
 export const DOWNLOAD_CATEGORIES = [
-  { id: 'all',      label: '전체',      value: 'all' },
-  { id: 'software', label: '소프트웨어', value: 'software' },
-  { id: 'utility',  label: '유틸리티',  value: 'utility' },
-  { id: 'manual',   label: '매뉴얼',    value: 'manual' }
+  { id: 'all',      label: '전체',        value: 'all' },
+  { id: 'software', label: '소프트웨어',   value: 'software' },
+  { id: 'freeware', label: '무료소프트웨어', value: 'freeware' },
+  { id: 'utility',  label: '유틸리티',    value: 'utility' },
+  { id: 'manual',   label: '매뉴얼',      value: 'manual' }
 ];
