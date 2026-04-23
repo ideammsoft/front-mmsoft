@@ -188,7 +188,7 @@ export const DOWNLOADS = [
     fileSize: '0.1MB',
     version: 'v1.0',
     uploadedAt: '2026-03-10',
-    fileUrl: 'https://www.mmsoft.co.kr/program/dbutil.exe',
+    fileUrl: 'https://www.mmsoft.co.kr/program/DbUtil.exe',
     imageUrl: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=280&h=180&fit=crop&auto=format',
     content: '프로그램이 제대로 작동하지 않을 때 다운받으셔서 실행하시기 바랍니다.\n\n1. Null값 데이타제거는 엑셀 가져오기등 데이타에 관련된 작업을 하다가 문제가 발생한 경우에 사용\n   프로그램에서 Null데이타가 잘못 사용되었다고 나올때\n\n2. 데이타베이스 압축은 갑자기 PC가 멈추거나 바이러스 감염시 정지된 후 프로그램이 작동되지 않을때 사용\n\n3. 좌우 스페이스(특수문자)제거는 선택된 파일의 스페이스를 지우고 특수문자를 지워줍니다.\n\n* 기본적으로 데이타는 c: 드라이브의 프로그램명\\데이타 폴더에 있습니다.'
   },
