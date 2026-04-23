@@ -15,11 +15,14 @@ function DownloadItem({ download, apiBase }) {
   const handleConfirmDownload = async () => {
     try {
       const res = await fetch(`${apiBase}/api/pds/${download.pdsId}/download`, { method: 'POST' });
-      const data = await res.json();
-      setDownloadCount(prev => prev + 1);
-      window.open(data.url, '_blank', 'noopener,noreferrer');
+      if (res.ok) {
+        const data = await res.json();
+        setDownloadCount(prev => prev + 1);
+        window.open(data.url, '_blank', 'noopener,noreferrer');
+      } else {
+        window.open(download.downloadUrl, '_blank', 'noopener,noreferrer');
+      }
     } catch {
-      // 실패해도 직접 열기
       window.open(download.downloadUrl, '_blank', 'noopener,noreferrer');
     }
     setModalOpen(false);

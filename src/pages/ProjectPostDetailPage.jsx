@@ -122,6 +122,12 @@ function ProjectPostDetailPage() {
     if (post && !canEdit && !post.passwd) setVerified(true);
   }, [post, canEdit]);
 
+  // 본문이 열리면(verified) 조회수 증가
+  useEffect(() => {
+    if (!verified || !postId) return;
+    fetch(`/api/workboard/view/${postId}`, { method: 'POST' }).catch(() => {});
+  }, [verified, postId]);
+
   // 직접 URL 접근 시 API에서 글 찾기
   useEffect(() => {
     if (post) return;
