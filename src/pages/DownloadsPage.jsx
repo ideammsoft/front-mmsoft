@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { DOWNLOAD_CATEGORIES } from '../data/downloads';
 import DownloadCategories from '../components/downloads/DownloadCategories';
 import DownloadItem from '../components/downloads/DownloadItem';
@@ -7,7 +8,9 @@ import styles from './DownloadsPage.module.css';
 const API_BASE = '';
 
 function DownloadsPage() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchParams] = useSearchParams();
+  const initialCategory = searchParams.get('category') || 'all';
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [downloads, setDownloads]               = useState([]);
   const [loading, setLoading]                   = useState(true);
 

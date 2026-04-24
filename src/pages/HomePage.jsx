@@ -18,7 +18,7 @@ function HomePage() {
             엠엠소프트와 함께 업무 효율을 극대화하세요
           </p>
           <div className={styles.heroActions}>
-            <Link to="/downloads" className={styles.heroPrimary}>
+            <Link to="/downloads?category=freeware" className={styles.heroPrimary}>
               무료 체험 시작
             </Link>
             <Link to="/company" className={styles.heroSecondary}>
