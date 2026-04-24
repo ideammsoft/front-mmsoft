@@ -59,10 +59,14 @@ function RegisterTab({ user }) {
     docCertUrl:      '',
     docEmploymentUrl:'',
   });
-  const [submitting, setSubmitting] = useState(false);
-  const [done,       setDone]       = useState(false);
-  const [myList,     setMyList]     = useState([]);
-  const [listLoading,setListLoading]= useState(false);
+  const [submitting,       setSubmitting]       = useState(false);
+  const [done,             setDone]             = useState(false);
+  const [myList,           setMyList]           = useState([]);
+  const [listLoading,      setListLoading]      = useState(false);
+  const [uploadingCert,    setUploadingCert]    = useState(false);
+  const [uploadingEmploy,  setUploadingEmploy]  = useState(false);
+  const [certFileName,     setCertFileName]     = useState('');
+  const [employFileName,   setEmployFileName]   = useState('');
 
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
@@ -78,13 +82,31 @@ function RegisterTab({ user }) {
 
   useEffect(() => { loadMyList(form.customerId); }, []);
 
+  const uploadDoc = async (file, fieldKey, setUploading, setFileName) => {
+    if (!file) return;
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/noim/sender/upload-doc', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.url) {
+        set(fieldKey, data.url);
+        setFileName(file.name);
+      } else {
+        alert('파일 업로드에 실패했습니다. 다시 시도해 주세요.');
+      }
+    } catch { alert('파일 업로드 오류가 발생했습니다.'); }
+    finally { setUploading(false); }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.customerId.trim()) { alert('고객 아이디를 입력해 주세요.'); return; }
+    if (!form.customerId.trim())  { alert('고객 아이디를 입력해 주세요.'); return; }
     if (!form.phoneNumber.trim()) { alert('발신번호를 입력해 주세요.'); return; }
-    if (!form.docCertUrl.trim())  { alert('이용증명원 URL을 입력해 주세요.'); return; }
-    if (form.senderType === 'EMPLOYEE' && !form.docEmploymentUrl.trim()) {
-      alert('재직증명서 URL을 입력해 주세요.');
+    if (!form.docCertUrl)         { alert('이용증명원 파일을 업로드해 주세요.'); return; }
+    if (form.senderType === 'EMPLOYEE' && !form.docEmploymentUrl) {
+      alert('재직증명서 파일을 업로드해 주세요.');
       return;
     }
     setSubmitting(true);
@@ -179,23 +201,27 @@ function RegisterTab({ user }) {
           </div>
 
           <div className={styles.fieldGroup}>
-            <label className={styles.label}>이용증명원 URL *</label>
-            <input className={styles.input}
-              value={form.docCertUrl}
-              onChange={e => set('docCertUrl', e.target.value)}
-              placeholder="파일 공유 링크 (구글드라이브, 네이버 mybox 등)"
-            />
-            <p className={styles.hint}>파일을 클라우드에 업로드 후 공유 링크를 입력해 주세요.</p>
+            <label className={styles.label}>이용증명원 *</label>
+            <label className={`${styles.fileLabel} ${form.docCertUrl ? styles.fileDone : ''}`}>
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png"
+                style={{ display: 'none' }}
+                onChange={e => uploadDoc(e.target.files[0], 'docCertUrl', setUploadingCert, setCertFileName)}
+              />
+              {uploadingCert ? '업로드 중...' : form.docCertUrl ? `✓ ${certFileName}` : '파일 선택 (PDF / JPG / PNG)'}
+            </label>
+            <p className={styles.hint}>이용증명원을 첨부해 주세요.</p>
           </div>
 
           {form.senderType === 'EMPLOYEE' && (
             <div className={styles.fieldGroup}>
-              <label className={styles.label}>재직증명서 URL *</label>
-              <input className={styles.input}
-                value={form.docEmploymentUrl}
-                onChange={e => set('docEmploymentUrl', e.target.value)}
-                placeholder="파일 공유 링크"
-              />
+              <label className={styles.label}>재직증명서 *</label>
+              <label className={`${styles.fileLabel} ${form.docEmploymentUrl ? styles.fileDone : ''}`}>
+                <input type="file" accept=".pdf,.jpg,.jpeg,.png"
+                  style={{ display: 'none' }}
+                  onChange={e => uploadDoc(e.target.files[0], 'docEmploymentUrl', setUploadingEmploy, setEmployFileName)}
+                />
+                {uploadingEmploy ? '업로드 중...' : form.docEmploymentUrl ? `✓ ${employFileName}` : '파일 선택 (PDF / JPG / PNG)'}
+              </label>
             </div>
           )}
 

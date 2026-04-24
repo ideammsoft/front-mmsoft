@@ -119,6 +119,30 @@
 
 .hint { font-size: 11px; color: #94a3b8; margin: 2px 0 0; }
 
+.fileLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 16px;
+  border: 2px dashed #d1d5db;
+  border-radius: 7px;
+  font-size: 14px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all .15s;
+  background: #f9fafb;
+}
+
+.fileLabel:hover { border-color: #2563eb; color: #2563eb; background: #eff6ff; }
+
+.fileDone {
+  border-color: #16a34a;
+  border-style: solid;
+  color: #16a34a;
+  background: #f0fdf4;
+  font-weight: 600;
+}
+
 .radioGroup { display: flex; gap: 20px; }
 
 .radioLabel {
