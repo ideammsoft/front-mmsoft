@@ -67,6 +67,8 @@ function RegisterTab({ user }) {
   const [uploadingEmploy,  setUploadingEmploy]  = useState(false);
   const [certFileName,     setCertFileName]     = useState('');
   const [employFileName,   setEmployFileName]   = useState('');
+  const [draggingCert,     setDraggingCert]     = useState(false);
+  const [draggingEmploy,   setDraggingEmploy]   = useState(false);
 
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
@@ -104,7 +106,7 @@ function RegisterTab({ user }) {
     e.preventDefault();
     if (!form.customerId.trim())  { alert('고객 아이디를 입력해 주세요.'); return; }
     if (!form.phoneNumber.trim()) { alert('발신번호를 입력해 주세요.'); return; }
-    if (!form.docCertUrl)         { alert('이용증명원 파일을 업로드해 주세요.'); return; }
+    if (!form.docCertUrl)         { alert('통신서비스 이용증명원 파일을 업로드해 주세요.'); return; }
     if (form.senderType === 'EMPLOYEE' && !form.docEmploymentUrl) {
       alert('재직증명서 파일을 업로드해 주세요.');
       return;
@@ -139,8 +141,8 @@ function RegisterTab({ user }) {
         <strong>유의사항</strong>
         <ul>
           <li>발신번호는 최대 <strong>3개</strong>까지 등록 가능합니다.</li>
-          <li><strong>자사대표자</strong>: 이용증명원 1부 제출</li>
-          <li><strong>자사재직자</strong>: 이용증명원 + 재직증명서 제출</li>
+          <li><strong>자사대표자</strong>: 통신서비스 이용증명원 1부 제출</li>
+          <li><strong>자사재직자</strong>: 통신서비스 이용증명원 + 재직증명서 제출</li>
           <li>서류 심사 후 관리자가 승인합니다. (영업일 1~2일)</li>
         </ul>
       </div>
@@ -201,26 +203,46 @@ function RegisterTab({ user }) {
           </div>
 
           <div className={styles.fieldGroup}>
-            <label className={styles.label}>이용증명원 *</label>
-            <label className={`${styles.fileLabel} ${form.docCertUrl ? styles.fileDone : ''}`}>
+            <label className={styles.label}>통신서비스 이용증명원 *</label>
+            <label
+              className={`${styles.fileLabel} ${form.docCertUrl ? styles.fileDone : draggingCert ? styles.fileDragging : ''}`}
+              onDragOver={e => { e.preventDefault(); setDraggingCert(true); }}
+              onDragLeave={() => setDraggingCert(false)}
+              onDrop={e => {
+                e.preventDefault();
+                setDraggingCert(false);
+                const file = e.dataTransfer.files[0];
+                if (file) uploadDoc(file, 'docCertUrl', setUploadingCert, setCertFileName);
+              }}
+            >
               <input type="file" accept=".pdf,.jpg,.jpeg,.png"
                 style={{ display: 'none' }}
                 onChange={e => uploadDoc(e.target.files[0], 'docCertUrl', setUploadingCert, setCertFileName)}
               />
-              {uploadingCert ? '업로드 중...' : form.docCertUrl ? `✓ ${certFileName}` : '파일 선택 (PDF / JPG / PNG)'}
+              {uploadingCert ? '업로드 중...' : form.docCertUrl ? `✓ ${certFileName}` : '파일 선택 또는 여기에 드래그 (PDF / JPG / PNG)'}
             </label>
-            <p className={styles.hint}>이용증명원을 첨부해 주세요.</p>
+            <p className={styles.hint}>통신서비스 이용증명원을 첨부해 주세요.</p>
           </div>
 
           {form.senderType === 'EMPLOYEE' && (
             <div className={styles.fieldGroup}>
               <label className={styles.label}>재직증명서 *</label>
-              <label className={`${styles.fileLabel} ${form.docEmploymentUrl ? styles.fileDone : ''}`}>
+              <label
+                className={`${styles.fileLabel} ${form.docEmploymentUrl ? styles.fileDone : draggingEmploy ? styles.fileDragging : ''}`}
+                onDragOver={e => { e.preventDefault(); setDraggingEmploy(true); }}
+                onDragLeave={() => setDraggingEmploy(false)}
+                onDrop={e => {
+                  e.preventDefault();
+                  setDraggingEmploy(false);
+                  const file = e.dataTransfer.files[0];
+                  if (file) uploadDoc(file, 'docEmploymentUrl', setUploadingEmploy, setEmployFileName);
+                }}
+              >
                 <input type="file" accept=".pdf,.jpg,.jpeg,.png"
                   style={{ display: 'none' }}
                   onChange={e => uploadDoc(e.target.files[0], 'docEmploymentUrl', setUploadingEmploy, setEmployFileName)}
                 />
-                {uploadingEmploy ? '업로드 중...' : form.docEmploymentUrl ? `✓ ${employFileName}` : '파일 선택 (PDF / JPG / PNG)'}
+                {uploadingEmploy ? '업로드 중...' : form.docEmploymentUrl ? `✓ ${employFileName}` : '파일 선택 또는 여기에 드래그 (PDF / JPG / PNG)'}
               </label>
             </div>
           )}

@@ -143,6 +143,14 @@
   font-weight: 600;
 }
 
+.fileDragging {
+  border-color: #2563eb;
+  border-style: dashed;
+  color: #2563eb;
+  background: #dbeafe;
+  font-weight: 600;
+}
+
 .radioGroup { display: flex; gap: 20px; }
 
 .radioLabel {
