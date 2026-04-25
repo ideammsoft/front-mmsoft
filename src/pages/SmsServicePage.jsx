@@ -4,7 +4,7 @@ import styles from './SmsServicePage.module.css';
 const TABS = [
   { key: 'register', label: '발신번호 등록' },
   { key: 'balance',  label: '내 문자 잔액' },
-  { key: 'charge',   label: '요금 충전하기' },
+  { key: 'apikey',   label: 'API 키 관리' },
 ];
 
 const PRICING = [
@@ -42,7 +42,7 @@ export default function SmsServicePage() {
         <div className={styles.body}>
           {tab === 'register' && <RegisterTab user={user} />}
           {tab === 'balance'  && <BalanceTab />}
-          {tab === 'charge'   && <ChargeTab />}
+          {tab === 'apikey'   && <ApiKeyTab user={user} />}
         </div>
       </div>
     </div>
@@ -339,51 +339,113 @@ function BalanceTab() {
   );
 }
 
-// ── 요금 충전 탭 ───────────────────────────────────────────────────
-function ChargeTab() {
+// ── API 키 관리 탭 ────────────────────────────────────────────────
+function ApiKeyTab({ user }) {
+  const customerId = user?.homepageId || '';
+  const userEmail  = user?.email || '';
+
+  const [senders,    setSenders]    = useState([]);
+  const [loading,    setLoading]    = useState(false);
+  const [sending,    setSending]    = useState(null); // senderId being sent
+  const [sentMsg,    setSentMsg]    = useState({});
+
+  useEffect(() => {
+    if (!customerId) return;
+    setLoading(true);
+    fetch(`/api/noim/sender/my?customerId=${encodeURIComponent(customerId)}`)
+      .then(r => r.ok ? r.json() : [])
+      .then(data => setSenders(data))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [customerId]);
+
+  const handleResendKey = async (sn) => {
+    const email = window.prompt(
+      `API 키를 전송할 이메일 주소를 확인해 주세요.\n발신번호: ${sn.phoneNumber}`,
+      userEmail
+    );
+    if (!email || !email.trim()) return;
+    setSending(sn.id);
+    try {
+      const res = await fetch(
+        `/api/noim/sender/resend-key?customerId=${encodeURIComponent(customerId)}&senderId=${sn.id}&email=${encodeURIComponent(email.trim())}`,
+        { method: 'POST' }
+      );
+      const data = await res.json();
+      setSentMsg(prev => ({ ...prev, [sn.id]: data.success ? '전송완료' : (data.message || '실패') }));
+      setTimeout(() => setSentMsg(prev => { const c = { ...prev }; delete c[sn.id]; return c; }), 3000);
+    } catch {
+      setSentMsg(prev => ({ ...prev, [sn.id]: '오류' }));
+    } finally {
+      setSending(null);
+    }
+  };
+
+  const statusLabel = (s) =>
+    s === 'APPROVED' ? '✅ 승인' : s === 'REJECTED' ? '❌ 반려' : '⏳ 심사중';
+  const statusColor = (s) =>
+    s === 'APPROVED' ? '#16a34a' : s === 'REJECTED' ? '#dc2626' : '#d97706';
+
   return (
     <div>
-      <h2 className={styles.sectionTitle}>요금 안내 및 충전</h2>
+      <h2 className={styles.sectionTitle}>API 키 관리</h2>
 
-      <div className={styles.pricingGrid}>
-        {PRICING.map(p => (
-          <div key={p.type} className={styles.pricingCard}>
-            <div className={styles.pricingType}>{p.type}</div>
-            <div className={styles.pricingChars}>{p.chars}</div>
-            <div className={styles.pricingPrice}>{p.price}원<span>/건</span></div>
-          </div>
-        ))}
+      {/* 발신번호 현황 */}
+      <div className={styles.myList}>
+        <h3 className={styles.myListTitle}>발신번호 현황</h3>
+        {!customerId ? (
+          <p className={styles.listEmpty}>로그인이 필요합니다.</p>
+        ) : loading ? (
+          <p className={styles.listEmpty}>불러오는 중...</p>
+        ) : senders.length === 0 ? (
+          <p className={styles.listEmpty}>등록된 발신번호가 없습니다. 발신번호 등록 탭에서 신청해 주세요.</p>
+        ) : (
+          senders.map(sn => (
+            <div key={sn.id} className={styles.senderRow}
+              style={{ display:'flex', alignItems:'center', gap:12, flexWrap:'wrap' }}>
+              <span className={styles.senderPhone}>{sn.phoneNumber}</span>
+              {sn.phoneAlias && <span className={styles.senderAlias}>{sn.phoneAlias}</span>}
+              <span style={{ color: statusColor(sn.status), fontSize: 13, fontWeight: 600 }}>
+                {statusLabel(sn.status)}
+              </span>
+              {sn.status === 'APPROVED' && (
+                <button
+                  onClick={() => handleResendKey(sn)}
+                  disabled={sending === sn.id}
+                  style={{ marginLeft: 'auto', padding: '5px 14px', fontSize: 13,
+                           cursor: 'pointer', borderRadius: 6,
+                           background: '#1a73e8', color: '#fff',
+                           border: 'none', fontWeight: 600 }}>
+                  {sending === sn.id ? '전송중...' : (sentMsg[sn.id] || 'API 키 재전송')}
+                </button>
+              )}
+              {sn.status === 'REJECTED' && sn.rejectReason && (
+                <span style={{ fontSize: 12, color: '#dc2626' }}>— {sn.rejectReason}</span>
+              )}
+            </div>
+          ))
+        )}
       </div>
 
-      <div className={styles.chargeGuide}>
+      {/* 충전 안내 */}
+      <div className={styles.chargeGuide} style={{ marginTop: 24 }}>
         <h3>충전 방법</h3>
         <ol>
-          <li>아래 카카오톡 또는 전화로 충전 요청</li>
-          <li>입금 확인 후 관리자가 잔액 충전 처리</li>
-          <li>충전 완료 후 문자 발송 가능</li>
+          <li>카드 결제: <strong>결제하기</strong> 메뉴 → 문자 및 카카오톡 충전 → <strong>API 키발급용</strong> 체크 후 결제 (부가세 10% 차감 후 충전)</li>
+          <li>계좌 이체: 아래 계좌로 입금 후 관리자에게 문의</li>
+          <li>충전 완료 후 noim 프로그램에서 API 키로 잔액 확인 가능</li>
         </ol>
-
-        <div className={styles.contactBox}>
-          <div className={styles.contactItem}>
-            <span className={styles.contactIcon}>💬</span>
-            <div>
-              <div className={styles.contactLabel}>카카오톡 채널</div>
-              <div className={styles.contactValue}>@mmsoft 검색 후 문의</div>
-            </div>
-          </div>
-          <div className={styles.contactItem}>
-            <span className={styles.contactIcon}>📞</span>
-            <div>
-              <div className={styles.contactLabel}>전화 문의</div>
-              <div className={styles.contactValue}>고객센터로 문의해 주세요</div>
-            </div>
-          </div>
-        </div>
 
         <div className={styles.bankInfo}>
           <div className={styles.bankTitle}>계좌 이체</div>
+          <div style={{ fontSize: 15, fontWeight: 700, margin: '6px 0' }}>
+            기업은행 000-000000-00-000 (엠엠소프트)
+          </div>
           <div>입금 시 아이디를 메모란에 기재해 주세요.</div>
           <div className={styles.bankDetail}>관리자 확인 후 1영업일 이내 처리됩니다.</div>
+          <div style={{ marginTop: 8, fontSize: 12, color: '#6b7280' }}>
+            ※ 카드 결제 시 부가세(10%)가 차감된 금액이 충전됩니다.
+          </div>
         </div>
       </div>
     </div>

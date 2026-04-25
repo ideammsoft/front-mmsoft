@@ -12,6 +12,10 @@ Dim rhash   : rhash   = Request.Form("reHash")
 Dim payamt  : payamt  = Request.Form("sndAmount")
 Dim uid     : uid     = Trim(Request.Form("a"))
 Dim pamount : pamount = Trim(Request.Form("b"))
+Dim pname   : pname   = Trim(Request.Form("c"))
+
+Const SPRING_INTERNAL_URL = "http://mm-admin-service:8080"
+Const INTERNAL_SECRET     = "mmsoft-internal-key-2025"
 
 ' KSNET 서버와 통신하여 결제 결과 검증
 Dim authyn : authyn = "X"
@@ -34,36 +38,64 @@ If authyn = "O" And uid <> "" And IsNumeric(pamount) And CLng(pamount) > 0 Then
     Dim safeId : safeId = Replace(uid, "'", "''")
     Dim sql, rs
 
-    ' 잔액 업데이트
-    sql = "UPDATE manyman SET payment = payment + " & pamt & " WHERE id = '" & safeId & "'"
-    Dbcon.Execute(sql)
+    If InStr(pname, "API 키발급용") > 0 Then
+        ' ── API 키발급용 결제: manyman.payment 미업데이트, noim_sms_balance에 충전 ──
 
-    ' 충전 이력 기록
-    sql = "INSERT INTO M_sms (id, title, payment) VALUES ('" & safeId & "', '카드충전', " & pamt & ")"
-    Dbcon.Execute(sql)
+        ' M_sms 충전 이력 기록 (카드충전API)
+        sql = "INSERT INTO M_sms (id, title, payment) VALUES ('" & safeId & "', '카드충전API', " & pamt & ")"
+        Dbcon.Execute(sql)
 
-    ' SMS 발송 (ppurio)
-    sql = "SELECT mphone FROM manyman WHERE id = '" & safeId & "'"
-    Set rs = Dbcon.Execute(sql)
-    If Not rs.EOF Then
-        Dim mphone : mphone = Trim(rs("mphone"))
-        If Left(mphone, 2) = "01" Then
-            Dim hv, mv, sv
-            hv = Hour(Now)   : If Len(hv) < 2 Then hv = "0" & hv
-            mv = Minute(Now) : If Len(mv) < 2 Then mv = "0" & mv
-            sv = Second(Now) : If Len(sv) < 2 Then sv = "0" & sv
-            Dim cmid2
-            Randomize
-            cmid2 = Replace(FormatDateTime(Now(), 2), "-", "") & hv & mv & sv & _
-                    Replace(CStr(Timer()), ".", "") & Replace(CStr(Rnd()), ".", "")
-            Dim msgBody : msgBody = "문자메시지 " & FormatNumber(pamt, 0) & "원이 충전되었습니다(카드결제). - 엠엠소프트"
-            sql = "INSERT INTO ums_data (cmid, msg_type, status, request_time, dest_phone, send_phone, msg_body, etc1, etc2, etc3, etc4) " & _
-                  "VALUES ('" & cmid2 & "', '0', '0', GETDATE(), '" & Replace(mphone, "-", "") & "', '028647576', '" & msgBody & "', '', 'manyman', '', '')"
-            Db_ppu.Execute(sql)
+        ' Spring 내부 API 호출 → noim_sms_balance 충전 (부가세 10% 차감은 Spring에서 처리)
+        Dim http
+        On Error Resume Next
+        Set http = Server.CreateObject("MSXML2.ServerXMLHTTP")
+        If Err.Number = 0 Then
+            Dim apiUrl
+            apiUrl = SPRING_INTERNAL_URL & "/api/internal/noim-sms/card-charge" & _
+                     "?customerId=" & Server.URLEncode(uid) & _
+                     "&amount=" & pamt & _
+                     "&secret=" & Server.URLEncode(INTERNAL_SECRET)
+            http.open "POST", apiUrl, False
+            http.setRequestHeader "Content-Type", "application/x-www-form-urlencoded"
+            http.send ""
         End If
+        On Error GoTo 0
+        Set http = Nothing
+
+    Else
+        ' ── 일반 결제: manyman.payment 업데이트 ──
+
+        ' 잔액 업데이트
+        sql = "UPDATE manyman SET payment = payment + " & pamt & " WHERE id = '" & safeId & "'"
+        Dbcon.Execute(sql)
+
+        ' 충전 이력 기록
+        sql = "INSERT INTO M_sms (id, title, payment) VALUES ('" & safeId & "', '카드충전', " & pamt & ")"
+        Dbcon.Execute(sql)
+
+        ' SMS 발송 (ppurio)
+        sql = "SELECT mphone FROM manyman WHERE id = '" & safeId & "'"
+        Set rs = Dbcon.Execute(sql)
+        If Not rs.EOF Then
+            Dim mphone : mphone = Trim(rs("mphone"))
+            If Left(mphone, 2) = "01" Then
+                Dim hv, mv, sv
+                hv = Hour(Now)   : If Len(hv) < 2 Then hv = "0" & hv
+                mv = Minute(Now) : If Len(mv) < 2 Then mv = "0" & mv
+                sv = Second(Now) : If Len(sv) < 2 Then sv = "0" & sv
+                Dim cmid2
+                Randomize
+                cmid2 = Replace(FormatDateTime(Now(), 2), "-", "") & hv & mv & sv & _
+                        Replace(CStr(Timer()), ".", "") & Replace(CStr(Rnd()), ".", "")
+                Dim msgBody : msgBody = "문자메시지 " & FormatNumber(pamt, 0) & "원이 충전되었습니다(카드결제). - 엠엠소프트"
+                sql = "INSERT INTO ums_data (cmid, msg_type, status, request_time, dest_phone, send_phone, msg_body, etc1, etc2, etc3, etc4) " & _
+                      "VALUES ('" & cmid2 & "', '0', '0', GETDATE(), '" & Replace(mphone, "-", "") & "', '028647576', '" & msgBody & "', '', 'manyman', '', '')"
+                Db_ppu.Execute(sql)
+            End If
+        End If
+        rs.Close
+        Set rs = Nothing
     End If
-    rs.Close
-    Set rs = Nothing
 End If
 
 ' XSS 방지

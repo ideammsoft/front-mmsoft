@@ -77,6 +77,7 @@ function PaymentPage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [isApiForSms, setIsApiForSms] = useState(false);
 
   // 로그인 필요
   useEffect(() => {
@@ -94,6 +95,7 @@ function PaymentPage() {
     setSelectedProduct(product);
     setSelectedPrice(null);
     setCustomAmount('');
+    if (product.id !== 'sms') setIsApiForSms(false);
   };
 
   const handleNext = () => {
@@ -124,7 +126,9 @@ function PaymentPage() {
     setLoading(true);
     try {
       const amount = getPayAmount();
-      const productName = selectedProduct.name;
+      const productName = (selectedProduct.id === 'sms' && isApiForSms)
+        ? selectedProduct.name + ' – API 키발급용'
+        : selectedProduct.name;
 
       const userId = user?.id || user?.userId || user?.homepageId || '';
       const userName = user?.name || user?.nickname || userId;
@@ -168,6 +172,7 @@ function PaymentPage() {
     setSelectedPrice(null);
     setCustomAmount('');
     setResult(null);
+    setIsApiForSms(false);
   };
 
   if (!user) return null;
@@ -192,7 +197,7 @@ function PaymentPage() {
         {/* ── 제품 선택 단계 ── */}
         {step === 'select' && (
           <div>
-            <h2 className={styles.sectionTitle}>제품을 선택해주세요</h2>
+            <h2 className={styles.sectionTitle}>결제할 항목을 선택해주세요</h2>
             <div className={styles.productGrid}>
               {PRODUCTS.map((product) => (
                 <div
@@ -221,6 +226,23 @@ function PaymentPage() {
                 <h3 className={styles.priceSectionTitle}>
                   {selectedProduct.name} — 금액 선택
                 </h3>
+
+                {/* API 키발급용 체크박스 (문자 및 카카오톡 충전만) */}
+                {selectedProduct.id === 'sms' && (
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12,
+                                  fontSize: 14, cursor: 'pointer', color: '#374151' }}>
+                    <input
+                      type="checkbox"
+                      checked={isApiForSms}
+                      onChange={e => setIsApiForSms(e.target.checked)}
+                      style={{ width: 16, height: 16, cursor: 'pointer' }}
+                    />
+                    API 키발급용
+                    <span style={{ fontSize: 12, color: '#6b7280' }}>
+                      (noim 프로그램 문자발송 API 키 발급 목적)
+                    </span>
+                  </label>
+                )}
 
                 <div className={styles.priceOptions}>
                   {selectedProduct.prices.map((p) => (
@@ -309,8 +331,11 @@ function PaymentPage() {
 
             <div className={styles.confirmNotice}>
               <p>※ 결제 버튼 클릭 시 KSPay 결제창이 열립니다.</p>
-              {selectedProduct.type === 'sms_charge' && (
+              {selectedProduct.type === 'sms_charge' && !isApiForSms && (
                 <p>※ 문자/카카오톡 충전은 결제 완료 후 즉시 적용됩니다.</p>
+              )}
+              {isApiForSms && (
+                <p>※ API 키발급용 결제 — 부가세(10%) 제외 후 noim 문자 잔액에 충전됩니다.</p>
               )}
             </div>
 
