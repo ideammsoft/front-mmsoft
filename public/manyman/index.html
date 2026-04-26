@@ -137,6 +137,7 @@ window.addEventListener('message', function(e) {
   document.KSPayWeb.reHash.value      = data.rhash  || '';
   document.KSPayWeb.target = '';
   var apiFlag = (product.indexOf('키발급') >= 0) ? 'Y' : 'N';
+  document.KSPayWeb.d.value = apiFlag;
   document.KSPayWeb.action = '/manyman/KSPayResult.asp?apiflg=' + apiFlag;
   document.KSPayWeb.submit();
 });
