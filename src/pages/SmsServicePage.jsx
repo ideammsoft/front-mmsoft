@@ -24,8 +24,8 @@ export default function SmsServicePage() {
   return (
     <div className={styles.page}>
       <div className={styles.hero}>
-        <h1 className={styles.heroTitle}>문자 발송 서비스</h1>
-        <p className={styles.heroDesc}>noim 프로그램에서 직접 문자를 발송하세요.<br/>발신번호를 등록하고 관리자 승인 후 사용 가능합니다.</p>
+        <h1 className={styles.heroTitle}>API 문자 프로그램</h1>
+        <p className={styles.heroDesc}>API 문자 프로그램에서 직접 문자를 발송하세요.<br/>발신번호를 등록하고 관리자 승인 후 사용 가능합니다.</p>
       </div>
 
       <div className={styles.container}>

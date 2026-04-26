@@ -13,6 +13,7 @@ Dim payamt  : payamt  = Request.Form("sndAmount")
 Dim uid     : uid     = Trim(Request.Form("a"))
 Dim pamount : pamount = Trim(Request.Form("b"))
 Dim pname   : pname   = Trim(Request.Form("c"))
+Dim pApiFlg : pApiFlg = Trim(Request.Form("d"))
 
 Const SPRING_INTERNAL_URL = "http://mm-admin-service:8080"
 Const INTERNAL_SECRET     = "mmsoft-internal-key-2025"
@@ -38,7 +39,7 @@ If authyn = "O" And uid <> "" And IsNumeric(pamount) And CLng(pamount) > 0 Then
     Dim safeId : safeId = Replace(uid, "'", "''")
     Dim sql, rs
 
-    If InStr(pname, "API 키발급용") > 0 Then
+    If pApiFlg = "Y" Or InStr(pname, "API") > 0 Then
         ' ── API 키발급용 결제: manyman.payment 미업데이트, M_sms 이력만 기록 ──
         ' (noim_sms_balance 충전은 PaymentPage.jsx 에서 Spring 직접 호출)
         sql = "INSERT INTO M_sms (id, title, payment) VALUES ('" & safeId & "', '카드충전API', " & pamt & ")"
@@ -112,8 +113,8 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;d
   var ok          = ("<%=EscJS(authyn)%>" === "O");
   var amt         = "<%=EscJS(amt)%>";
   var msg         = "<%=EscJS(msg1)%>";
-  var isApiCharge = (("<%=EscJS(pname)%>").indexOf("API 키발급용") >= 0);
-  var chargeAmt   = isApiCharge ? Math.floor(parseInt(amt, 10) * 9 / 10) : 0;
+  var isApiCharge = ("<%=EscJS(pApiFlg)%>" === "Y" || ("<%=EscJS(pname)%>").indexOf("API") >= 0);
+  var chargeAmt   = isApiCharge ? Math.floor(parseInt(amt, 10) / 11 * 10) : 0;
 
   // PaymentPage.jsx(window.opener)로 결과 전달
   if (window.opener && !window.opener.closed) {
