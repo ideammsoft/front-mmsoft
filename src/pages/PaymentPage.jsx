@@ -179,7 +179,7 @@ function PaymentPage() {
               amount     : e.data.chargeAmt,
               secret     : 'mmsoft-internal-key-2025',
             });
-            await fetch(`/ad/api/internal/noim-sms/card-charge?${params}`, {
+            await fetch(`/api/noim/sms/card-charge?${params}`, {
               method: 'POST',
             });
           } catch (err) {
