@@ -2,12 +2,25 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './PaymentPage.module.css';
 
-// 제품 목록
 const PRODUCTS = [
   {
-    id: 'sms',
-    name: '문자 및 카카오톡 충전',
-    description: '문자 메시지 및 카카오톡 알림톡 충전 서비스',
+    id: 'sms_api',
+    name: '문자 및 카카오톡 충전(API)',
+    description: 'API 문자 프로그램용 — 부가세 포함 결제, 세액 제외 후 잔액 충전',
+    icon: '💬',
+    prices: [
+      { label: '11,000원',  amount: 11000 },
+      { label: '33,000원',  amount: 33000 },
+      { label: '55,000원',  amount: 55000 },
+      { label: '110,000원', amount: 110000 },
+      { label: '220,000원', amount: 220000 },
+    ],
+    type: 'sms_api_charge',
+  },
+  {
+    id: 'sms_login',
+    name: '문자 및 카카오톡 충전(로그인)',
+    description: '기존 로그인 프로그램용 — 기존 방식으로 로그인하여 발송',
     icon: '💬',
     prices: [
       { label: '1만원',  amount: 10000 },
@@ -16,7 +29,7 @@ const PRODUCTS = [
       { label: '10만원', amount: 100000 },
       { label: '20만원', amount: 200000 },
     ],
-    type: 'sms_charge',
+    type: 'sms_login_charge',
   },
   {
     id: 'software',
@@ -63,6 +76,10 @@ function formatNumber(n) {
   return n.toLocaleString('ko-KR');
 }
 
+function isSmsType(type) {
+  return type === 'sms_api_charge' || type === 'sms_login_charge';
+}
+
 function PaymentPage() {
   const navigate = useNavigate();
   const [user] = useState(() => {
@@ -77,7 +94,6 @@ function PaymentPage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [showContactModal, setShowContactModal] = useState(false);
-  const [isApiForSms, setIsApiForSms] = useState(false);
 
   // 로그인 필요
   useEffect(() => {
@@ -87,15 +103,12 @@ function PaymentPage() {
     }
   }, [user, navigate]);
 
-  // ?api=1 파라미터 → SMS 제품 자동선택 + API 키발급용 자동체크
+  // ?api=1 → sms_api 자동선택
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('api') === '1') {
-      const smsProduct = PRODUCTS.find(p => p.id === 'sms');
-      if (smsProduct) {
-        setSelectedProduct(smsProduct);
-        setIsApiForSms(true);
-      }
+      const p = PRODUCTS.find(p => p.id === 'sms_api');
+      if (p) setSelectedProduct(p);
     }
   }, []);
 
@@ -107,19 +120,17 @@ function PaymentPage() {
     setSelectedProduct(product);
     setSelectedPrice(null);
     setCustomAmount('');
-    if (product.id !== 'sms') setIsApiForSms(false);
   };
 
   const handleNext = () => {
     if (!selectedProduct) return;
-    if (selectedProduct.type === 'sms_charge') {
-      const amt = selectedPrice ? selectedPrice.amount : parseInt(customAmount.replace(/,/g, ''), 10);
-      if (!amt || amt < 10000) {
-        alert('충전 금액을 선택하거나 최소 10,000원 이상 입력해주세요.');
+    const amt = selectedPrice ? selectedPrice.amount : parseInt(customAmount.replace(/,/g, ''), 10);
+    if (isSmsType(selectedProduct.type)) {
+      if (!amt || amt < 11000) {
+        alert('충전 금액을 선택하거나 최소 11,000원 이상 입력해주세요.');
         return;
       }
     } else if (selectedProduct.type === 'license') {
-      const amt = selectedPrice ? selectedPrice.amount : parseInt(customAmount.replace(/,/g, ''), 10);
       if (!amt || amt < 1000) {
         alert('금액을 선택하거나 직접 입력해주세요.');
         return;
@@ -138,7 +149,8 @@ function PaymentPage() {
     setLoading(true);
     try {
       const amount = getPayAmount();
-      const productName = (selectedProduct.id === 'sms' && isApiForSms)
+      const isApiCharge = selectedProduct.type === 'sms_api_charge';
+      const productName = isApiCharge
         ? selectedProduct.name + ' – API 키발급용'
         : selectedProduct.name;
 
@@ -157,7 +169,7 @@ function PaymentPage() {
         clearInterval(timer);
         if (popup && !popup.closed) popup.close();
 
-        // API 키발급용 결제 성공 → Spring 잔액 충전 (부가세 제외 금액)
+        // API 충전 결제 성공 → Spring으로 noim_sms_balance 충전
         if (e.data.ok && e.data.isApiCharge && e.data.chargeAmt > 0) {
           try {
             const params = new URLSearchParams({
@@ -207,10 +219,14 @@ function PaymentPage() {
     setSelectedPrice(null);
     setCustomAmount('');
     setResult(null);
-    setIsApiForSms(false);
   };
 
   if (!user) return null;
+
+  // 제품 선택 중에는 기타 카드 숨김 (가격 섹션이 아래로 밀리지 않도록)
+  const visibleProducts = selectedProduct
+    ? PRODUCTS.filter(p => p.type !== 'contact')
+    : PRODUCTS;
 
   return (
     <div className={styles.page}>
@@ -234,7 +250,7 @@ function PaymentPage() {
           <div>
             <h2 className={styles.sectionTitle}>결제할 항목을 선택해주세요</h2>
             <div className={styles.productGrid}>
-              {PRODUCTS.map((product) => (
+              {visibleProducts.map((product) => (
                 <div
                   key={product.id}
                   className={`${styles.productCard} ${selectedProduct?.id === product.id ? styles.selected : ''}`}
@@ -262,50 +278,24 @@ function PaymentPage() {
                   {selectedProduct.name} — 금액 선택
                 </h3>
 
-                {/* API 키발급용 체크박스 (문자 및 카카오톡 충전만) */}
-                {selectedProduct.id === 'sms' && (
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12,
-                                  fontSize: 14, cursor: 'pointer', color: '#374151' }}>
-                    <input
-                      type="checkbox"
-                      checked={isApiForSms}
-                      onChange={e => {
-                        setIsApiForSms(e.target.checked);
-                        setSelectedPrice(null);
-                        setCustomAmount('');
-                      }}
-                      style={{ width: 16, height: 16, cursor: 'pointer' }}
-                    />
-                    API 키발급용
-                    <span style={{ fontSize: 12, color: '#6b7280' }}>
-                      (API 문자 프로그램용 — 부가세 포함 결제, 세액 제외 후 잔액 충전)
-                    </span>
-                  </label>
-                )}
-
                 <div className={styles.priceOptions}>
-                  {selectedProduct.prices.map((p) => {
-                    const displayAmt = (selectedProduct.id === 'sms' && isApiForSms)
-                      ? Math.round(p.amount * 1.1)
-                      : p.amount;
-                    return (
-                      <button
-                        key={p.amount}
-                        className={`${styles.priceBtn} ${selectedPrice?._base === p.amount ? styles.priceBtnActive : ''}`}
-                        onClick={() => {
-                          setSelectedPrice({ ...p, amount: displayAmt, _base: p.amount });
-                          setCustomAmount(formatNumber(displayAmt));
-                        }}
-                      >
-                        {p.label}
-                        <span className={styles.priceAmount}>{formatNumber(displayAmt)}원</span>
-                      </button>
-                    );
-                  })}
+                  {selectedProduct.prices.map((p) => (
+                    <button
+                      key={p.amount}
+                      className={`${styles.priceBtn} ${selectedPrice?.amount === p.amount ? styles.priceBtnActive : ''}`}
+                      onClick={() => {
+                        setSelectedPrice(p);
+                        setCustomAmount(formatNumber(p.amount));
+                      }}
+                    >
+                      {p.label}
+                      <span className={styles.priceAmount}>{formatNumber(p.amount)}원</span>
+                    </button>
+                  ))}
                 </div>
 
-                {/* 직접 입력 (sms_charge 또는 hasCustom 제품) */}
-                {(selectedProduct.type === 'sms_charge' || selectedProduct.hasCustom) && (
+                {/* 직접 입력 (SMS 또는 hasCustom 제품) */}
+                {(isSmsType(selectedProduct.type) || selectedProduct.hasCustom) && (
                   <div className={styles.customAmount}>
                     <label>직접 입력</label>
                     <div className={styles.customAmountRow}>
@@ -378,11 +368,11 @@ function PaymentPage() {
 
             <div className={styles.confirmNotice}>
               <p>※ 결제 버튼 클릭 시 KSPay 결제창이 열립니다.</p>
-              {selectedProduct.type === 'sms_charge' && !isApiForSms && (
-                <p>※ 문자/카카오톡 충전은 결제 완료 후 즉시 적용됩니다.</p>
+              {selectedProduct.type === 'sms_api_charge' && (
+                <p>※ API 문자 프로그램용 — 결제금액 ÷ 11 × 10 (원단위 절삭) 금액이 API 문자 잔액에 충전됩니다.</p>
               )}
-              {isApiForSms && (
-                <p>※ API 키발급용 결제 — 결제금액 ÷ 11 × 10 금액이 API 문자 잔액에 충전됩니다.</p>
+              {selectedProduct.type === 'sms_login_charge' && (
+                <p>※ 문자/카카오톡 충전은 결제 완료 후 즉시 적용됩니다.</p>
               )}
             </div>
 
@@ -410,14 +400,14 @@ function PaymentPage() {
             <h2 className={result.ok ? styles.resultTitleOk : styles.resultTitleFail}>
               {result.ok ? '결제가 완료되었습니다' : '결제가 완료되지 않았습니다'}
             </h2>
-            {result.ok && result.amt && !result.isApiCharge && (
-              <p className={styles.resultMsg}>{Number(result.amt).toLocaleString('ko-KR')}원이 처리되었습니다.</p>
-            )}
-            {result.ok && result.isApiCharge && result.chargeAmt > 0 && (
+            {result.ok && result.chargeAmt > 0 && (
               <p className={styles.resultMsg}>
-                결제 {Number(result.amt).toLocaleString('ko-KR')}원 중 부가세(10%) 제외 후{' '}
-                <strong>{Number(result.chargeAmt).toLocaleString('ko-KR')}원</strong>이 API 문자 잔액에 충전되었습니다.
+                결제 {Number(result.amt).toLocaleString('ko-KR')}원 중 부가세 제외 후{' '}
+                <strong>{Number(result.chargeAmt).toLocaleString('ko-KR')}원</strong>이 충전되었습니다.
               </p>
+            )}
+            {result.ok && !result.chargeAmt && result.amt && (
+              <p className={styles.resultMsg}>{Number(result.amt).toLocaleString('ko-KR')}원이 처리되었습니다.</p>
             )}
             {!result.ok && result.msg && (
               <p className={styles.resultMsg}>{result.msg}</p>

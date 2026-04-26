@@ -46,9 +46,9 @@ If authyn = "O" And uid <> "" And IsNumeric(pamount) And CLng(pamount) > 0 Then
         Dbcon.Execute(sql)
 
     Else
-        ' ── 일반 결제: manyman.payment 업데이트 ──
+        ' ── 일반 결제(로그인용 문자충전 / 소프트웨어 / 연회비): manyman.payment 업데이트 ──
 
-        ' 잔액 업데이트
+        ' 잔액 업데이트 (전액 — 기존 로직 유지)
         sql = "UPDATE manyman SET payment = payment + " & pamt & " WHERE id = '" & safeId & "'"
         Dbcon.Execute(sql)
 
