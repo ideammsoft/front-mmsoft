@@ -6,7 +6,7 @@ const PRODUCTS = [
   {
     id: 'sms_api',
     name: '문자 및 카카오톡 충전(API)',
-    description: 'API 문자 프로그램용 — 부가세 포함 결제, 세액 제외 후 잔액 충전',
+    description: 'API키를 적용하여 문자보냄. 노임관리, manTax 등',
     icon: '💬',
     prices: [
       { label: '11,000원',  amount: 11000 },
@@ -16,20 +16,22 @@ const PRODUCTS = [
       { label: '220,000원', amount: 220000 },
     ],
     type: 'sms_api_charge',
+    subDesc: 'API 문자 프로그램용 — 부가세 포함 결제, 세액 제외 후 잔액 충전',
   },
   {
     id: 'sms_login',
     name: '문자 및 카카오톡 충전(로그인)',
-    description: '기존 로그인 프로그램용 — 기존 방식으로 로그인하여 발송',
+    description: '로그인하여 발송 (여러 사람, 우리동문등)',
     icon: '💬',
     prices: [
-      { label: '1만원',  amount: 10000 },
-      { label: '3만원',  amount: 30000 },
-      { label: '5만원',  amount: 50000 },
-      { label: '10만원', amount: 100000 },
-      { label: '20만원', amount: 200000 },
+      { label: '11,000원',  amount: 11000 },
+      { label: '33,000원',  amount: 33000 },
+      { label: '55,000원',  amount: 55000 },
+      { label: '110,000원', amount: 110000 },
+      { label: '220,000원', amount: 220000 },
     ],
     type: 'sms_login_charge',
+    subDesc: '기존 로그인 프로그램용 — 부가세 포함 결제, 세액 제외 후 잔액 충전',
   },
   {
     id: 'software',
@@ -250,25 +252,35 @@ function PaymentPage() {
           <div>
             <h2 className={styles.sectionTitle}>결제할 항목을 선택해주세요</h2>
             <div className={styles.productGrid}>
-              {visibleProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className={`${styles.productCard} ${selectedProduct?.id === product.id ? styles.selected : ''}`}
-                  onClick={() => handleProductSelect(product)}
-                >
-                  <div className={styles.productIcon}>{product.icon}</div>
-                  <h3 className={styles.productName}>{product.name}</h3>
-                  <p className={styles.productDesc}>{product.description}</p>
-                  {product.prices.length > 0 && (
-                    <div className={styles.priceRange}>
-                      {formatNumber(product.prices[0].amount)}원 ~
+              {visibleProducts.map((product) => {
+                const card = (
+                  <div
+                    key={product.id}
+                    className={`${styles.productCard} ${selectedProduct?.id === product.id ? styles.selected : ''}`}
+                    onClick={() => handleProductSelect(product)}
+                  >
+                    <div className={styles.productIcon}>{product.icon}</div>
+                    <h3 className={styles.productName}>{product.name}</h3>
+                    <p className={styles.productDesc}>{product.description}</p>
+                    {product.prices.length > 0 && (
+                      <div className={styles.priceRange}>
+                        {formatNumber(product.prices[0].amount)}원 ~
+                      </div>
+                    )}
+                    {product.type === 'contact' && (
+                      <div className={styles.priceRange}>견적 문의</div>
+                    )}
+                  </div>
+                );
+                if (product.id === 'etc') {
+                  return (
+                    <div key={product.id} style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center' }}>
+                      {card}
                     </div>
-                  )}
-                  {product.type === 'contact' && (
-                    <div className={styles.priceRange}>견적 문의</div>
-                  )}
-                </div>
-              ))}
+                  );
+                }
+                return card;
+              })}
             </div>
 
             {/* 선택된 제품의 가격 옵션 */}
@@ -277,6 +289,11 @@ function PaymentPage() {
                 <h3 className={styles.priceSectionTitle}>
                   {selectedProduct.name} — 금액 선택
                 </h3>
+                {selectedProduct.subDesc && (
+                  <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 10 }}>
+                    {selectedProduct.subDesc}
+                  </p>
+                )}
 
                 <div className={styles.priceOptions}>
                   {selectedProduct.prices.map((p) => (

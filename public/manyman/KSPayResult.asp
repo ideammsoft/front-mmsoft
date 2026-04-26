@@ -42,7 +42,7 @@ If authyn = "O" And uid <> "" And IsNumeric(pamount) And CLng(pamount) > 0 Then
     If pApiFlg = "Y" Or InStr(pname, "API") > 0 Then
         ' ── API 키발급용 결제: manyman.payment 미업데이트, M_sms 이력만 기록 ──
         ' (noim_sms_balance 충전은 PaymentPage.jsx 에서 Spring 직접 호출)
-        sql = "INSERT INTO M_sms (id, title, payment) VALUES ('" & safeId & "', '카드충전API', " & pamt & ")"
+        sql = "INSERT INTO M_sms (id, title, payment) VALUES ('" & safeId & "', '카드충전-API', " & pamt & ")"
         Dbcon.Execute(sql)
 
     Else
