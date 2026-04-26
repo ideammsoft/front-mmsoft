@@ -139,12 +139,35 @@ function PaymentPage() {
       const popup = window.open(payUrl, 'kspaypopup', 'width=850,height=900,scrollbars=yes');
 
       // KSPayResult.asp에서 postMessage로 결과 수신
-      const onMessage = (e) => {
+      const onMessage = async (e) => {
         if (!e.data || e.data.type !== 'KSPAY_RESULT') return;
         window.removeEventListener('message', onMessage);
         clearInterval(timer);
         if (popup && !popup.closed) popup.close();
-        setResult({ ok: e.data.ok, amt: e.data.amt, msg: e.data.msg });
+
+        // API 키발급용 결제 성공 → Spring 잔액 충전 (부가세 제외 금액)
+        if (e.data.ok && e.data.isApiCharge && e.data.chargeAmt > 0) {
+          try {
+            const params = new URLSearchParams({
+              customerId : userId,
+              amount     : e.data.chargeAmt,
+              secret     : 'mmsoft-internal-key-2025',
+            });
+            await fetch(`/ad/api/internal/noim-sms/card-charge?${params}`, {
+              method: 'POST',
+            });
+          } catch (err) {
+            console.error('noim 잔액 충전 오류:', err);
+          }
+        }
+
+        setResult({
+          ok          : e.data.ok,
+          amt         : e.data.amt,
+          msg         : e.data.msg,
+          isApiCharge : e.data.isApiCharge,
+          chargeAmt   : e.data.chargeAmt,
+        });
         setStep('result');
         setLoading(false);
       };
@@ -363,8 +386,14 @@ function PaymentPage() {
             <h2 className={result.ok ? styles.resultTitleOk : styles.resultTitleFail}>
               {result.ok ? '결제가 완료되었습니다' : '결제가 완료되지 않았습니다'}
             </h2>
-            {result.ok && result.amt && (
+            {result.ok && result.amt && !result.isApiCharge && (
               <p className={styles.resultMsg}>{Number(result.amt).toLocaleString('ko-KR')}원이 처리되었습니다.</p>
+            )}
+            {result.ok && result.isApiCharge && result.chargeAmt > 0 && (
+              <p className={styles.resultMsg}>
+                결제 {Number(result.amt).toLocaleString('ko-KR')}원 중 부가세(10%) 제외 후{' '}
+                <strong>{Number(result.chargeAmt).toLocaleString('ko-KR')}원</strong>이 noim 문자 잔액에 충전되었습니다.
+              </p>
             )}
             {!result.ok && result.msg && (
               <p className={styles.resultMsg}>{result.msg}</p>

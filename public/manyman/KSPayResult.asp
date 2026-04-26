@@ -39,28 +39,10 @@ If authyn = "O" And uid <> "" And IsNumeric(pamount) And CLng(pamount) > 0 Then
     Dim sql, rs
 
     If InStr(pname, "API 키발급용") > 0 Then
-        ' ── API 키발급용 결제: manyman.payment 미업데이트, noim_sms_balance에 충전 ──
-
-        ' M_sms 충전 이력 기록 (카드충전API)
+        ' ── API 키발급용 결제: manyman.payment 미업데이트, M_sms 이력만 기록 ──
+        ' (noim_sms_balance 충전은 PaymentPage.jsx 에서 Spring 직접 호출)
         sql = "INSERT INTO M_sms (id, title, payment) VALUES ('" & safeId & "', '카드충전API', " & pamt & ")"
         Dbcon.Execute(sql)
-
-        ' Spring 내부 API 호출 → noim_sms_balance 충전 (부가세 10% 차감은 Spring에서 처리)
-        Dim http
-        On Error Resume Next
-        Set http = Server.CreateObject("MSXML2.ServerXMLHTTP")
-        If Err.Number = 0 Then
-            Dim apiUrl
-            apiUrl = SPRING_INTERNAL_URL & "/api/internal/noim-sms/card-charge" & _
-                     "?customerId=" & Server.URLEncode(uid) & _
-                     "&amount=" & pamt & _
-                     "&secret=" & Server.URLEncode(INTERNAL_SECRET)
-            http.open "POST", apiUrl, False
-            http.setRequestHeader "Content-Type", "application/x-www-form-urlencoded"
-            http.send ""
-        End If
-        On Error GoTo 0
-        Set http = Nothing
 
     Else
         ' ── 일반 결제: manyman.payment 업데이트 ──
@@ -127,17 +109,21 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;d
 </div>
 <script language="javascript">
 (function() {
-  var ok  = ("<%=EscJS(authyn)%>" === "O");
-  var amt = "<%=EscJS(amt)%>";
-  var msg = "<%=EscJS(msg1)%>";
+  var ok          = ("<%=EscJS(authyn)%>" === "O");
+  var amt         = "<%=EscJS(amt)%>";
+  var msg         = "<%=EscJS(msg1)%>";
+  var isApiCharge = (("<%=EscJS(pname)%>").indexOf("API 키발급용") >= 0);
+  var chargeAmt   = isApiCharge ? Math.floor(parseInt(amt, 10) * 9 / 10) : 0;
 
   // PaymentPage.jsx(window.opener)로 결과 전달
   if (window.opener && !window.opener.closed) {
     window.opener.postMessage({
-      type : 'KSPAY_RESULT',
-      ok   : ok,
-      amt  : amt,
-      msg  : msg
+      type        : 'KSPAY_RESULT',
+      ok          : ok,
+      amt         : amt,
+      msg         : msg,
+      isApiCharge : isApiCharge,
+      chargeAmt   : chargeAmt
     }, '*');
     setTimeout(function() { window.close(); }, 1200);
   } else {
