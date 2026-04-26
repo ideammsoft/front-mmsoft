@@ -13,7 +13,8 @@ Dim payamt  : payamt  = Request.Form("sndAmount")
 Dim uid     : uid     = Trim(Request.Form("a"))
 Dim pamount : pamount = Trim(Request.Form("b"))
 Dim pname   : pname   = Trim(Request.Form("c"))
-Dim pApiFlg : pApiFlg = Trim(Request.Form("d"))
+Dim pApiFlg : pApiFlg = Trim(Request.QueryString("apiflg"))
+If pApiFlg = "" Then pApiFlg = Trim(Request.Form("d"))
 
 Const SPRING_INTERNAL_URL = "http://mm-admin-service:8080"
 Const INTERNAL_SECRET     = "mmsoft-internal-key-2025"
