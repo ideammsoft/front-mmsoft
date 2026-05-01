@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './PaymentPage.module.css';
 
@@ -82,6 +82,10 @@ function isSmsType(type) {
   return type === 'sms_api_charge' || type === 'sms_login_charge';
 }
 
+function isMobileDevice() {
+  return /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+}
+
 function PaymentPage() {
   const navigate = useNavigate();
   const [user] = useState(() => {
@@ -89,21 +93,52 @@ function PaymentPage() {
     catch { return null; }
   });
 
-  const [step, setStep] = useState('select'); // select | confirm | result
+  // 모바일 결제 복귀 시 URL 파라미터에서 결과 초기화
+  const [step, setStep] = useState(() => {
+    const p = new URLSearchParams(window.location.search);
+    return p.get('mobileResult') === '1' ? 'result' : 'select';
+  });
+  const [result, setResult] = useState(() => {
+    const p = new URLSearchParams(window.location.search);
+    if (p.get('mobileResult') !== '1') return null;
+    return {
+      ok         : p.get('ok') === 'true',
+      amt        : p.get('amt') || '',
+      msg        : p.get('msg') || '',
+      isApiCharge: p.get('isApi') === 'Y',
+      chargeAmt  : parseInt(p.get('chargeAmt') || '0', 10),
+      mobileUid  : p.get('uid') || '',
+    };
+  });
+
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [customAmount, setCustomAmount] = useState('');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
   const [showContactModal, setShowContactModal] = useState(false);
+  const priceSectionRef = useRef(null);
 
-  // 로그인 필요
+  // 모바일 결제 복귀: API 충전 잔액 업데이트
   useEffect(() => {
-    if (!user) {
+    if (!result?.ok || !result?.isApiCharge || !result?.chargeAmt) return;
+    const uid = result.mobileUid || user?.id || user?.userId || user?.homepageId || '';
+    if (!uid) return;
+    const params = new URLSearchParams({
+      customerId: uid,
+      amount    : result.chargeAmt,
+      secret    : 'mmsoft-internal-key-2025',
+    });
+    fetch(`/api/noim/sms/card-charge?${params}`, { method: 'POST' })
+      .catch(err => console.error('noim 잔액 충전 오류:', err));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 로그인 필요 (모바일 결제 결과 화면 제외)
+  useEffect(() => {
+    if (!user && step !== 'result') {
       alert('로그인이 필요한 서비스입니다.');
       navigate('/');
     }
-  }, [user, navigate]);
+  }, [user, navigate, step]);
 
   // ?api=1 → sms_api 자동선택
   useEffect(() => {
@@ -122,6 +157,7 @@ function PaymentPage() {
     setSelectedProduct(product);
     setSelectedPrice(null);
     setCustomAmount('');
+    setTimeout(() => priceSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   };
 
   const handleNext = () => {
@@ -139,6 +175,7 @@ function PaymentPage() {
       }
     }
     setStep('confirm');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const getPayAmount = () => {
@@ -148,20 +185,24 @@ function PaymentPage() {
   };
 
   const handlePayment = async () => {
+    const amount = getPayAmount();
+    const isApiCharge = selectedProduct.type === 'sms_api_charge';
+    const productName = isApiCharge
+      ? selectedProduct.name + ' – API 키발급용'
+      : selectedProduct.name;
+    const userId = user?.id || user?.userId || user?.homepageId || '';
+    const userName = user?.name || user?.nickname || userId;
+    const userPhone = user?.phone || user?.mphone || '';
+    const userEmail = user?.email || '';
+    const payUrl = `/manyman/index.html?product=${encodeURIComponent(productName)}&amount=${amount}&id=${encodeURIComponent(userId)}&name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&email=${encodeURIComponent(userEmail)}`;
+
+    if (isMobileDevice()) {
+      alert('PC 환경에서만 지원됩니다.');
+      return;
+    }
+
     setLoading(true);
     try {
-      const amount = getPayAmount();
-      const isApiCharge = selectedProduct.type === 'sms_api_charge';
-      const productName = isApiCharge
-        ? selectedProduct.name + ' – API 키발급용'
-        : selectedProduct.name;
-
-      const userId = user?.id || user?.userId || user?.homepageId || '';
-      const userName = user?.name || user?.nickname || userId;
-      const userPhone = user?.phone || user?.mphone || '';
-      const userEmail = user?.email || '';
-      const payUrl = `/manyman/index.html?product=${encodeURIComponent(productName)}&amount=${amount}&id=${encodeURIComponent(userId)}&name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&email=${encodeURIComponent(userEmail)}`;
-
       const popup = window.open(payUrl, 'kspaypopup', 'width=850,height=900,scrollbars=yes');
 
       // KSPayResult.asp에서 postMessage로 결과 수신
@@ -285,7 +326,7 @@ function PaymentPage() {
 
             {/* 선택된 제품의 가격 옵션 */}
             {selectedProduct && selectedProduct.type !== 'contact' && (
-              <div className={styles.priceSection}>
+              <div className={styles.priceSection} ref={priceSectionRef}>
                 <h3 className={styles.priceSectionTitle}>
                   {selectedProduct.name} — 금액 선택
                 </h3>

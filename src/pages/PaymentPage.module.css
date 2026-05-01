@@ -309,8 +309,37 @@
 .modalBox p { color: #64748b; margin: 0 0 20px; line-height: 1.6; }
 
 @media (max-width: 600px) {
-  .productGrid { grid-template-columns: repeat(2, 1fr); }
-  .container { padding: 32px 16px 60px; }
-  .confirmBox, .contactBox, .resultBox { padding: 24px; }
-  .customAmountRow { flex-wrap: wrap; }
+  .container { padding: 20px 12px 60px; }
+
+  /* 제품 그리드: 2열 고정 */
+  .productGrid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .productCard { padding: 14px 10px; }
+  .productIcon { font-size: 1.5rem; }
+  .productName { font-size: 0.8rem; }
+  .productDesc { font-size: 0.7rem; }
+
+  /* 단계 표시: 텍스트 숨기고 번호만 표시 */
+  .step { padding: 0 10px; font-size: 0.75rem; }
+  .step span { display: none; }
+  .stepActive span { display: inline; }
+
+  /* 금액 선택 버튼: 한 줄에 2개 */
+  .priceSection { padding: 18px 14px; }
+  .priceOptions { gap: 8px; }
+  .priceBtn { min-width: calc(50% - 4px); flex: 1 1 calc(50% - 4px); padding: 10px 8px; font-size: 0.8rem; }
+  .priceAmount { font-size: 0.9rem; }
+
+  /* 직접 입력 행: 세로 정렬 */
+  .customAmountRow { flex-wrap: wrap; gap: 8px; }
+  .amountInput { width: 100%; }
+  .nextBtn { width: 100%; }
+
+  /* 결제확인/결과 박스 */
+  .confirmBox { padding: 20px 14px; }
+  .confirmRow { padding: 10px 14px; }
+  .confirmBtns { justify-content: stretch; }
+  .confirmBtns button { flex: 1; }
+
+  .contactBox, .resultBox { padding: 24px 16px; }
+  .resultBox { padding: 30px 16px; }
 }
