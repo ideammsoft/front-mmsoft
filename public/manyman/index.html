@@ -3,28 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>엠엠소프트 - 결제</title>
 <!-- KSNET 통합모듈 V1.4 JS 라이브러리 -->
 <script language="javascript" src="https://kspay.ksnet.to/store/KSPayWebV1.4/js/kspay_web_ssl.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;overflow-x:hidden}
-body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;padding:12px;font-size:14px}
-.hd{background:#1a73e8;color:#fff;text-align:center;padding:10px;border-radius:6px 6px 0 0;font-size:15px;font-weight:bold}
-.card{background:#fff;border:1px solid #d0d8e8;border-radius:0 0 6px 6px;padding:16px}
-.info-table{width:100%;border-collapse:collapse;margin-bottom:14px}
-.info-table td{padding:8px 10px;border-bottom:1px solid #eef0f5;font-size:13px}
-.info-table td:first-child{color:#555;font-weight:bold;width:80px}
+body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;font-size:15px}
+
+/* ── 공통 ── */
+.wrap{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:20px 16px}
+.inner{width:100%;max-width:480px}
+.hd{background:#1a73e8;color:#fff;text-align:center;padding:14px;border-radius:10px 10px 0 0;font-size:17px;font-weight:bold;letter-spacing:0.5px}
+.card{background:#fff;border:1px solid #d0d8e8;border-radius:0 0 10px 10px;padding:20px}
+.info-table{width:100%;border-collapse:collapse;margin-bottom:16px}
+.info-table td{padding:12px 10px;border-bottom:1px solid #eef0f5;font-size:15px}
+.info-table td:first-child{color:#555;font-weight:bold;width:90px;white-space:nowrap}
 .info-table td:last-child{color:#1a73e8;font-weight:bold}
-.amount-cell{font-size:18px!important}
-.notice{background:#e8f0fe;border-left:4px solid #1a73e8;border-radius:4px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:#3c4858;line-height:1.8}
-.pb{width:100%;padding:13px;background:#1a73e8;color:#fff;border:none;border-radius:6px;font-size:16px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;cursor:pointer}
-.pb:hover{background:#1557b0}
+.amount-cell{font-size:22px!important}
+.notice{background:#e8f0fe;border-left:4px solid #1a73e8;border-radius:4px;padding:12px 14px;margin-bottom:18px;font-size:14px;color:#3c4858;line-height:1.9}
+.pb{width:100%;padding:16px;background:#1a73e8;color:#fff;border:none;border-radius:8px;font-size:18px;font-family:'맑은 고딕','Malgun Gothic',sans-serif;font-weight:bold;cursor:pointer;letter-spacing:0.5px}
+.pb:active{background:#1557b0}
 .pb:disabled{background:#9fb8e8;cursor:not-allowed}
+
+/* ── 모바일 추가 보정 ── */
+@media (max-width:480px){
+  .wrap{padding:0;align-items:stretch}
+  .inner{max-width:100%;display:flex;flex-direction:column;min-height:100vh}
+  .hd{border-radius:0;font-size:18px;padding:18px}
+  .card{flex:1;border-radius:0;border:none;padding:24px 20px;display:flex;flex-direction:column;gap:0}
+  .info-table td{padding:16px 12px;font-size:16px}
+  .amount-cell{font-size:26px!important}
+  .notice{font-size:14px;padding:14px 16px;margin-bottom:20px}
+  .pb{padding:20px;font-size:20px;border-radius:10px;margin-top:auto}
+}
 </style>
 </head>
 <body>
 
+<div class="wrap"><div class="inner">
 <div class="hd">MMSoft &nbsp; 결제</div>
 <div class="card">
   <table class="info-table">
@@ -47,6 +65,7 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
   </div>
   <button type="button" class="pb" id="payBtn" onclick="go()">카드 결제하기</button>
 </div>
+</div></div>
 
 <!-- ────────────────────────────────────────────
      KSPay 통합모듈 V1.4 Form
