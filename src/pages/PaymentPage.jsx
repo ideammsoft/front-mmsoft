@@ -197,7 +197,8 @@ function PaymentPage() {
     const payUrl = `/manyman/index.html?product=${encodeURIComponent(productName)}&amount=${amount}&id=${encodeURIComponent(userId)}&name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&email=${encodeURIComponent(userEmail)}`;
 
     if (isMobileDevice()) {
-      alert('PC 환경에서만 지원됩니다.');
+      // 모바일: KSPay 모바일 게이트웨이로 full-page 이동 (index.html이 submit 처리)
+      window.location.href = payUrl;
       return;
     }
 
