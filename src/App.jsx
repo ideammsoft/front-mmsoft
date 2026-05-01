@@ -31,8 +31,8 @@
 //   - 브라우저의 URL을 감시하고, URL이 바뀌면 해당 Route의 페이지를 표시합니다.
 //   - 실제 서버 요청 없이 JavaScript로 페이지 전환을 처리합니다. (SPA 방식)
 
-import { lazy, Suspense, Component } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense, Component, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import LoadingSpinner from './components/common/LoadingSpinner';
 
@@ -90,10 +90,25 @@ const NotFoundPage          = lazy(() => import('./pages/NotFoundPage'));
 const OAuthCallbackPage     = lazy(() => import('./pages/OAuthCallbackPage'));
 const SmsServicePage        = lazy(() => import('./pages/SmsServicePage'));
 
+function AccessLogger() {
+  const location = useLocation();
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('mmsoft_user') || 'null');
+    fetch('/api/noim/access-log', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: location.pathname, userId: user?.homepageId || null }),
+      keepalive: true,
+    }).catch(() => {});
+  }, [location.pathname]);
+  return null;
+}
+
 function App() {
   return (
     // BrowserRouter: URL 변화를 감지하여 적절한 페이지 컴포넌트를 렌더링합니다
     <BrowserRouter>
+      <AccessLogger />
       {/* Layout: 모든 페이지에 공통으로 Header와 Footer를 적용 */}
       <Layout>
         {/* Suspense: lazy 컴포넌트 로딩 중에 LoadingSpinner를 보여줌 */}
