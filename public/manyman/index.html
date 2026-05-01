@@ -170,7 +170,7 @@ function go() {
     /* 모바일: KSPay 모바일 게이트웨이로 full-page 리다이렉트 */
     document.KSPayWeb.iframeYn.value = 'N';
     document.KSPayWeb.sndReply.value = window.location.origin
-      + '/manyman/KSPayMobileRcv.asp'
+      + '/api/payment/kspayresult-mobile'
       + '?uid='     + encodeURIComponent(uid)
       + '&pamount=' + amount
       + '&apiflg='  + apiFlag;
