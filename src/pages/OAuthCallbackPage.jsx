@@ -32,12 +32,13 @@ function OAuthCallbackPage() {
 
         // 사용자 정보 저장 (name, email, provider, mphone, phone, company 포함)
         localStorage.setItem('mmsoft_user', JSON.stringify({
-          name:     data.name     || '',
-          email:    data.email    || '',
-          mphone:   data.mphone   || '',
-          phone:    data.phone    || '',
-          company:  data.company  || '',
-          provider: data.provider || '',
+          name:       data.name       || '',
+          email:      data.email      || '',
+          mphone:     data.mphone     || '',
+          phone:      data.phone      || '',
+          company:    data.company    || '',
+          provider:   data.provider   || '',
+          homepageId: data.homepageId || '',
         }));
 
         // Header에 로그인 상태 변경 알림
