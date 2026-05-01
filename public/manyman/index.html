@@ -50,7 +50,8 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
 
 <!-- ────────────────────────────────────────────
      KSPay 통합모듈 V1.4 Form
-     (form name 반드시 KSPayWeb, action 미설정)
+     desktop: action 미설정 (_pay()가 처리)
+     mobile : action = KSPay 모바일 게이트웨이
 ──────────────────────────────────────────────── -->
 <form name="KSPayWeb" method="post">
   <!-- 가맹점 정보 -->
@@ -66,7 +67,7 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
   <input type="hidden" name="sndMobile"          value="">
   <!-- 콜백 URL (go()에서 동적 설정) -->
   <input type="hidden" name="sndReply"           value="">
-  <!-- V1.4 필수 설정 -->
+  <!-- V1.4 필수 설정 (모바일에서 iframeYn=N으로 변경됨) -->
   <input type="hidden" name="iframeYn"           value="Y">
   <input type="hidden" name="sndCharSet"         value="utf-8">
   <input type="hidden" name="sndGoodType"        value="2">
@@ -74,11 +75,11 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;p
   <input type="hidden" name="sndInstallmenttype" value="ALL(0:2:3:4:5:6:7:8:9:10:11:12)">
   <input type="hidden" name="sndInteresttype"    value="NONE">
   <input type="hidden" name="sndCurrencytype"    value="WON">
-  <!-- 결과 수신 (KSPayRcv.asp에서 채워짐) -->
+  <!-- 결과 수신 (KSPayRcv.asp에서 채워짐, 데스크탑 전용) -->
   <input type="hidden" name="reCommConId"        value="">
   <input type="hidden" name="reCommType"         value="">
   <input type="hidden" name="reHash"             value="">
-  <!-- DB 업데이트용 사용자 정보 (KSPayResult.asp에서 사용) -->
+  <!-- DB 업데이트용 사용자 정보 -->
   <input type="hidden" name="a"                  value="">
   <input type="hidden" name="b"                  value="">
   <input type="hidden" name="c"                  value="">
@@ -151,7 +152,8 @@ function go() {
   document.getElementById('payBtn').disabled = true;
   document.getElementById('payBtn').textContent = '결제창 열리는 중...';
 
-  var replyUrl = window.location.origin + '/manyman/KSPayRcv.asp';
+  var apiFlag  = (product.indexOf('키발급') >= 0) ? 'Y' : 'N';
+  var isMobile = /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
 
   document.KSPayWeb.sndOrdernumber.value = mkord();
   document.KSPayWeb.sndGoodname.value    = product;
@@ -159,13 +161,26 @@ function go() {
   document.KSPayWeb.sndOrdername.value   = nm || uid;
   document.KSPayWeb.sndEmail.value       = em;
   document.KSPayWeb.sndMobile.value      = ph.replace(/-/g, '');
-  document.KSPayWeb.sndReply.value       = replyUrl;
   document.KSPayWeb.a.value             = uid;
   document.KSPayWeb.b.value             = amount;
   document.KSPayWeb.c.value             = product;
-  document.KSPayWeb.d.value             = (product.indexOf('키발급') >= 0) ? 'Y' : 'N';
+  document.KSPayWeb.d.value             = apiFlag;
 
-  _pay(document.KSPayWeb);
+  if (isMobile) {
+    /* 모바일: KSPay 모바일 게이트웨이로 full-page 리다이렉트 */
+    document.KSPayWeb.iframeYn.value = 'N';
+    document.KSPayWeb.sndReply.value = window.location.origin
+      + '/manyman/KSPayMobileRcv.asp'
+      + '?uid='     + encodeURIComponent(uid)
+      + '&pamount=' + amount
+      + '&apiflg='  + apiFlag;
+    document.KSPayWeb.action = 'https://kspay.ksnet.to/store/KSPayMobileV1.4/KSPayPWeb.jsp';
+    document.KSPayWeb.submit();
+  } else {
+    /* 데스크탑: KSPay V1.4 iframe 팝업 */
+    document.KSPayWeb.sndReply.value = window.location.origin + '/manyman/KSPayRcv.asp';
+    _pay(document.KSPayWeb);
+  }
 }
 </script>
 </body>
