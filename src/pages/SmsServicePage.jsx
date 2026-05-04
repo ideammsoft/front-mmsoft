@@ -473,7 +473,6 @@ function ApiKeyTab({ user }) {
 const KAKAO_FILTERS = ['근로내역서'];
 
 function KakaoTemplateTab() {
-  const [apiKey,    setApiKey]    = useState(() => localStorage.getItem('kakao_api_key') || '');
   const [filter,    setFilter]    = useState(KAKAO_FILTERS[0]);
   const [templates, setTemplates] = useState([]);
   const [loading,   setLoading]   = useState(false);
@@ -481,14 +480,12 @@ function KakaoTemplateTab() {
   const [selected,  setSelected]  = useState(null);
 
   const handleLoad = async () => {
-    if (!apiKey.trim()) { alert('API 키를 입력해 주세요.'); return; }
-    localStorage.setItem('kakao_api_key', apiKey.trim());
     setLoading(true);
     setError('');
     setTemplates([]);
     setSelected(null);
     try {
-      const res  = await fetch(`/api/noim/kakao/templates?apiKey=${encodeURIComponent(apiKey.trim())}`);
+      const res  = await fetch('/api/noim/kakao/templates');
       const data = await res.json();
       if (data.result_code !== undefined && String(data.result_code) !== '1') {
         setError(data.message || '템플릿 조회 실패');
@@ -514,15 +511,6 @@ function KakaoTemplateTab() {
     <div>
       <h2 className={styles.sectionTitle}>카카오톡 알림톡 템플릿 조회</h2>
       <p className={styles.desc}>등록된 알림톡 템플릿 목록을 조회합니다.</p>
-
-      <div className={styles.balanceRow} style={{ marginBottom: 8 }}>
-        <input className={styles.input}
-          value={apiKey}
-          onChange={e => setApiKey(e.target.value)}
-          placeholder="API 키 (32자리 영숫자)"
-          style={{ flex: 1 }}
-        />
-      </div>
 
       <div className={styles.balanceRow}>
         <select className={styles.input}
