@@ -160,7 +160,14 @@ function RegisterTab({ user }) {
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.fieldGroup}>
             <label className={styles.label}>
-              {user.provider ? `로그인 Key (${user.provider})` : '고객 아이디 *'}
+              {user.provider ? (
+                <>
+                  로그인 Key
+                  <span style={{ display: 'block', fontSize: 11, fontWeight: 400, color: '#6b7280', marginTop: 2 }}>
+                    ({user.provider})
+                  </span>
+                </>
+              ) : '고객 아이디 *'}
             </label>
             <input className={styles.input}
               value={form.customerId}
@@ -463,47 +470,67 @@ function ApiKeyTab({ user }) {
 }
 
 // ── 카카오톡 템플릿 탭 ────────────────────────────────────────────
+const KAKAO_FILTERS = ['근로내역서'];
+
 function KakaoTemplateTab() {
-  const [apiKey,    setApiKey]    = useState('');
+  const [apiKey,    setApiKey]    = useState(() => localStorage.getItem('kakao_api_key') || '');
+  const [filter,    setFilter]    = useState(KAKAO_FILTERS[0]);
   const [templates, setTemplates] = useState([]);
   const [loading,   setLoading]   = useState(false);
   const [error,     setError]     = useState('');
+  const [selected,  setSelected]  = useState(null);
 
   const handleLoad = async () => {
     if (!apiKey.trim()) { alert('API 키를 입력해 주세요.'); return; }
+    localStorage.setItem('kakao_api_key', apiKey.trim());
     setLoading(true);
     setError('');
     setTemplates([]);
+    setSelected(null);
     try {
-      const res = await fetch(`/api/noim/kakao/templates?apiKey=${encodeURIComponent(apiKey.trim())}`);
+      const res  = await fetch(`/api/noim/kakao/templates?apiKey=${encodeURIComponent(apiKey.trim())}`);
       const data = await res.json();
       if (data.result_code !== undefined && String(data.result_code) !== '1') {
         setError(data.message || '템플릿 조회 실패');
       } else if (Array.isArray(data.list)) {
-        setTemplates(data.list);
+        const filtered = data.list.filter(t => {
+          const name   = t.tpl_name || t.name   || '';
+          const status = t.status   || t.tpl_status || '';
+          return name.includes(filter) && status === '승인';
+        });
+        setTemplates(filtered);
+        if (filtered.length === 0) setError(`승인된 '${filter}' 템플릿이 없습니다.`);
       } else {
-        setError('템플릿 목록을 불러오지 못했습니다. 알리고에 등록된 템플릿이 없을 수 있습니다.');
+        setError('템플릿 목록을 불러오지 못했습니다.');
       }
     } catch { setError('서버 오류가 발생했습니다.'); }
-    finally { setLoading(false); }
+    finally   { setLoading(false); }
   };
+
+  const tplName   = selected ? (selected.tpl_name || selected.name || '') : '';
+  const hasSmsAlt = tplName.endsWith('_SMS');
 
   return (
     <div>
       <h2 className={styles.sectionTitle}>카카오톡 알림톡 템플릿 조회</h2>
-      <p className={styles.desc}>
-        알리고에 등록된 알림톡 템플릿 목록을 조회합니다.<br/>
-        noim 프로그램에서 카카오톡 발송 시 아래 <strong>템플릿 코드(tpl_code)</strong>를 입력해 주세요.
-      </p>
+      <p className={styles.desc}>등록된 알림톡 템플릿 목록을 조회합니다.</p>
 
-      <div className={styles.balanceRow}>
+      <div className={styles.balanceRow} style={{ marginBottom: 8 }}>
         <input className={styles.input}
           value={apiKey}
           onChange={e => setApiKey(e.target.value)}
           placeholder="API 키 (32자리 영숫자)"
-          onKeyDown={e => e.key === 'Enter' && handleLoad()}
           style={{ flex: 1 }}
         />
+      </div>
+
+      <div className={styles.balanceRow}>
+        <select className={styles.input}
+          value={filter}
+          onChange={e => { setFilter(e.target.value); setTemplates([]); setSelected(null); }}
+          style={{ flex: 1 }}>
+          {KAKAO_FILTERS.map(f => <option key={f} value={f}>{f}</option>)}
+        </select>
         <button className={styles.submitBtn} onClick={handleLoad} disabled={loading}
           style={{ width: 'auto', padding: '10px 24px' }}>
           {loading ? '조회중...' : '템플릿 조회'}
@@ -514,59 +541,51 @@ function KakaoTemplateTab() {
 
       {templates.length > 0 && (
         <div className={styles.myList} style={{ marginTop: 16 }}>
-          <h3 className={styles.myListTitle}>등록된 템플릿 ({templates.length}개)</h3>
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
-              <thead>
-                <tr style={{ background: '#f3f4f6', borderBottom: '1px solid #e5e7eb' }}>
-                  <th style={{ padding: '8px 12px', textAlign: 'left', whiteSpace: 'nowrap' }}>템플릿 코드</th>
-                  <th style={{ padding: '8px 12px', textAlign: 'left' }}>템플릿명</th>
-                  <th style={{ padding: '8px 12px', textAlign: 'left' }}>상태</th>
-                  <th style={{ padding: '8px 12px', textAlign: 'left' }}>내용 (일부)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {templates.map((t, i) => (
-                  <tr key={i} style={{ borderBottom: '1px solid #e5e7eb' }}>
-                    <td style={{ padding: '8px 12px', fontWeight: 600, color: '#1a73e8', whiteSpace: 'nowrap' }}>
-                      {t.tpl_code || t.code || '-'}
-                    </td>
-                    <td style={{ padding: '8px 12px' }}>{t.tpl_name || t.name || '-'}</td>
-                    <td style={{ padding: '8px 12px' }}>
-                      <span style={{
-                        color: (t.status || t.tpl_status) === '승인' ? '#16a34a' : '#d97706',
-                        fontWeight: 600, fontSize: 12
-                      }}>
-                        {t.status || t.tpl_status || '-'}
-                      </span>
-                    </td>
-                    <td style={{ padding: '8px 12px', color: '#6b7280', maxWidth: 300 }}>
-                      <span style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {(t.tpl_content || t.content || '').slice(0, 60)}
-                        {(t.tpl_content || t.content || '').length > 60 ? '…' : ''}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p style={{ marginTop: 12, fontSize: 12, color: '#6b7280' }}>
-            ※ noim 프로그램 → 문자 발송 다이얼로그 → 카카오 템플릿 코드 입력 후 저장하면 카카오톡 발송이 가능합니다.
-          </p>
+          <h3 className={styles.myListTitle}>승인된 템플릿 ({templates.length}개)</h3>
+          {templates.map((t, i) => {
+            const name = t.tpl_name || t.name || '-';
+            return (
+              <div key={i} onClick={() => setSelected(selected === t ? null : t)}
+                style={{
+                  padding: '10px 14px', borderBottom: '1px solid #e5e7eb',
+                  cursor: 'pointer', fontSize: 14,
+                  background: selected === t ? '#eff6ff' : 'white',
+                  color:      selected === t ? '#1a73e8' : '#222',
+                  fontWeight: selected === t ? 700 : 400,
+                }}>
+                {name}
+              </div>
+            );
+          })}
         </div>
       )}
 
-      {!loading && templates.length === 0 && !error && (
-        <div className={styles.notice} style={{ marginTop: 16 }}>
-          <strong>알림톡 템플릿 사용 방법</strong>
-          <ol style={{ marginTop: 8, paddingLeft: 20, lineHeight: 1.8 }}>
-            <li>알리고(smartsms.aligo.in) 카카오 알림톡 관리에서 템플릿을 등록하고 승인을 받습니다.</li>
-            <li>위에서 API 키를 입력하여 승인된 템플릿 코드를 확인합니다.</li>
-            <li>noim 프로그램 문자 발송 다이얼로그의 <strong>카카오 템플릿 코드</strong>에 입력합니다.</li>
-            <li><strong>카카오톡발송</strong> 버튼으로 발송 시 템플릿 내용과 일치하는 메시지가 전송됩니다.</li>
-            <li>발송 실패 시 자동으로 일반 문자(SMS)로 전환됩니다.</li>
-          </ol>
+      {/* 템플릿 상세 모달 */}
+      {selected && (
+        <div onClick={() => setSelected(null)} style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0,0,0,0.45)', zIndex: 9999,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <div onClick={e => e.stopPropagation()} style={{
+            background: 'white', borderRadius: 12, width: 400, maxHeight: '82vh',
+            display: 'flex', flexDirection: 'column', overflow: 'hidden',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+          }}>
+            <div style={{ background: '#1a73e8', color: 'white', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
+              <span style={{ fontWeight: 700, fontSize: 15 }}>템플릿 보기</span>
+              <button onClick={() => setSelected(null)} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontSize: 22, lineHeight: 1, padding: 0 }}>×</button>
+            </div>
+            <div style={{ background: '#fef3c7', borderBottom: '1px solid #fde68a', padding: '10px 16px', fontWeight: 700, fontSize: 14, color: '#78350f', flexShrink: 0 }}>
+              {tplName}
+            </div>
+            <div style={{ padding: 16, overflowY: 'auto', flex: 1, whiteSpace: 'pre-wrap', lineHeight: 1.9, fontSize: 13, background: '#fffdf5', color: '#1f2937' }}>
+              {selected.tpl_content || selected.content || ''}
+            </div>
+            <div style={{ padding: '10px 16px', borderTop: '1px solid #e5e7eb', fontSize: 13, color: '#555', background: '#f9fafb', flexShrink: 0 }}>
+              대체 발송 문자: {hasSmsAlt ? '발송함' : '발송 안함'}
+            </div>
+          </div>
         </div>
       )}
     </div>
