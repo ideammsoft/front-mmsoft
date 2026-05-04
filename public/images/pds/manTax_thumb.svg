@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="280" viewBox="0 0 400 280">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a3c6e"/>
+      <stop offset="100%" style="stop-color:#0f5fa8"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#f0f4ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="400" height="280" fill="url(#bg)" rx="8"/>
+
+  <!-- 장식 원 -->
+  <circle cx="360" cy="30" r="60" fill="rgba(255,255,255,0.05)"/>
+  <circle cx="30" cy="260" r="80" fill="rgba(255,255,255,0.04)"/>
+
+  <!-- 문서 카드 -->
+  <rect x="40" y="45" width="160" height="200" fill="url(#card)" rx="6" filter="drop-shadow(2px 4px 8px rgba(0,0,0,0.3))"/>
+
+  <!-- 문서 헤더 바 -->
+  <rect x="40" y="45" width="160" height="28" fill="#1a3c6e" rx="6"/>
+  <rect x="40" y="59" width="160" height="14" fill="#1a3c6e"/>
+  <text x="120" y="63" font-family="Arial" font-size="9" fill="white" text-anchor="middle" font-weight="bold">세금계산서</text>
+
+  <!-- 문서 줄 -->
+  <rect x="56" y="90" width="80" height="5" fill="#cbd5e1" rx="2"/>
+  <rect x="56" y="90" width="55" height="5" fill="#94a3b8" rx="2"/>
+  <rect x="56" y="104" width="128" height="4" fill="#e2e8f0" rx="2"/>
+  <rect x="56" y="116" width="110" height="4" fill="#e2e8f0" rx="2"/>
+  <rect x="56" y="128" width="128" height="4" fill="#e2e8f0" rx="2"/>
+
+  <!-- 구분선 -->
+  <line x1="56" y1="142" x2="184" y2="142" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- 금액 행 -->
+  <rect x="56" y="152" width="60" height="4" fill="#e2e8f0" rx="2"/>
+  <rect x="140" y="152" width="44" height="4" fill="#0f5fa8" rx="2"/>
+  <rect x="56" y="164" width="60" height="4" fill="#e2e8f0" rx="2"/>
+  <rect x="140" y="164" width="44" height="4" fill="#e2e8f0" rx="2"/>
+
+  <!-- 합계 영역 -->
+  <rect x="56" y="178" width="128" height="20" fill="#1a3c6e" rx="3"/>
+  <rect x="60" y="182" width="45" height="3" fill="rgba(255,255,255,0.5)" rx="1"/>
+  <rect x="140" y="182" width="40" height="3" fill="rgba(255,255,255,0.9)" rx="1"/>
+  <rect x="60" y="189" width="35" height="3" fill="rgba(255,255,255,0.3)" rx="1"/>
+
+  <!-- 일괄 처리 아이콘 (오른쪽) -->
+  <g transform="translate(228, 60)">
+    <!-- 문서 스택 -->
+    <rect x="12" y="8" width="80" height="100" fill="rgba(255,255,255,0.08)" rx="4"/>
+    <rect x="6" y="4" width="80" height="100" fill="rgba(255,255,255,0.1)" rx="4"/>
+    <rect x="0" y="0" width="80" height="100" fill="rgba(255,255,255,0.15)" rx="4"/>
+    <!-- 문서 내용 줄 -->
+    <rect x="12" y="18" width="56" height="5" fill="rgba(255,255,255,0.5)" rx="2"/>
+    <rect x="12" y="30" width="48" height="4" fill="rgba(255,255,255,0.3)" rx="2"/>
+    <rect x="12" y="41" width="56" height="4" fill="rgba(255,255,255,0.3)" rx="2"/>
+    <rect x="12" y="52" width="40" height="4" fill="rgba(255,255,255,0.3)" rx="2"/>
+    <rect x="12" y="67" width="56" height="10" fill="rgba(255,255,255,0.2)" rx="2"/>
+    <!-- 체크 마크 -->
+    <circle cx="68" cy="88" r="12" fill="#22c55e"/>
+    <polyline points="62,88 66,93 74,83" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 브랜드명 -->
+  <text x="200" y="195" font-family="Arial Black, Arial" font-size="32" fill="white" text-anchor="middle" font-weight="900" letter-spacing="-1">manTax</text>
+
+  <!-- 설명 텍스트 -->
+  <text x="200" y="218" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.75)" text-anchor="middle">세금계산서 일괄등록 소프트웨어</text>
+
+  <!-- 하단 태그 -->
+  <rect x="130" y="232" width="140" height="22" fill="rgba(255,255,255,0.12)" rx="11"/>
+  <text x="200" y="247" font-family="Arial, sans-serif" font-size="10" fill="rgba(255,255,255,0.9)" text-anchor="middle">홈택시 · Windows 10/11</text>
+</svg>
