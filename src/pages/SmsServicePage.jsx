@@ -161,7 +161,7 @@ function RegisterTab({ user }) {
           <div className={styles.fieldGroup}>
             <label className={styles.label}>고객 아이디 *</label>
             <input className={styles.input}
-              value={form.customerId}
+              value={user.homepageId && user.provider ? `${user.provider} - ${user.homepageId}` : form.customerId}
               onChange={e => set('customerId', e.target.value)}
               placeholder="mmsoft 로그인 아이디"
               disabled={!!user.homepageId}
