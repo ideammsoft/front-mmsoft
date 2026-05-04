@@ -206,12 +206,12 @@ function RegisterTab({ user }) {
           </div>
 
           <div className={styles.fieldGroup}>
-            <label className={styles.label}>
-              통신서비스 이용증명원 *
+            <div className={styles.labelRow}>
+              <span className={styles.label}>통신서비스 이용증명원 *</span>
               <Link to="/sms-service/telecom-cert-guide" className={styles.guideLink} target="_blank" rel="noopener noreferrer">
                 통신서비스이용증명원 발급 방법
               </Link>
-            </label>
+            </div>
             <label
               className={`${styles.fileLabel} ${form.docCertUrl ? styles.fileDone : draggingCert ? styles.fileDragging : ''}`}
               onDragOver={e => { e.preventDefault(); setDraggingCert(true); }}

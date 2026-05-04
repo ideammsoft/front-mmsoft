@@ -100,7 +100,9 @@
 
 .fieldGroup { display: flex; flex-direction: column; gap: 5px; }
 
-.label { font-size: 13px; font-weight: 600; color: #374151; display: flex; align-items: center; justify-content: space-between; }
+.label { font-size: 13px; font-weight: 600; color: #374151; }
+
+.labelRow { display: flex; align-items: center; justify-content: space-between; }
 
 .guideLink {
   font-size: 12px;
