@@ -433,7 +433,7 @@ function ApiKeyTab({ user }) {
                            cursor: 'pointer', borderRadius: 6,
                            background: '#1a73e8', color: '#fff',
                            border: 'none', fontWeight: 600 }}>
-                  {sending === sn.id ? '전송중...' : (sentMsg[sn.id] || 'API 키 재전송')}
+                  {sending === sn.id ? '전송중...' : (sentMsg[sn.id] || 'API 키 이메일 전송')}
                 </button>
               )}
               {sn.status === 'REJECTED' && sn.rejectReason && (
@@ -491,9 +491,9 @@ function KakaoTemplateTab() {
         setError(data.message || '템플릿 조회 실패');
       } else if (Array.isArray(data.list)) {
         const filtered = data.list.filter(t => {
-          const name   = t.tpl_name || t.name   || '';
-          const status = t.status   || t.tpl_status || '';
-          return name.includes(filter) && status === '승인';
+          const name   = t.templtName || t.tpl_name || t.name || '';
+          const status = t.status     || t.tpl_status         || '';
+          return name.includes(filter) && status === 'A';
         });
         setTemplates(filtered);
         if (filtered.length === 0) setError(`승인된 '${filter}' 템플릿이 없습니다.`);
