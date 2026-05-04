@@ -487,7 +487,7 @@ function KakaoTemplateTab() {
       if (data.result_code !== undefined && String(data.result_code) !== '1') {
         setError(data.message || '템플릿 조회 실패');
       } else if (Array.isArray(data.list)) {
-        const approved = data.list.filter(t => (t.status || '') === 'A');
+        const approved = data.list.filter(t => (t.inspStatus || '') === 'APR');
         setTemplates(approved);
         if (approved.length === 0) setError('승인된 템플릿이 없습니다.');
       } else {
@@ -555,7 +555,7 @@ function KakaoTemplateTab() {
               {tplName}
             </div>
             <div style={{ padding: 16, overflowY: 'auto', flex: 1, whiteSpace: 'pre-wrap', lineHeight: 1.9, fontSize: 13, background: '#fffdf5', color: '#1f2937' }}>
-              {selected.tpl_content || selected.content || ''}
+              {selected.templtContent || selected.tpl_content || selected.content || ''}
             </div>
             <div style={{ padding: '10px 16px', borderTop: '1px solid #e5e7eb', fontSize: 13, color: '#555', background: '#f9fafb', flexShrink: 0 }}>
               대체 발송 문자: {hasSmsAlt ? '발송함' : '발송 안함'}
