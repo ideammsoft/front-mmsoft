@@ -470,10 +470,7 @@ function ApiKeyTab({ user }) {
 }
 
 // ── 카카오톡 템플릿 탭 ────────────────────────────────────────────
-const KAKAO_FILTERS = ['근로내역서'];
-
 function KakaoTemplateTab() {
-  const [filter,    setFilter]    = useState(KAKAO_FILTERS[0]);
   const [templates, setTemplates] = useState([]);
   const [loading,   setLoading]   = useState(false);
   const [error,     setError]     = useState('');
@@ -490,13 +487,9 @@ function KakaoTemplateTab() {
       if (data.result_code !== undefined && String(data.result_code) !== '1') {
         setError(data.message || '템플릿 조회 실패');
       } else if (Array.isArray(data.list)) {
-        const filtered = data.list.filter(t => {
-          const name   = t.templtName || t.tpl_name || t.name || '';
-          const status = t.status     || t.tpl_status         || '';
-          return name.includes(filter) && status === 'A';
-        });
-        setTemplates(filtered);
-        if (filtered.length === 0) setError(`승인된 '${filter}' 템플릿이 없습니다.`);
+        const approved = data.list.filter(t => (t.status || '') === 'A');
+        setTemplates(approved);
+        if (approved.length === 0) setError('승인된 템플릿이 없습니다.');
       } else {
         setError('템플릿 목록을 불러오지 못했습니다.');
       }
@@ -504,7 +497,7 @@ function KakaoTemplateTab() {
     finally   { setLoading(false); }
   };
 
-  const tplName   = selected ? (selected.tpl_name || selected.name || '') : '';
+  const tplName   = selected ? (selected.templtName || selected.tpl_name || selected.name || '') : '';
   const hasSmsAlt = tplName.endsWith('_SMS');
 
   return (
@@ -513,12 +506,6 @@ function KakaoTemplateTab() {
       <p className={styles.desc}>등록된 알림톡 템플릿 목록을 조회합니다.</p>
 
       <div className={styles.balanceRow}>
-        <select className={styles.input}
-          value={filter}
-          onChange={e => { setFilter(e.target.value); setTemplates([]); setSelected(null); }}
-          style={{ flex: 1 }}>
-          {KAKAO_FILTERS.map(f => <option key={f} value={f}>{f}</option>)}
-        </select>
         <button className={styles.submitBtn} onClick={handleLoad} disabled={loading}
           style={{ width: 'auto', padding: '10px 24px' }}>
           {loading ? '조회중...' : '템플릿 조회'}
@@ -531,7 +518,7 @@ function KakaoTemplateTab() {
         <div className={styles.myList} style={{ marginTop: 16 }}>
           <h3 className={styles.myListTitle}>승인된 템플릿 ({templates.length}개)</h3>
           {templates.map((t, i) => {
-            const name = t.tpl_name || t.name || '-';
+            const name = t.templtName || t.tpl_name || t.name || '-';
             return (
               <div key={i} onClick={() => setSelected(selected === t ? null : t)}
                 style={{
