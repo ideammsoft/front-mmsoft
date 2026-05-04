@@ -49,12 +49,15 @@ If authyn = "O" And uid <> "" And IsNumeric(pamount) And CLng(pamount) > 0 Then
     Else
         ' ── 일반 결제(로그인용 문자충전 / 소프트웨어 / 연회비): manyman.payment 업데이트 ──
 
-        ' 잔액 업데이트 (전액 — 기존 로직 유지)
-        sql = "UPDATE manyman SET payment = payment + " & pamt & " WHERE id = '" & safeId & "'"
+        ' VAT 제외 실충전금액: (결제금액 / 11) * 10, 10단위 절사
+        Dim chgAmt : chgAmt = Int(CDbl(pamt) * 10 / 11 / 10) * 10
+
+        ' 잔액 업데이트
+        sql = "UPDATE manyman SET payment = payment + " & chgAmt & " WHERE id = '" & safeId & "'"
         Dbcon.Execute(sql)
 
         ' 충전 이력 기록
-        sql = "INSERT INTO M_sms (id, title, payment) VALUES ('" & safeId & "', '카드충전', " & pamt & ")"
+        sql = "INSERT INTO M_sms (id, title, payment) VALUES ('" & safeId & "', '카드충전', " & chgAmt & ")"
         Dbcon.Execute(sql)
 
         ' SMS 발송 (ppurio)
@@ -71,7 +74,7 @@ If authyn = "O" And uid <> "" And IsNumeric(pamount) And CLng(pamount) > 0 Then
                 Randomize
                 cmid2 = Replace(FormatDateTime(Now(), 2), "-", "") & hv & mv & sv & _
                         Replace(CStr(Timer()), ".", "") & Replace(CStr(Rnd()), ".", "")
-                Dim msgBody : msgBody = "문자메시지 " & FormatNumber(pamt, 0) & "원이 충전되었습니다(카드결제). - 엠엠소프트"
+                Dim msgBody : msgBody = "문자메시지 " & FormatNumber(chgAmt, 0) & "원이 충전되었습니다(카드결제). - 엠엠소프트"
                 sql = "INSERT INTO ums_data (cmid, msg_type, status, request_time, dest_phone, send_phone, msg_body, etc1, etc2, etc3, etc4) " & _
                       "VALUES ('" & cmid2 & "', '0', '0', GETDATE(), '" & Replace(mphone, "-", "") & "', '028647576', '" & msgBody & "', '', 'manyman', '', '')"
                 Db_ppu.Execute(sql)
@@ -115,7 +118,7 @@ body{font-family:'맑은 고딕','Malgun Gothic',sans-serif;background:#eef2f7;d
   var amt         = "<%=EscJS(amt)%>";
   var msg         = "<%=EscJS(msg1)%>";
   var isApiCharge = ("<%=EscJS(pApiFlg)%>" === "Y" || ("<%=EscJS(pname)%>").indexOf("API") >= 0);
-  var chargeAmt   = isApiCharge ? Math.floor(parseInt(amt, 10) / 11 * 10) : 0;
+  var chargeAmt   = Math.floor(parseInt(amt, 10) * 10 / 11 / 10) * 10;
 
   // PaymentPage.jsx(window.opener)로 결과 전달
   if (window.opener && !window.opener.closed) {
