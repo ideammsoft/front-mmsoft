@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './SmsServicePage.module.css';
 
 const TABS = [
@@ -52,16 +51,50 @@ export default function SmsServicePage() {
   );
 }
 
-// ── 발신번호 등록 탭 ──────────────────────────────────────────────
-function RegisterTab({ user }) {
-  const [form, setForm] = useState({
+const SS_KEY = 'noim_register_form';
+
+function loadSavedForm(user) {
+  try {
+    const saved = sessionStorage.getItem(SS_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch {}
+  return {
     customerId:      user.homepageId || '',
     phoneNumber:     '',
     phoneAlias:      '',
     senderType:      'REPRESENTATIVE',
     docCertUrl:      '',
     docEmploymentUrl:'',
+  };
+}
+
+async function compressImage(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX = 1400;
+        let w = img.width, h = img.height;
+        if (w > MAX || h > MAX) {
+          if (w >= h) { h = Math.round(h * MAX / w); w = MAX; }
+          else        { w = Math.round(w * MAX / h); h = MAX; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        canvas.toBlob(blob => resolve(new File([blob], file.name, { type: 'image/jpeg' })),
+                      'image/jpeg', 0.82);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
   });
+}
+
+// ── 발신번호 등록 탭 ──────────────────────────────────────────────
+function RegisterTab({ user }) {
+  const [form, setForm] = useState(() => loadSavedForm(user));
   const [submitting,       setSubmitting]       = useState(false);
   const [done,             setDone]             = useState(false);
   const [myList,           setMyList]           = useState([]);
@@ -73,7 +106,11 @@ function RegisterTab({ user }) {
   const [draggingCert,     setDraggingCert]     = useState(false);
   const [draggingEmploy,   setDraggingEmploy]   = useState(false);
 
-  const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
+  const set = (k, v) => setForm(p => {
+    const next = { ...p, [k]: v };
+    try { sessionStorage.setItem(SS_KEY, JSON.stringify(next)); } catch {}
+    return next;
+  });
 
   const loadMyList = async (id) => {
     if (!id) return;
@@ -91,8 +128,12 @@ function RegisterTab({ user }) {
     if (!file) return;
     setUploading(true);
     try {
+      let uploadFile = file;
+      if (/image\/(jpeg|jpg|png)/i.test(file.type) && file.size > 500 * 1024) {
+        uploadFile = await compressImage(file);
+      }
       const fd = new FormData();
-      fd.append('file', file);
+      fd.append('file', uploadFile);
       const res = await fetch('/api/noim/sender/upload-doc', { method: 'POST', body: fd });
       const data = await res.json();
       if (data.url) {
@@ -123,6 +164,7 @@ function RegisterTab({ user }) {
       });
       const data = await res.json();
       if (data.success) {
+        try { sessionStorage.removeItem(SS_KEY); } catch {}
         setDone(true);
         await loadMyList(form.customerId);
       } else {
@@ -154,7 +196,12 @@ function RegisterTab({ user }) {
         <div className={styles.success}>
           <div className={styles.successIcon}>✓</div>
           <p>등록 신청이 완료되었습니다.<br/>관리자 심사 후 승인 처리됩니다.</p>
-          <button className={styles.resetBtn} onClick={() => setDone(false)}>추가 등록하기</button>
+          <button className={styles.resetBtn} onClick={() => {
+            setForm({ customerId: user.homepageId || '', phoneNumber: '', phoneAlias: '',
+                      senderType: 'REPRESENTATIVE', docCertUrl: '', docEmploymentUrl: '' });
+            setCertFileName(''); setEmployFileName('');
+            setDone(false);
+          }}>추가 등록하기</button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -217,9 +264,9 @@ function RegisterTab({ user }) {
           <div className={styles.fieldGroup}>
             <div className={styles.labelRow}>
               <span className={styles.label}>통신서비스 이용증명원 *</span>
-              <Link to="/sms-service/telecom-cert-guide" className={styles.guideLink} target="_blank" rel="noopener noreferrer">
+              <a href="/sms-service/telecom-cert-guide" className={styles.guideLink} target="_blank" rel="noopener noreferrer">
                 통신서비스이용증명원 발급 방법
-              </Link>
+              </a>
             </div>
             <label
               className={`${styles.fileLabel} ${form.docCertUrl ? styles.fileDone : draggingCert ? styles.fileDragging : ''}`}
