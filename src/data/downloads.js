@@ -212,5 +212,6 @@ export const DOWNLOAD_CATEGORIES = [
   { id: 'software', label: '소프트웨어',   value: 'software' },
   { id: 'freeware', label: '무료소프트웨어', value: 'freeware' },
   { id: 'utility',  label: '유틸리티',    value: 'utility' },
-  { id: 'manual',   label: '매뉴얼',      value: 'manual' }
+  { id: 'manual',   label: '매뉴얼',      value: 'manual' },
+  { id: 'old',      label: '구버전',      value: 'old' }
 ];

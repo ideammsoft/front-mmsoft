@@ -19,7 +19,12 @@ function DownloadsPage() {
     setLoading(true);
     fetch(`${API_BASE}/api/pds${category ? `?category=${category}` : ''}`)
       .then(res => res.json())
-      .then(data => setDownloads(data))
+      .then(data => {
+        const filtered = selectedCategory === 'all'
+          ? data.filter(d => d.category !== 'old')
+          : data;
+        setDownloads(filtered);
+      })
       .catch(() => setDownloads([]))
       .finally(() => setLoading(false));
   }, [selectedCategory]);
