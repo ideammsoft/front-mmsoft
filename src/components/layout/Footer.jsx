@@ -10,8 +10,7 @@ function Footer() {
             <h3 className={styles.footerTitle}>엠엠소프트</h3>
             <div className={styles.companyInfo}>
               <p>대표: 이기성</p>
-              <p>경기 고양시 일산동구 월드고양로21 상가동 350호</p>
-              <p>(장항동, 킨텍스원시티 3블럭)</p>
+              <p>서울시 강서구 화곡로 416 더스카이밸리5차 1210호</p>
               <p>전화: 02-864-7576</p>
               <p>이메일: man@mmsoft.co.kr</p>
               <p>사업자등록번호: 207-01-55869</p>
