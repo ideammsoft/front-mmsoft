@@ -133,6 +133,7 @@ function WriteModal({ onClose, onSave }) {
               <option value="주문제작">주문제작</option>
               <option value="일반">일반</option>
               <option value="기타">기타</option>
+              <option value="누구나">누구나</option>
             </select>
           </div>
 
@@ -177,7 +178,7 @@ function ProjectBoardList({ posts, onRefresh }) {
   const canWrite = roleName.toLowerCase() === 'super_admin';
 
   const itemsPerPage = 10; // 한 페이지에 표시할 게시글 수
-  const categories   = ['전체', '주문제작', '일반', '기타']; // 카테고리 목록
+  const categories   = ['전체', '주문제작', '일반', '기타', '누구나']; // 카테고리 목록
 
   // 1단계: 카테고리 + 검색어로 필터링
   const filtered = posts.filter(post => {

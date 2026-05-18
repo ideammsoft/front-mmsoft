@@ -67,6 +67,7 @@ function EditModal({ post, onClose, onSave }) {
               <option value="주문제작">주문제작</option>
               <option value="일반">일반</option>
               <option value="기타">기타</option>
+              <option value="누구나">누구나</option>
             </select>
           </div>
           <div className={styles.formGroup}>
@@ -110,16 +111,16 @@ function ProjectPostDetailPage() {
   })();
   const canEdit = roleName.toLowerCase() === 'super_admin';
 
-  // 비밀번호 확인 상태 (super_admin은 바로 통과, 비밀번호 없는 글도 통과)
-  const needPw = !canEdit && !!post?.passwd;
+  // 비밀번호 확인 상태 (super_admin은 바로 통과, 비밀번호 없는 글도 통과, 누구나 카테고리도 통과)
+  const needPw = !canEdit && !!post?.passwd && post?.category !== '누구나';
   const [verified, setVerified] = useState(canEdit);
   const [pwInput, setPwInput] = useState('');
   const [pwError, setPwError] = useState('');
   const [pwChecking, setPwChecking] = useState(false);
 
-  // 글이 로드된 후 비밀번호 없으면 자동 통과
+  // 글이 로드된 후 비밀번호 없거나 '누구나' 카테고리면 자동 통과
   useEffect(() => {
-    if (post && !canEdit && !post.passwd) setVerified(true);
+    if (post && !canEdit && (!post.passwd || post.category === '누구나')) setVerified(true);
   }, [post, canEdit]);
 
   // 본문이 열리면(verified) 조회수 증가
