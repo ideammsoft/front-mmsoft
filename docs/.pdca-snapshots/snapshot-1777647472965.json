@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-04-19T08:44:49.412Z",
+  "timestamp": "2026-05-01T14:57:52.962Z",
   "reason": "compaction",
   "status": {
     "version": "2.0",
-    "lastUpdated": "2026-04-19T08:32:56.603Z",
+    "lastUpdated": "2026-05-01T14:43:30.963Z",
     "activeFeatures": [
       "auth",
       "layout",
@@ -37,7 +37,12 @@
       "principal",
       "noim",
       "home",
-      "nice"
+      "nice",
+      "mmadminservice",
+      "manTax",
+      "stats",
+      "AutoUpdate",
+      "oauth2"
     ],
     "primaryFeature": "auth",
     "features": {
@@ -50,9 +55,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-09T05:34:01.063Z",
-          "lastUpdated": "2026-04-19T00:53:17.766Z"
+          "lastUpdated": "2026-04-20T23:47:28.162Z"
         },
-        "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\auth\\NiceAuthButton.jsx"
+        "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\auth\\ProfileCompletionPanel.jsx"
       },
       "layout": {
         "phase": "do",
@@ -63,9 +68,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-09T05:34:49.452Z",
-          "lastUpdated": "2026-04-18T06:43:10.981Z"
+          "lastUpdated": "2026-05-01T04:36:18.172Z"
         },
-        "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\layout\\MainNavigation.jsx"
+        "lastFile": "c:\\mm_workspace\\front-admin\\src\\components\\layout\\Sidebar.jsx"
       },
       "data": {
         "phase": "do",
@@ -76,9 +81,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-10T06:06:00.576Z",
-          "lastUpdated": "2026-03-25T07:23:59.596Z"
+          "lastUpdated": "2026-04-23T09:27:46.029Z"
         },
-        "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\data\\products.js"
+        "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\data\\downloads.js"
       },
       "downloads": {
         "phase": "do",
@@ -89,7 +94,7 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-10T08:17:19.929Z",
-          "lastUpdated": "2026-04-18T16:57:17.861Z"
+          "lastUpdated": "2026-04-23T12:31:18.658Z"
         },
         "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\downloads\\DownloadItem.jsx"
       },
@@ -102,9 +107,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-11T13:29:21.892Z",
-          "lastUpdated": "2026-04-18T06:44:17.557Z"
+          "lastUpdated": "2026-05-01T11:48:50.085Z"
         },
-        "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\SmsPay.jsx"
+        "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\pages\\OAuthCallbackPage.jsx"
       },
       "board": {
         "phase": "do",
@@ -115,9 +120,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-12T06:19:40.052Z",
-          "lastUpdated": "2026-03-25T08:02:22.571Z"
+          "lastUpdated": "2026-04-20T09:23:12.551Z"
         },
-        "lastFile": "C:\\mm_workspace\\front-mmsoft\\src\\components\\board\\NoticeBoard.jsx"
+        "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\board\\ProjectBoardList.jsx"
       },
       "security": {
         "phase": "do",
@@ -128,9 +133,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-12T12:18:13.987Z",
-          "lastUpdated": "2026-04-18T17:02:39.965Z"
+          "lastUpdated": "2026-04-20T04:45:22.479Z"
         },
-        "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\member\\security\\SecurityConfig.java"
+        "lastFile": "C:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\member\\security\\SecurityConfig.java"
       },
       "mapper": {
         "phase": "do",
@@ -141,9 +146,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-13T07:25:53.006Z",
-          "lastUpdated": "2026-03-22T12:44:58.131Z"
+          "lastUpdated": "2026-05-01T11:47:52.784Z"
         },
-        "lastFile": "c:/mm_workspace/mm-member-service/src/main/java/co/kr/mmsoft/mmmemberservice/mybatis/mapper/PdsMapper.java"
+        "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\mybatis\\mapper\\AccountMapper.java"
       },
       "jwt": {
         "phase": "do",
@@ -167,9 +172,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-13T07:34:10.862Z",
-          "lastUpdated": "2026-04-19T07:24:10.414Z"
+          "lastUpdated": "2026-05-01T11:48:32.465Z"
         },
-        "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\dto\\AccountSyncData.java"
+        "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\dto\\OAuthExchangeResponse.java"
       },
       "controller": {
         "phase": "do",
@@ -180,9 +185,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-13T07:36:27.435Z",
-          "lastUpdated": "2026-04-19T07:25:33.712Z"
+          "lastUpdated": "2026-05-01T14:43:30.963Z"
         },
-        "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\controller\\CustomerController.java"
+        "lastFile": "c:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\controller\\NoimSmsController.java"
       },
       "WorkBoardController": {
         "phase": "do",
@@ -193,9 +198,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-13T07:41:28.973Z",
-          "lastUpdated": "2026-03-14T03:38:08.973Z"
+          "lastUpdated": "2026-04-23T01:36:56.010Z"
         },
-        "lastFile": "/c/mm_workspace/mm-workboard-service/src/main/java/co/kr/mmsoft/mmworkboardservice/WorkBoardController/WorkboardController.java"
+        "lastFile": "c:\\mm_workspace\\mm-workboard-service\\src\\main\\java\\co\\kr\\mmsoft\\mmworkboardservice\\WorkBoardController\\WorkboardController.java"
       },
       "filter": {
         "phase": "do",
@@ -206,7 +211,7 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-13T09:06:28.296Z",
-          "lastUpdated": "2026-04-18T08:46:19.223Z"
+          "lastUpdated": "2026-05-01T05:20:21.274Z"
         },
         "lastFile": "c:\\mm_workspace\\mm-gateway-server\\src\\main\\java\\co\\kr\\mmsoft\\mmgatewayserver\\filter\\JwtFilter.java"
       },
@@ -219,9 +224,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-18T08:18:23.241Z",
-          "lastUpdated": "2026-04-19T05:31:28.945Z"
+          "lastUpdated": "2026-05-01T04:35:48.973Z"
         },
-        "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\config\\WebConfig.java"
+        "lastFile": "c:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\config\\SecurityConfig.java"
       },
       "domain": {
         "phase": "do",
@@ -232,9 +237,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-18T08:23:33.582Z",
-          "lastUpdated": "2026-03-22T16:36:12.722Z"
+          "lastUpdated": "2026-05-01T11:46:54.784Z"
         },
-        "lastFile": "/c/mm_workspace/mm-admin-service/src/main/java/co/kr/mmsoft/mmadminservice/mybatis/domain/UmsData.java"
+        "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\mybatis\\domain\\Account.java"
       },
       "mssql": {
         "phase": "do",
@@ -271,9 +276,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-18T08:31:49.026Z",
-          "lastUpdated": "2026-04-19T08:32:56.603Z"
+          "lastUpdated": "2026-05-01T14:43:15.051Z"
         },
-        "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\service\\SyncService.java"
+        "lastFile": "c:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\service\\CustomerService.java"
       },
       "api": {
         "phase": "do",
@@ -284,9 +289,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-18T08:34:15.823Z",
-          "lastUpdated": "2026-04-19T07:45:32.635Z"
+          "lastUpdated": "2026-05-01T04:36:51.832Z"
         },
-        "lastFile": "C:\\mm_workspace\\front-admin\\src\\api\\services.js"
+        "lastFile": "c:\\mm_workspace\\front-admin\\src\\api\\services.js"
       },
       "sms": {
         "phase": "do",
@@ -323,9 +328,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-18T08:36:32.276Z",
-          "lastUpdated": "2026-03-30T09:01:28.136Z"
+          "lastUpdated": "2026-05-01T04:36:36.391Z"
         },
-        "lastFile": "c:\\mm_workspace\\front-admin\\src\\hooks\\useAuth.jsx"
+        "lastFile": "c:\\mm_workspace\\front-admin\\src\\App.jsx"
       },
       "customers": {
         "phase": "do",
@@ -336,9 +341,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-18T08:37:15.890Z",
-          "lastUpdated": "2026-04-19T08:32:37.722Z"
+          "lastUpdated": "2026-04-24T16:06:24.663Z"
         },
-        "lastFile": "C:\\mm_workspace\\front-admin\\src\\pages\\customers\\CustomerDetailPage.jsx"
+        "lastFile": "c:\\mm_workspace\\front-admin\\src\\pages\\customers\\CustomerDetailPage.jsx"
       },
       "mmmemberservice": {
         "phase": "do",
@@ -362,9 +367,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-22T12:47:49.014Z",
-          "lastUpdated": "2026-04-19T07:23:56.161Z"
+          "lastUpdated": "2026-05-01T04:34:51.340Z"
         },
-        "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\mybatis\\mapper\\mysql\\AccountSyncMapper.java"
+        "lastFile": "c:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\mybatis\\mapper\\mysql\\AccessLogMapper.java"
       },
       "pds": {
         "phase": "do",
@@ -375,9 +380,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-22T12:49:34.280Z",
-          "lastUpdated": "2026-03-22T12:50:18.868Z"
+          "lastUpdated": "2026-04-23T12:30:51.795Z"
         },
-        "lastFile": "c:/mm_workspace/front-admin/src/pages/pds/PdsDetailPage.jsx"
+        "lastFile": "c:\\mm_workspace\\front-admin\\src\\pages\\pds\\PdsDetailPage.jsx"
       },
       "db복사": {
         "phase": "do",
@@ -401,9 +406,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-03-25T05:46:51.959Z",
-          "lastUpdated": "2026-04-01T03:28:38.001Z"
+          "lastUpdated": "2026-04-19T09:41:09.766Z"
         },
-        "lastFile": "c:/mm_workspace/web-rag/frontend/static/app.js"
+        "lastFile": "C:\\mm_workspace\\web-rag\\frontend\\static\\app.js"
       },
       "backend": {
         "phase": "do",
@@ -440,9 +445,9 @@
         "documents": {},
         "timestamps": {
           "started": "2026-04-17T22:44:40.730Z",
-          "lastUpdated": "2026-04-17T23:12:14.974Z"
+          "lastUpdated": "2026-04-24T15:32:05.923Z"
         },
-        "lastFile": "C:\\_mm_project\\noim\\noim_menu1.py"
+        "lastFile": "c:\\mm_workspace\\front-admin\\src\\pages\\noim\\SenderNumberPage.jsx"
       },
       "home": {
         "phase": "do",
@@ -469,6 +474,71 @@
           "lastUpdated": "2026-04-19T03:19:08.895Z"
         },
         "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\nice\\NiceAuthService.java"
+      },
+      "mmadminservice": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-19T09:08:22.768Z",
+          "lastUpdated": "2026-04-19T09:08:22.768Z"
+        },
+        "lastFile": "C:\\mm_workspace\\mm-admin-service\\src\\main\\java\\co\\kr\\mmsoft\\mmadminservice\\MmAdminServiceApplication.java"
+      },
+      "manTax": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-23T06:07:18.114Z",
+          "lastUpdated": "2026-04-23T06:07:18.114Z"
+        },
+        "lastFile": "C:\\_mm_project\\manTax\\manTax.py"
+      },
+      "stats": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-01T04:37:27.200Z",
+          "lastUpdated": "2026-05-01T04:44:58.534Z"
+        },
+        "lastFile": "c:\\mm_workspace\\front-admin\\src\\pages\\stats\\AccessStatPage.jsx"
+      },
+      "AutoUpdate": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-01T05:34:43.051Z",
+          "lastUpdated": "2026-05-01T05:34:43.051Z"
+        },
+        "lastFile": "E:\\1visual_studio\\kiwi_autoupdate\\AutoUpdate\\frmAutoUpdate.cs"
+      },
+      "oauth2": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-01T11:48:07.523Z",
+          "lastUpdated": "2026-05-01T14:04:27.786Z"
+        },
+        "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\oauth2\\CustomOidcUserService.java"
       }
     },
     "pipeline": {
@@ -479,7 +549,7 @@
     "session": {
       "startedAt": "2026-03-09T05:34:01.063Z",
       "onboardingCompleted": false,
-      "lastActivity": "2026-04-19T08:32:56.603Z"
+      "lastActivity": "2026-05-01T14:43:30.963Z"
     },
     "history": [
       {
@@ -3683,6 +3753,1122 @@
       {
         "timestamp": "2026-04-19T08:32:56.603Z",
         "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T08:47:08.291Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T08:48:04.414Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T08:48:16.902Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T09:08:22.768Z",
+        "feature": "mmadminservice",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T09:08:34.435Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T09:08:54.853Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T09:09:03.349Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T09:09:11.508Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T09:09:21.039Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T09:28:52.419Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T09:36:50.068Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T09:38:37.022Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T09:41:09.766Z",
+        "feature": "static",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T09:59:51.899Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T10:00:02.284Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T12:52:02.224Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T12:52:12.759Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T12:52:23.786Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T12:52:32.874Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T12:52:41.268Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T12:52:52.073Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T12:53:10.525Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T12:53:23.356Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T12:53:38.433Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-19T13:41:49.838Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T03:15:25.904Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T03:34:17.302Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T04:27:23.260Z",
+        "feature": "security",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T04:30:15.230Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T04:45:22.479Z",
+        "feature": "security",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T07:46:02.278Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T08:20:52.595Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T08:20:59.422Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:13:38.217Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:13:47.062Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:13:57.492Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:14:09.354Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:21:30.879Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:21:49.324Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:22:04.974Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:22:19.874Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:22:42.673Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:23:04.725Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:23:12.551Z",
+        "feature": "board",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T09:30:44.515Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T22:54:09.282Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T22:54:27.703Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T23:00:37.338Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T23:30:50.437Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-20T23:47:28.162Z",
+        "feature": "auth",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-21T00:49:45.356Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-21T00:49:57.487Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-21T01:02:19.888Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-21T01:03:10.223Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-21T01:03:21.803Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-21T01:44:34.966Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-21T01:44:46.328Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T01:36:08.779Z",
+        "feature": "downloads",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T01:36:14.896Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T01:36:22.308Z",
+        "feature": "mapper",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T01:36:56.010Z",
+        "feature": "WorkBoardController",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T01:37:06.386Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:31:40.394Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:31:54.307Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:32:06.982Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:32:26.038Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:32:39.550Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:32:52.705Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:33:05.774Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:33:28.526Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:34:34.097Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:49:40.354Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:49:56.317Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T02:50:04.991Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T03:02:16.915Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T03:02:27.722Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T03:21:09.552Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T03:21:20.067Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T03:35:52.822Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T03:35:58.894Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T03:36:04.483Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T03:36:13.494Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T05:42:28.027Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T05:42:50.726Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T06:01:06.687Z",
+        "feature": "filter",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T06:07:18.114Z",
+        "feature": "manTax",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T06:20:09.156Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T09:13:29.339Z",
+        "feature": "data",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T09:27:46.029Z",
+        "feature": "data",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T09:28:00.867Z",
+        "feature": "pds",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T09:28:24.569Z",
+        "feature": "pds",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T09:52:23.889Z",
+        "feature": "pds",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T10:46:00.419Z",
+        "feature": "config",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T11:43:06.856Z",
+        "feature": "downloads",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T11:45:38.515Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T11:45:49.002Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T11:45:56.969Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T11:46:05.597Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T11:47:23.865Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T11:47:53.851Z",
+        "feature": "pds",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T11:48:02.006Z",
+        "feature": "pds",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T12:07:37.999Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T12:30:51.795Z",
+        "feature": "pds",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T12:31:00.654Z",
+        "feature": "downloads",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T12:31:11.433Z",
+        "feature": "downloads",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-23T12:31:18.658Z",
+        "feature": "downloads",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T14:38:07.400Z",
+        "feature": "filter",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T15:29:54.134Z",
+        "feature": "noim",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T15:31:37.239Z",
+        "feature": "noim",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T15:31:48.220Z",
+        "feature": "noim",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T15:31:58.202Z",
+        "feature": "noim",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T15:32:05.923Z",
+        "feature": "noim",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T15:42:49.181Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T15:46:37.468Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T15:46:51.726Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T15:47:03.551Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T15:47:14.760Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T16:04:39.321Z",
+        "feature": "mysql",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T16:05:08.758Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T16:05:23.258Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T16:05:33.365Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T16:05:40.752Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T16:05:50.940Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T16:06:02.910Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T16:06:13.859Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-24T16:06:24.663Z",
+        "feature": "customers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T03:10:39.197Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T03:11:02.835Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T03:11:36.522Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T03:11:58.411Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T03:12:20.275Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T03:12:34.958Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:34:41.628Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:34:51.340Z",
+        "feature": "mysql",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:35:21.041Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:35:33.596Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:35:48.973Z",
+        "feature": "config",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:35:57.571Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:36:08.144Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:36:18.172Z",
+        "feature": "layout",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:36:28.302Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:36:36.391Z",
+        "feature": "front-admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:36:51.832Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:37:27.200Z",
+        "feature": "stats",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T04:44:58.534Z",
+        "feature": "stats",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T05:05:53.073Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T05:20:21.274Z",
+        "feature": "filter",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T05:34:43.051Z",
+        "feature": "AutoUpdate",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T09:59:57.801Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T10:00:10.012Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T10:00:21.470Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T10:00:28.740Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T10:00:38.090Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T10:00:45.900Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T10:04:39.212Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T10:53:36.880Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T10:53:51.008Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T10:54:01.604Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:07:40.845Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:19:36.254Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:42:41.046Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:46:45.253Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:46:54.784Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:47:52.784Z",
+        "feature": "mapper",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:48:07.523Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:48:17.207Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:48:32.465Z",
+        "feature": "dto",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:48:41.921Z",
+        "feature": "controller",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:48:50.085Z",
+        "feature": "front-mmsoft",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:49:15.119Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:49:23.726Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:53:37.259Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:54:09.355Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:54:19.822Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T11:54:29.146Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T12:19:56.304Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T13:01:32.631Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T13:14:57.891Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T13:42:37.189Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T13:42:45.752Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T13:42:54.555Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T13:55:22.640Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T14:00:15.546Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T14:04:27.786Z",
+        "feature": "oauth2",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T14:43:15.051Z",
+        "feature": "service",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-01T14:43:30.963Z",
+        "feature": "controller",
         "phase": "do",
         "action": "updated"
       }

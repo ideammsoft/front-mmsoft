@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Skill(bkit:pdca)"
+      "Skill(bkit:pdca)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(ssh mmsoft *)"
     ]
   }
 }
