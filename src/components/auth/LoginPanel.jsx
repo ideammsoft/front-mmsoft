@@ -186,12 +186,12 @@ function LoginPanel({ onClose, onLoginSuccess }) {
         {/* 소셜 로그인 버튼 (Google, Naver, Kakao) */}
         <SocialLoginButtons />
 
-        <div className={styles.info}>
+        {/* <div className={styles.info}>
           데모 버전입니다 &nbsp;|&nbsp;
           <span className={styles.link} onClick={() => setShowProfileCompletion(true)}>
             추가정보 입력 테스트
           </span>
-        </div>
+        </div> */}
       </div>
 
       {/* 서브 패널들: 해당 상태가 true일 때만 렌더링됨 */}
