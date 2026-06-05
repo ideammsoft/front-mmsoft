@@ -27,7 +27,7 @@
 //   - passwordRef.current?.focus() : 비밀번호 input에 포커스를 줌
 //   - useState와 달리 값이 바뀌어도 화면을 다시 그리지 않습니다.
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Input from '../common/Input';                   // 공통 Input 컴포넌트
 import Button from '../common/Button';                 // 공통 Button 컴포넌트
 import SocialLoginButtons from './SocialLoginButtons'; // 소셜 로그인 버튼 묶음
@@ -37,7 +37,7 @@ import FindIdPanel from './FindIdPanel';               // 아이디 찾기 패�
 import FindPasswordPanel from './FindPasswordPanel';   // 비밀번호 찾기 패널
 import styles from './LoginPanel.module.css';
 
-function LoginPanel({ onClose, onLoginSuccess }) {
+function LoginPanel({ onClose, onLoginSuccess, initialPanel }) {
   // 아이디 입력값 상태
   const [username, setUsername] = useState('');
   // 비밀번호 입력값 상태
@@ -53,6 +53,13 @@ function LoginPanel({ onClose, onLoginSuccess }) {
   // 아이디 찾기 후 비밀번호 input에 자동 포커스할 때 사용
   const passwordRef      = useRef(null);
   const overlayMouseDown = useRef(false);
+
+  // initialPanel prop으로 전달된 경우 해당 서브패널 자동 오픈
+  useEffect(() => {
+    if (initialPanel === 'signup')  setShowSignUp(true);
+    if (initialPanel === 'findid')  setShowFindId(true);
+    if (initialPanel === 'findpw')  setShowFindPassword(true);
+  }, [initialPanel]);
 
   // 로그인 폼 제출 처리
   const handleSubmit = async (e) => {

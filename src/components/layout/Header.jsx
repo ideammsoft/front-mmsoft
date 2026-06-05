@@ -12,6 +12,7 @@ function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled]             = useState(false);
   const [loginOpen, setLoginOpen]           = useState(false);
+  const [initialPanel, setInitialPanel]     = useState(null);
   const [profileOpen, setProfileOpen]       = useState(false);
   const [profileMode, setProfileMode]       = useState('register'); // 'register' | 'edit'
 
@@ -36,10 +37,20 @@ function Header() {
     if (location.state?.showProfileComplete) {
       setProfileMode('register');
       setProfileOpen(true);
-      // history state 초기화
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
+
+  // URL 파라미터 ?panel=signup|findid|findpw 감지 → 해당 패널 자동 오픈
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const panel  = params.get('panel');
+    if (panel === 'signup' || panel === 'findid' || panel === 'findpw') {
+      setInitialPanel(panel);
+      setLoginOpen(true);
+      navigate(location.pathname, { replace: true }); // URL에서 파라미터 제거
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -130,8 +141,9 @@ function Header() {
 
       {loginOpen && (
         <LoginPanel
-          onClose={() => setLoginOpen(false)}
+          onClose={() => { setLoginOpen(false); setInitialPanel(null); }}
           onLoginSuccess={handleLoginSuccess}
+          initialPanel={initialPanel}
         />
       )}
 
