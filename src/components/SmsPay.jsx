@@ -32,8 +32,8 @@ function SmsPay({ userId, name, phone, email, onResult }) {
   const ph    = phone  || getParam('phone');
   const em    = email  || getParam('email') || 'man@mmsoft.co.kr';
 
-  const [amount, setAmount]   = useState(10000);
-  const [inputVal, setInput]  = useState('10000');
+  const [amount, setAmount]   = useState(0);
+  const [inputVal, setInput]  = useState('0');
   const [error, setError]     = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult]   = useState(null); // { ok, amt, msg }
@@ -65,14 +65,14 @@ function SmsPay({ userId, name, phone, email, onResult }) {
   };
 
   const handleReset = () => {
-    setAmount(10000);
-    setInput('10000');
+    setAmount(0);
+    setInput('0');
     setError('');
   };
 
   const handlePay = () => {
     if (!amount || amount < 10000) {
-      setError('최소 결제 금액은 10,000원입니다.');
+      setError('최소 충전 금액은 10,000원입니다.');
       return;
     }
     if (amount % 10000 !== 0) {
@@ -98,8 +98,8 @@ function SmsPay({ userId, name, phone, email, onResult }) {
 
   const handleRetry = () => {
     setResult(null);
-    setAmount(10000);
-    setInput('10000');
+    setAmount(0);
+    setInput('0');
     setError('');
   };
 
@@ -136,7 +136,8 @@ function SmsPay({ userId, name, phone, email, onResult }) {
           * 충전방식은 카드결재와 무통장입금만 가능합니다.<br />
           * 한번에 최대 5000건까지 발송가능합니다.<br />
           * 문자 메시지를 발송하시기 위해서는 요금이 충전되어 있어야합니다.<br />
-          * 최소 결제 단위는 1만원입니다.<br />
+          * 최소 충전 단위는 1만원입니다.<br />
+          * 부가세 포함 결제, 세액 제외 후 잔액 충전<br />
           * 무통장입금을 원하시는 분들은 국민 421701-01-138933 이기성(엠엠소프트)로 입금해주시고
           커뮤니티 게시판에 충전요청 등록 부탁드립니다(비밀글 선호).
         </div>

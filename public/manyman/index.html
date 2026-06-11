@@ -117,16 +117,22 @@ function gp(n) {
   return '';
 }
 
+function getVatIncludedAmount(v) {
+  var safeAmount = parseInt(v, 10) || 0;
+  return Math.round((safeAmount * 11) / 10 / 10) * 10;
+}
+
 var uid     = gp('id');
 var ph      = gp('phone');
 var em      = gp('email') || 'man@mmsoft.co.kr';
 var nm      = gp('name') || uid;
 var product = gp('product') || 'MMSoft 서비스';
 var amount  = parseInt(gp('amount'), 10) || 0;
+var payableAmount = getVatIncludedAmount(amount);
 
 /* ── 화면 표시 ── */
 document.getElementById('tdProduct').textContent = product;
-document.getElementById('tdAmount').textContent  = amount.toLocaleString('ko-KR') + '원';
+document.getElementById('tdAmount').textContent  = payableAmount.toLocaleString('ko-KR') + '원';
 
 /* ── 주문번호 생성 ── */
 function mkord() {
@@ -176,12 +182,12 @@ function go() {
 
   document.KSPayWeb.sndOrdernumber.value = mkord();
   document.KSPayWeb.sndGoodname.value    = product;
-  document.KSPayWeb.sndAmount.value      = amount;
+  document.KSPayWeb.sndAmount.value      = payableAmount;
   document.KSPayWeb.sndOrdername.value   = nm || uid;
   document.KSPayWeb.sndEmail.value       = em;
   document.KSPayWeb.sndMobile.value      = ph.replace(/-/g, '');
   document.KSPayWeb.a.value             = uid;
-  document.KSPayWeb.b.value             = amount;
+  document.KSPayWeb.b.value             = payableAmount;
   document.KSPayWeb.c.value             = product;
   document.KSPayWeb.d.value             = apiFlag;
 

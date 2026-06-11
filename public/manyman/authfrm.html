@@ -141,9 +141,16 @@ var name   = gp('name')  || userId;
 var email  = gp('email') || '';
 var phone  = gp('phone') || '';
 
+function getVatIncludedAmount(v) {
+  var safeAmount = parseInt(v, 10) || 0;
+  return Math.round((safeAmount * 11) / 10 / 10) * 10;
+}
+
+var payablePrice = getVatIncludedAmount(price);
+
 document.getElementById('dGoods').textContent = goods;
 document.getElementById('dId').textContent    = userId || '-';
-document.getElementById('dPrice').textContent = comma(price) + '원';
+document.getElementById('dPrice').textContent = comma(payablePrice) + '원';
 
 // sndReply: 서버→서버 결제 결과 통보 URL (KSPayRcv.asp가 처리 후 operner에 결과 전달)
 var replyUrl = window.location.protocol + '//' + window.location.host +
@@ -162,7 +169,7 @@ function goOpen(){
   document.authFrmFrame.sndOrdernumber.value     = makeOrdNum();
   document.authFrmFrame.sndGoodname.value        = goods;
   document.authFrmFrame.sndInstallmenttype.value = inst;
-  document.authFrmFrame.sndAmount.value          = price;
+  document.authFrmFrame.sndAmount.value          = payablePrice;
   document.authFrmFrame.sndOrdername.value       = name;
   document.authFrmFrame.sndEmail.value           = email;
   document.authFrmFrame.sndMobile.value          = phone.replace(/-/g,'');

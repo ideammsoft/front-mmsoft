@@ -9,11 +9,11 @@ const PRODUCTS = [
     description: 'API키를 적용하여 문자보냄. 노임관리, manTax 등',
     icon: '💬',
     prices: [
-      { label: '1만원 충전',  amount: 11000 },
-      { label: '3만원 충전',  amount: 33000 },
-      { label: '5만원 충전',  amount: 55000 },
-      { label: '10만원 충전', amount: 110000 },
-      { label: '20만원 충전', amount: 220000 },
+      { label: '1만원 충전',  amount: 10000 },
+      { label: '3만원 충전',  amount: 30000 },
+      { label: '5만원 충전',  amount: 50000 },
+      { label: '10만원 충전', amount: 100000 },
+      { label: '20만원 충전', amount: 200000 },
     ],
     type: 'sms_api_charge',
     subDesc: 'API 문자 프로그램용 — 부가세 포함 결제, 세액 제외 후 잔액 충전',
@@ -24,11 +24,11 @@ const PRODUCTS = [
     description: '로그인하여 발송 (여러 사람, 우리동문등)',
     icon: '💬',
     prices: [
-      { label: '1만원 충전',  amount: 11000 },
-      { label: '3만원 충전',  amount: 33000 },
-      { label: '5만원 충전',  amount: 55000 },
-      { label: '10만원 충전', amount: 110000 },
-      { label: '20만원 충전', amount: 220000 },
+      { label: '1만원 충전',  amount: 10000 },
+      { label: '3만원 충전',  amount: 30000 },
+      { label: '5만원 충전',  amount: 50000 },
+      { label: '10만원 충전', amount: 100000 },
+      { label: '20만원 충전', amount: 200000 },
     ],
     type: 'sms_login_charge',
     subDesc: '기존 로그인 프로그램용 — 부가세 포함 결제, 세액 제외 후 잔액 충전',
@@ -76,6 +76,11 @@ const PRODUCTS = [
 
 function formatNumber(n) {
   return n.toLocaleString('ko-KR');
+}
+
+function getVatIncludedAmount(amount) {
+  const safeAmount = Number(amount) || 0;
+  return Math.round((safeAmount * 11) / 10 / 10) * 10;
 }
 
 function isSmsType(type) {
@@ -164,8 +169,8 @@ function PaymentPage() {
     if (!selectedProduct) return;
     const amt = selectedPrice ? selectedPrice.amount : parseInt(customAmount.replace(/,/g, ''), 10);
     if (isSmsType(selectedProduct.type)) {
-      if (!amt || amt < 11000) {
-        alert('충전 금액을 선택하거나 최소 11,000원 이상 입력해주세요.');
+      if (!amt || amt < 10000) {
+        alert('충전 금액을 선택하거나 최소 10,000원 이상 입력해주세요.');
         return;
       }
     } else if (selectedProduct.type === 'license') {
@@ -185,7 +190,7 @@ function PaymentPage() {
   };
 
   const handlePayment = async () => {
-    const amount = getPayAmount();
+    const chargeAmount = getPayAmount();
     const isApiCharge = selectedProduct.type === 'sms_api_charge';
     const productName = isApiCharge
       ? selectedProduct.name + ' – API 키발급용'
@@ -194,7 +199,7 @@ function PaymentPage() {
     const userName = user?.name || user?.nickname || userId;
     const userPhone = user?.phone || user?.mphone || '';
     const userEmail = user?.email || '';
-    const payUrl = `/manyman/index.html?product=${encodeURIComponent(productName)}&amount=${amount}&id=${encodeURIComponent(userId)}&name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&email=${encodeURIComponent(userEmail)}`;
+    const payUrl = `/manyman/index.html?product=${encodeURIComponent(productName)}&amount=${chargeAmount}&id=${encodeURIComponent(userId)}&name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&email=${encodeURIComponent(userEmail)}`;
 
     if (isMobileDevice()) {
       // 모바일: KSPay 모바일 게이트웨이로 full-page 이동 (index.html이 submit 처리)
@@ -306,7 +311,7 @@ function PaymentPage() {
                     <p className={styles.productDesc}>{product.description}</p>
                     {product.prices.length > 0 && (
                       <div className={styles.priceRange}>
-                        {formatNumber(product.prices[0].amount)}원 ~
+                        {formatNumber(getVatIncludedAmount(product.prices[0].amount))}원 ~
                       </div>
                     )}
                     {product.type === 'contact' && (
@@ -348,7 +353,7 @@ function PaymentPage() {
                       }}
                     >
                       {p.label}
-                      <span className={styles.priceAmount}>{formatNumber(p.amount)}원</span>
+                      <span className={styles.priceAmount}>{formatNumber(getVatIncludedAmount(p.amount))}원</span>
                     </button>
                   ))}
                 </div>
@@ -414,9 +419,13 @@ function PaymentPage() {
                 </div>
               )}
               <div className={styles.confirmRow}>
+                <span className={styles.confirmLabel}>충전 금액</span>
+                <span className={styles.confirmValue}>{formatNumber(getPayAmount())}원</span>
+              </div>
+              <div className={styles.confirmRow}>
                 <span className={styles.confirmLabel}>결제 금액</span>
                 <span className={`${styles.confirmValue} ${styles.confirmAmount}`}>
-                  {formatNumber(getPayAmount())}원
+                  {formatNumber(getVatIncludedAmount(getPayAmount()))}원
                 </span>
               </div>
               <div className={styles.confirmRow}>
@@ -427,6 +436,7 @@ function PaymentPage() {
 
             <div className={styles.confirmNotice}>
               <p>※ 결제 버튼 클릭 시 KSPay 결제창이 열립니다.</p>
+              <p>※ 충전금액은 부가세 제외 기준이며, 결제 시 부가세 포함 금액으로 처리됩니다.</p>
               {selectedProduct.type === 'sms_api_charge' && (
                 <p>※ API 문자 프로그램용 — 결제금액 ÷ 11 × 10 (원단위 절삭) 금액이 API 문자 잔액에 충전됩니다.</p>
               )}
@@ -444,7 +454,7 @@ function PaymentPage() {
                 onClick={handlePayment}
                 disabled={loading}
               >
-                {loading ? '결제 처리 중...' : `${formatNumber(getPayAmount())}원 결제하기`}
+                {loading ? '결제 처리 중...' : `${formatNumber(getVatIncludedAmount(getPayAmount()))}원 결제하기`}
               </button>
             </div>
           </div>
