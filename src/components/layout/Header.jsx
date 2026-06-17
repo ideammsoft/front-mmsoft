@@ -41,7 +41,8 @@ function Header() {
     }
   }, [location.state]);
 
-  // URL 파라미터 ?panel=signup|findid|findpw 감지 → 해당 패널 자동 오픈
+  // URL 파라미터 ?panel=login|signup|findid|findpw 감지 → 해당 패널 자동 오픈
+  // (login: 기본 로그인 폼 / VB6 등 외부에서 로그인 페이지로 진입할 때 사용)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const panel  = params.get('panel');
@@ -49,6 +50,9 @@ function Header() {
       setInitialPanel(panel);
       setLoginOpen(true);
       navigate(location.pathname, { replace: true }); // URL에서 파라미터 제거
+    } else if (panel === 'login') {
+      setLoginOpen(true);                              // 기본 로그인 패널
+      navigate(location.pathname, { replace: true });
     }
   }, []);
 
