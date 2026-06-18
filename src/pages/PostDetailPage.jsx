@@ -7,20 +7,21 @@ import styles from './PostDetailPage.module.css';
 const API = '/api/freeboard';
 
 function useAuth() {
-  try {
-    const user  = JSON.parse(localStorage.getItem('mmsoft_user') || '{}');
-    const token = localStorage.getItem('mmsoft_access_token');
-    let roles = [];
-    if (token) {
-      const payload = JSON.parse(atob(token.split('.')[1]));
+  let user = {};
+  try { user = JSON.parse(localStorage.getItem('mmsoft_user') || '{}'); } catch { user = {}; }
+  const token = localStorage.getItem('mmsoft_access_token') || null;
+  // JWT payload에서 roles 추출 (파싱 실패해도 token 은 유지 — 로그인 자체는 유효)
+  let roles = [];
+  if (token) {
+    try {
+      let b64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+      while (b64.length % 4) b64 += '=';
+      const payload = JSON.parse(decodeURIComponent(escape(atob(b64))));
       roles = payload.roles || [];
-    }
-    const isAdmin = roles.some(r => r === 'ROLE_admin' || r === 'ROLE_super_admin');
-    const accountId = user.accountId || null;
-    return { user, token, isAdmin, accountId };
-  } catch {
-    return { user: {}, token: null, isAdmin: false, accountId: null };
+    } catch { /* base64url/payload 파싱 실패는 무시 */ }
   }
+  const isAdmin = roles.some(r => r === 'ROLE_admin' || r === 'ROLE_super_admin');
+  return { user, token, isAdmin, accountId: user.accountId || null };
 }
 
 // ─── 댓글/글쓰기 모달 ──────────────────────────────────────
