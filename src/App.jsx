@@ -86,6 +86,7 @@ const FAQPage               = lazy(() => import('./pages/FAQPage'));
 const PaymentPage           = lazy(() => import('./pages/PaymentPage'));
 const SitemapPage           = lazy(() => import('./pages/SitemapPage'));
 const NotFoundPage          = lazy(() => import('./pages/NotFoundPage'));
+const LoginErrorPage        = lazy(() => import('./pages/LoginErrorPage'));
 // 소셜 로그인(OAuth2) 완료 후 리다이렉트되는 콜백 페이지
 const OAuthCallbackPage     = lazy(() => import('./pages/OAuthCallbackPage'));
 const SmsServicePage        = lazy(() => import('./pages/SmsServicePage'));
@@ -134,6 +135,8 @@ function App() {
             {/* 소셜 로그인 후 서버가 이 경로로 리다이렉트합니다 */}
             {/* 예) http://localhost:5173/oauth/callback?code=UUID임시코드 */}
             <Route path="/oauth/callback"     element={<OAuthCallbackPage />} />
+            {/* 소셜 로그인 실패 시 백엔드가 /login?error 로 리다이렉트 → 에러 화면 */}
+            <Route path="/login"              element={<LoginErrorPage />} />
             {/* * → 위 경로 중 아무것도 일치하지 않으면 404 페이지 표시 */}
             <Route path="*"                   element={<NotFoundPage />} />
           </Routes>
