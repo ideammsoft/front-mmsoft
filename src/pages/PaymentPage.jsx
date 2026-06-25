@@ -87,6 +87,11 @@ function isSmsType(type) {
   return type === 'sms_api_charge' || type === 'sms_login_charge';
 }
 
+// 표시 금액: SMS 충전만 부가세(10%) 포함, 소프트웨어/연회비는 기본금액 그대로
+function displayAmount(product, amount) {
+  return isSmsType(product?.type) ? getVatIncludedAmount(amount) : (Number(amount) || 0);
+}
+
 function isMobileDevice() {
   return /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
 }
@@ -311,7 +316,7 @@ function PaymentPage() {
                     <p className={styles.productDesc}>{product.description}</p>
                     {product.prices.length > 0 && (
                       <div className={styles.priceRange}>
-                        {formatNumber(getVatIncludedAmount(product.prices[0].amount))}원 ~
+                        {formatNumber(displayAmount(product, product.prices[0].amount))}원 ~
                       </div>
                     )}
                     {product.type === 'contact' && (
@@ -352,8 +357,8 @@ function PaymentPage() {
                         setCustomAmount(formatNumber(p.amount));
                       }}
                     >
-                      {p.label}
-                      <span className={styles.priceAmount}>{formatNumber(getVatIncludedAmount(p.amount))}원</span>
+                      {isSmsType(selectedProduct.type) ? p.label : '- 선택 -'}
+                      <span className={styles.priceAmount}>{formatNumber(displayAmount(selectedProduct, p.amount))}원</span>
                     </button>
                   ))}
                 </div>
@@ -425,7 +430,7 @@ function PaymentPage() {
               <div className={styles.confirmRow}>
                 <span className={styles.confirmLabel}>결제 금액</span>
                 <span className={`${styles.confirmValue} ${styles.confirmAmount}`}>
-                  {formatNumber(getVatIncludedAmount(getPayAmount()))}원
+                  {formatNumber(displayAmount(selectedProduct, getPayAmount()))}원
                 </span>
               </div>
               <div className={styles.confirmRow}>
@@ -454,7 +459,7 @@ function PaymentPage() {
                 onClick={handlePayment}
                 disabled={loading}
               >
-                {loading ? '결제 처리 중...' : `${formatNumber(getVatIncludedAmount(getPayAmount()))}원 결제하기`}
+                {loading ? '결제 처리 중...' : `${formatNumber(displayAmount(selectedProduct, getPayAmount()))}원 결제하기`}
               </button>
             </div>
           </div>
