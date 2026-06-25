@@ -4,21 +4,6 @@ import styles from './PaymentPage.module.css';
 
 const PRODUCTS = [
   {
-    id: 'sms_api',
-    name: '문자 및 카카오톡 충전(API)',
-    description: 'API키를 적용하여 문자보냄. 노임관리, manTax 등',
-    icon: '💬',
-    prices: [
-      { label: '1만원 충전',  amount: 10000 },
-      { label: '3만원 충전',  amount: 30000 },
-      { label: '5만원 충전',  amount: 50000 },
-      { label: '10만원 충전', amount: 100000 },
-      { label: '20만원 충전', amount: 200000 },
-    ],
-    type: 'sms_api_charge',
-    subDesc: 'API 문자 프로그램용 — 부가세 포함 결제, 세액 제외 후 잔액 충전',
-  },
-  {
     id: 'sms_login',
     name: '문자 및 카카오톡 충전(로그인)',
     description: '로그인하여 발송 (여러 사람, 우리동문등)',
@@ -32,6 +17,21 @@ const PRODUCTS = [
     ],
     type: 'sms_login_charge',
     subDesc: '기존 로그인 프로그램용 — 부가세 포함 결제, 세액 제외 후 잔액 충전',
+  },
+  {
+    id: 'sms_api',
+    name: '문자 및 카카오톡 충전(API)',
+    description: 'API키를 적용하여 문자보냄. 노임관리, manTax 등',
+    icon: '💬',
+    prices: [
+      { label: '1만원 충전',  amount: 10000 },
+      { label: '3만원 충전',  amount: 30000 },
+      { label: '5만원 충전',  amount: 50000 },
+      { label: '10만원 충전', amount: 100000 },
+      { label: '20만원 충전', amount: 200000 },
+    ],
+    type: 'sms_api_charge',
+    subDesc: 'API 문자 프로그램용 — 부가세 포함 결제, 세액 제외 후 잔액 충전',
   },
   {
     id: 'software',
