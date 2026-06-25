@@ -128,7 +128,8 @@ var em      = gp('email') || 'man@mmsoft.co.kr';
 var nm      = gp('name') || uid;
 var product = gp('product') || 'MMSoft 서비스';
 var amount  = parseInt(gp('amount'), 10) || 0;
-var payableAmount = getVatIncludedAmount(amount);
+// vat=0 이면 부가세 미포함(소프트웨어/연회비), 그 외(SMS·플래그없음)는 부가세 포함
+var payableAmount = (gp('vat') === '0') ? amount : getVatIncludedAmount(amount);
 
 /* ── 화면 표시 ── */
 document.getElementById('tdProduct').textContent = product;

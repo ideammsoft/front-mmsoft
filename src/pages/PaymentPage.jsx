@@ -204,7 +204,8 @@ function PaymentPage() {
     const userName = user?.name || user?.nickname || userId;
     const userPhone = user?.phone || user?.mphone || '';
     const userEmail = user?.email || '';
-    const payUrl = `/manyman/index.html?product=${encodeURIComponent(productName)}&amount=${chargeAmount}&id=${encodeURIComponent(userId)}&name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&email=${encodeURIComponent(userEmail)}`;
+    const vatFlag = isSmsType(selectedProduct.type) ? 1 : 0;   // SMS만 부가세 포함, 소프트웨어/연회비는 기본금액 결제
+    const payUrl = `/manyman/index.html?product=${encodeURIComponent(productName)}&amount=${chargeAmount}&id=${encodeURIComponent(userId)}&name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&email=${encodeURIComponent(userEmail)}&vat=${vatFlag}`;
 
     if (isMobileDevice()) {
       // 모바일: KSPay 모바일 게이트웨이로 full-page 이동 (index.html이 submit 처리)
@@ -423,10 +424,12 @@ function PaymentPage() {
                   <span className={styles.confirmValue}>{selectedPrice.label}</span>
                 </div>
               )}
-              <div className={styles.confirmRow}>
-                <span className={styles.confirmLabel}>충전 금액</span>
-                <span className={styles.confirmValue}>{formatNumber(getPayAmount())}원</span>
-              </div>
+              {isSmsType(selectedProduct.type) && (
+                <div className={styles.confirmRow}>
+                  <span className={styles.confirmLabel}>충전 금액</span>
+                  <span className={styles.confirmValue}>{formatNumber(getPayAmount())}원</span>
+                </div>
+              )}
               <div className={styles.confirmRow}>
                 <span className={styles.confirmLabel}>결제 금액</span>
                 <span className={`${styles.confirmValue} ${styles.confirmAmount}`}>
@@ -441,7 +444,9 @@ function PaymentPage() {
 
             <div className={styles.confirmNotice}>
               <p>※ 결제 버튼 클릭 시 KSPay 결제창이 열립니다.</p>
-              <p>※ 충전금액은 부가세 제외 기준이며, 결제 시 부가세 포함 금액으로 처리됩니다.</p>
+              {isSmsType(selectedProduct.type) && (
+                <p>※ 충전금액은 부가세 제외 기준이며, 결제 시 부가세 포함 금액으로 처리됩니다.</p>
+              )}
               {selectedProduct.type === 'sms_api_charge' && (
                 <p>※ API 문자 프로그램용 — 결제금액 ÷ 11 × 10 (원단위 절삭) 금액이 API 문자 잔액에 충전됩니다.</p>
               )}
