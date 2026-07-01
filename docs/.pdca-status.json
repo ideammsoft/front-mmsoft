@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-05-20T05:27:14.651Z",
+  "lastUpdated": "2026-06-05T01:53:55.009Z",
   "activeFeatures": [
     "auth",
     "layout",
@@ -39,7 +39,9 @@
     "manTax",
     "stats",
     "AutoUpdate",
-    "oauth2"
+    "oauth2",
+    "mm_workspace",
+    "sms_daemon"
   ],
   "primaryFeature": "auth",
   "features": {
@@ -52,9 +54,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-09T05:34:01.063Z",
-        "lastUpdated": "2026-04-20T23:47:28.162Z"
+        "lastUpdated": "2026-06-05T01:53:55.009Z"
       },
-      "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\auth\\ProfileCompletionPanel.jsx"
+      "lastFile": "c:\\mm_workspace\\front-mmsoft\\src\\components\\auth\\LoginPanel.jsx"
     },
     "layout": {
       "phase": "do",
@@ -325,9 +327,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-18T08:36:32.276Z",
-        "lastUpdated": "2026-05-01T04:36:36.391Z"
+        "lastUpdated": "2026-05-28T02:06:26.971Z"
       },
-      "lastFile": "c:\\mm_workspace\\front-admin\\src\\App.jsx"
+      "lastFile": "C:\\mm_workspace\\front-admin\\src\\components\\common\\ChargeModal.jsx"
     },
     "customers": {
       "phase": "do",
@@ -536,6 +538,32 @@
         "lastUpdated": "2026-05-01T14:04:27.786Z"
       },
       "lastFile": "c:\\mm_workspace\\mm-member-service\\src\\main\\java\\co\\kr\\mmsoft\\mmmemberservice\\oauth2\\CustomOidcUserService.java"
+    },
+    "mm_workspace": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-05-21T01:23:06.767Z",
+        "lastUpdated": "2026-05-24T01:21:32.714Z"
+      },
+      "lastFile": "C:\\mm_workspace\\backup_from_server.ps1"
+    },
+    "sms_daemon": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-05-22T07:27:13.984Z",
+        "lastUpdated": "2026-05-24T00:47:29.749Z"
+      },
+      "lastFile": "C:\\mm_workspace\\sms_daemon\\sms_daemon.py"
     }
   },
   "pipeline": {
@@ -546,7 +574,7 @@
   "session": {
     "startedAt": "2026-03-09T05:34:01.063Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-05-20T05:27:14.651Z"
+    "lastActivity": "2026-06-05T01:53:55.009Z"
   },
   "history": [
     {
@@ -5016,6 +5044,318 @@
     {
       "timestamp": "2026-05-20T05:27:14.651Z",
       "feature": "front-mmsoft",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-21T01:23:06.767Z",
+      "feature": "mm_workspace",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-21T01:33:08.431Z",
+      "feature": "mm_workspace",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-21T01:39:53.882Z",
+      "feature": "mm_workspace",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-21T01:41:21.473Z",
+      "feature": "mm_workspace",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-21T01:43:13.040Z",
+      "feature": "mm_workspace",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-22T07:27:13.984Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-22T07:45:21.441Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-22T07:53:39.694Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-22T07:53:46.337Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-22T08:05:56.714Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-22T08:19:13.661Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-22T08:27:12.580Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T07:12:18.423Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T07:12:41.542Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T07:12:54.210Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T07:13:07.046Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T07:22:22.925Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T07:32:13.566Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T07:38:10.383Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T07:38:20.493Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T10:55:14.664Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T10:55:29.033Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T11:15:08.737Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T11:15:33.159Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T11:18:19.177Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T11:59:45.239Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T11:59:59.092Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T16:12:50.306Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T16:22:02.714Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T16:59:55.667Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T17:00:08.824Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T17:00:24.611Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T17:00:33.520Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T17:01:56.023Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T17:11:16.973Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T17:28:19.883Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T17:42:51.241Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T17:58:18.020Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T17:58:40.240Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T17:58:49.032Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T18:10:20.954Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-23T18:21:16.330Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-24T00:43:24.057Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-24T00:43:51.205Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-24T00:47:29.749Z",
+      "feature": "sms_daemon",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-24T01:21:08.353Z",
+      "feature": "mm_workspace",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-24T01:21:32.714Z",
+      "feature": "mm_workspace",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-28T02:05:44.839Z",
+      "feature": "front-admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-28T02:06:00.417Z",
+      "feature": "front-admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-28T02:06:16.877Z",
+      "feature": "front-admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-28T02:06:26.971Z",
+      "feature": "front-admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-06-05T01:53:55.009Z",
+      "feature": "auth",
       "phase": "do",
       "action": "updated"
     }

@@ -215,8 +215,8 @@ function BoardList({ posts, onRefresh }) {
   const handleSearch = (e) => { e.preventDefault(); setCurrentPage(1); };
 
   const handleRowClick = (post) => {
-    // 서버에서 이미 마스킹된 비밀글 (제목이 치환된 경우)
-    if (post.title === '비밀 게시글입니다.') {
+    // 열람 불가 비밀글 (제목만 노출, 내용 보호)
+    if (post.locked) {
       alert('비밀 게시글은 작성자와 관리자만 볼 수 있습니다.');
       return;
     }
@@ -279,12 +279,12 @@ function BoardList({ posts, onRefresh }) {
             </thead>
             <tbody>
               {paginated.map((post, idx) => {
-                const isSecret   = post.title === '비밀 게시글입니다.';  // 서버 마스킹
-                const isMySecret = post.isSecret === 'Y';               // 내가 볼 수 있는 비밀글
+                const isLocked   = post.locked === true;   // 제목만 보이는 열람 불가 비밀글
+                const isSecret   = isLocked || post.isSecret === 'Y'; // 비밀글(자물쇠 표시 대상)
                 const isReplyRow = post.depth > 0;
                 return (
                   <tr key={post.freeboardId} onClick={() => handleRowClick(post)}
-                    style={{ cursor: isSecret ? 'not-allowed' : 'pointer' }}>
+                    style={{ cursor: isLocked ? 'not-allowed' : 'pointer' }}>
                     <td className={styles.numberCol}>
                       {startIdx + idx + 1}
                     </td>
@@ -295,17 +295,17 @@ function BoardList({ posts, onRefresh }) {
                             <FaReply size={11} style={{ marginRight: 4 }} />
                           </span>
                         )}
-                        {post.freeboardRolename === '공지' && !isSecret && (
+                        {post.freeboardRolename === '공지' && (
                           <span className={styles.badge}>{post.freeboardRolename}</span>
                         )}
-                        {post.freeboardRolename === '안내' && !isSecret && (
+                        {post.freeboardRolename === '안내' && (
                           <span className={styles.badgeInfo}>{post.freeboardRolename}</span>
                         )}
-                        {(isSecret || isMySecret) && <FaLock size={12} style={{ marginRight: 6, color: 'var(--color-text-muted)' }} />}
-                        <span style={{ color: isSecret ? 'var(--color-text-muted)' : 'inherit', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>
+                        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 }}>
                           {post.title}
                         </span>
-                        {post.url && !isSecret && <FaPaperclip size={11} style={{ color: 'var(--color-text-muted)', flexShrink: 0 }} />}
+                        {isSecret && <FaLock size={11} style={{ marginLeft: 6, color: 'var(--color-text-muted)', flexShrink: 0 }} />}
+                        {post.url && <FaPaperclip size={11} style={{ color: 'var(--color-text-muted)', flexShrink: 0, marginLeft: 6 }} />}
                       </div>
                     </td>
                     <td className={styles.authorCol}>{post.name}</td>
