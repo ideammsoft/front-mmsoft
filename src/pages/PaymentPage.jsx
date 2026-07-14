@@ -501,6 +501,11 @@ function PaymentPage() {
             </div>
           </div>
         )}
+
+        {/* ── 입금 계좌 안내 (무통장 입금용) ── */}
+        <div className={styles.bankInfo}>
+          입금 계좌 번호 : 국민은행 421701-04-121233 &nbsp;예금주-이기성(엠엠소프트)
+        </div>
       </div>
     </div>
   );

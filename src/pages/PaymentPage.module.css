@@ -343,3 +343,20 @@
   .contactBox, .resultBox { padding: 24px 16px; }
   .resultBox { padding: 30px 16px; }
 }
+
+/* ── 입금 계좌 안내 (무통장 입금용) ── */
+.bankInfo {
+  margin-top: 40px;
+  padding: 14px 18px;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #334155;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .bankInfo { font-size: 0.82rem; padding: 12px 14px; margin-top: 28px; }
+}
