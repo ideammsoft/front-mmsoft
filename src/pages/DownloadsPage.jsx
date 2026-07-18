@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DOWNLOAD_CATEGORIES } from '../data/downloads';
 import DownloadCategories from '../components/downloads/DownloadCategories';
+import DownloadCarousel from '../components/downloads/DownloadCarousel';
 import DownloadItem from '../components/downloads/DownloadItem';
 import styles from './DownloadsPage.module.css';
 
@@ -37,6 +38,14 @@ function DownloadsPage() {
           <p className={styles.heroSubtitle}>프로그램 설치 파일 및 사용자 매뉴얼을 다운로드 받으실 수 있습니다</p>
         </div>
       </section>
+
+      {/* 상단 캐러셀: 썸네일 있는 제품만, 3초 자동 이동(버튼 클릭 시 정지) */}
+      {!loading && (
+        <DownloadCarousel
+          items={downloads.filter(d => d.thumbnail)}
+          apiBase={API_BASE}
+        />
+      )}
 
       <div className={styles.content}>
         <DownloadCategories

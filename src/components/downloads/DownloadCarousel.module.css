@@ -1,0 +1,117 @@
+.carousel {
+  max-width: 900px;
+  margin: 0 auto var(--spacing-xl);
+  padding: var(--spacing-lg) var(--spacing-md) 0;
+  text-align: center;
+}
+
+.title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.title:hover {
+  text-decoration: underline;
+}
+
+.newBadge {
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageWrap {
+  flex: 1;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--radius-md, 8px);
+  background: #f1f5f9;
+  cursor: pointer;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  max-height: 380px;
+  object-fit: contain;
+  display: block;
+}
+
+.fallback {
+  color: #94a3b8;
+  padding: 60px 0;
+}
+
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-base, 0.2s);
+}
+
+.navBtn:hover {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.left  { left: 8px; }
+.right { right: 8px; }
+
+.dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #cbd5e1;
+  cursor: pointer;
+  transition: all var(--transition-base, 0.2s);
+}
+
+.dotActive {
+  width: 20px;
+  border-radius: 4px;
+  background: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .imageWrap { min-height: 160px; }
+  .image     { max-height: 240px; }
+  .navBtn    { width: 32px; height: 32px; }
+}

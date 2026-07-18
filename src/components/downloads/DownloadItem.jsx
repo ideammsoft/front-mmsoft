@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { FaDownload, FaTimes, FaTag, FaFile, FaCalendar } from 'react-icons/fa';
+import { FaDownload, FaTag, FaFile, FaCalendar } from 'react-icons/fa';
+import DownloadDetailModal, { isNewRelease } from './DownloadDetailModal';
 import styles from './DownloadItem.module.css';
 
 function DownloadItem({ download, apiBase }) {
@@ -10,31 +11,9 @@ function DownloadItem({ download, apiBase }) {
     ? `${apiBase}/images/pds/${download.thumbnail}`
     : null;
 
-  const isNew = (() => {
-    if (!download.publishedAt) return false
-    const pub = new Date(download.publishedAt)
-    const twoMonthsAgo = new Date()
-    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2)
-    return pub >= twoMonthsAgo
-  })()
+  const isNew = isNewRelease(download.publishedAt);
 
   const handleDownloadClick = () => setModalOpen(true);
-
-  const handleConfirmDownload = async () => {
-    try {
-      const res = await fetch(`${apiBase}/api/pds/${download.pdsId}/download`, { method: 'POST' });
-      if (res.ok) {
-        const data = await res.json();
-        setDownloadCount(prev => prev + 1);
-        window.open(data.url, '_blank', 'noopener,noreferrer');
-      } else {
-        window.open(download.downloadUrl, '_blank', 'noopener,noreferrer');
-      }
-    } catch {
-      window.open(download.downloadUrl, '_blank', 'noopener,noreferrer');
-    }
-    setModalOpen(false);
-  };
 
   const handleClose = () => setModalOpen(false);
 
@@ -90,46 +69,12 @@ function DownloadItem({ download, apiBase }) {
       </div>
 
       {modalOpen && (
-        <div className={styles.overlay} onClick={handleClose}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <h2 className={styles.modalTitle}>
-                {download.title}
-                {isNew && <span className={styles.newBadge}>NEW</span>}
-              </h2>
-              <button className={styles.closeIcon} onClick={handleClose}>
-                <FaTimes />
-              </button>
-            </div>
-            <div className={styles.modalBody}>
-              {thumbnailUrl && (
-                <div className={styles.modalHero}>
-                  <img src={thumbnailUrl} alt={download.title} className={styles.modalHeroImg}
-                    onError={(e) => { e.target.parentElement.style.display = 'none' }} />
-                </div>
-              )}
-              <div className={styles.modalMeta}>
-                {download.version && <span className={styles.modalMetaTag}>v{download.version}</span>}
-                {download.fileSize && <span className={styles.modalMetaTag}>{download.fileSize}</span>}
-                {download.osInfo && <span className={styles.modalMetaTag}>{download.osInfo}</span>}
-              </div>
-              {download.content && (
-                download.content.trim().startsWith('<')
-                  ? <div className={styles.modalContent} dangerouslySetInnerHTML={{ __html: download.content }} />
-                  : <pre className={styles.modalContent}>{download.content}</pre>
-              )}
-            </div>
-            <div className={styles.modalFooter}>
-              <button className={styles.modalDownloadBtn} onClick={handleConfirmDownload}>
-                <FaDownload />
-                다운로드
-              </button>
-              <button className={styles.modalCloseBtn} onClick={handleClose}>
-                닫기
-              </button>
-            </div>
-          </div>
-        </div>
+        <DownloadDetailModal
+          download={download}
+          apiBase={apiBase}
+          onClose={handleClose}
+          onDownloaded={() => setDownloadCount(prev => prev + 1)}
+        />
       )}
     </>
   );
