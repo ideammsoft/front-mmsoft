@@ -15,6 +15,27 @@ function OAuthCallbackPage() {
       return;
     }
 
+    // ── PC 프로그램(데스크톱) 로그인: code 를 로컬 콜백(127.0.0.1)으로 되돌린다 ──
+    //  desktop-start 페이지가 저장해 둔 port/state 가 있으면, 웹에서 교환하지 않고
+    //  PC 앱의 로컬 리스너로 code 를 넘긴다. (앱이 exchange 를 직접 호출)
+    const desktopRaw = sessionStorage.getItem('desktop_oauth');
+    if (desktopRaw) {
+      sessionStorage.removeItem('desktop_oauth');
+      try {
+        const { port, state } = JSON.parse(desktopRaw);
+        if (/^\d{2,5}$/.test(String(port))) {
+          setMsg('프로그램으로 돌아가는 중입니다. 이 창은 닫으셔도 됩니다.');
+          window.location.replace(
+            `http://127.0.0.1:${port}/?code=${encodeURIComponent(code)}` +
+            `&state=${encodeURIComponent(state || '')}`
+          );
+          return;
+        }
+      } catch {
+        /* 파싱 실패 시 일반 웹 흐름으로 진행 */
+      }
+    }
+
     // 임시코드 → AccessToken + 사용자 정보 교환
     fetch(`/api/auth/oauth2/exchange?code=${code}`, {
       method: 'POST',
