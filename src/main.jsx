@@ -26,6 +26,21 @@ import { createRoot } from 'react-dom/client'; // React 앱을 DOM에 연결하�
 import './index.css';                          // 전역 스타일시트 (CSS 변수, 폰트 등)
 import App from './App.jsx';                   // 최상위 컴포넌트
 
+// ── 배포 후 청크 로드 실패 자동 복구 ──────────────────────────────
+// 새 버전 배포로 JS 청크 해시가 바뀌면, 캐시된 옛 페이지가 사라진 옛 청크를
+// 불러오려다 "Failed to fetch dynamically imported module" 에러가 난다.
+// 이때 Vite가 쏘는 vite:preloadError 를 받아 페이지를 자동 새로고침해
+// 새 index.html + 새 청크를 받도록 한다. (8초 내 반복 리로드는 무한루프 방지)
+window.addEventListener('vite:preloadError', (e) => {
+  e.preventDefault();
+  const now = Date.now();
+  const last = Number(sessionStorage.getItem('vitePreloadReload') || 0);
+  if (now - last > 8000) {
+    sessionStorage.setItem('vitePreloadReload', String(now));
+    window.location.reload();
+  }
+});
+
 // document.getElementById('root') : index.html의 <div id="root">를 찾음
 // createRoot() : 해당 요소를 React 앱의 루트로 만들어줌
 // .render()    : 안에 전달한 JSX를 실제 DOM으로 렌더링(화면에 표시)
