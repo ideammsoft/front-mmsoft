@@ -2,7 +2,7 @@
 export const FAQS = [
   {
     id: 1,
-    question: '여러사람 프로그램 자료 다운로드에 관한 질문',
+    question: '여러사람 프로그램 설치에 관한 질문',
     answer: '여러사람은 저희 사이트(www.mmsoft.co.kr)의 제품소개 자료실에서 다운로드 하시면 됩니다. 설치시 관리자 권한으로 해주시면 좋습니다.',
     category: '일반'
   },
