@@ -22,9 +22,10 @@ function FindPasswordPanel({ onClose }) {
   const [phone, setPhone]       = useState('');    // NICE 인증 휴대폰번호
 
   // 발송 채널(sms|email|none)에 따른 안내
-  const notifyAndClose = (channel) => {
+  const notifyAndClose = (channel, email) => {
     if (channel === 'email') {
-      alert('휴대폰 문자 발송에 실패하여, 가입하신 이메일로 임시 비밀번호를 보내드렸습니다. 이메일을 확인해 주세요.');
+      const where = email ? `가입하신 이메일(${email})로` : '가입하신 이메일로';
+      alert(`휴대폰 문자 발송에 실패하여, ${where} 임시 비밀번호를 보내드렸습니다. 이메일을 확인해 주세요.`);
       onClose();
     } else if (channel === 'sms') {
       alert('휴대폰 문자메시지로 임시 비밀번호를 보내드렸습니다. 확인 바랍니다.');
@@ -47,15 +48,17 @@ function FindPasswordPanel({ onClose }) {
 
       let isOk = false;
       let channel = 'sms';
+      let email = '';
       try {
         const parsed = JSON.parse(result);
         isOk = parsed.newPassword === 'ok';
         channel = parsed.channel || 'sms';
+        email = parsed.email || '';
       } catch {
         isOk = result === 'ok';
       }
 
-      if (isOk) notifyAndClose(channel);
+      if (isOk) notifyAndClose(channel, email);
       else alert('가입하신 정보가 없거나 일치하지 않습니다.');
     } catch {
       alert('서버 연결에 실패했습니다.');
