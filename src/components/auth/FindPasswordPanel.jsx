@@ -37,16 +37,25 @@ function FindPasswordPanel({ onClose }) {
       const result = text.trim();
 
       let isOk = false;
+      let channel = 'sms';   // 백엔드가 보낸 채널(sms|email|none)
       try {
         const parsed = JSON.parse(result);
         isOk = parsed.newPassword === 'ok';
+        channel = parsed.channel || 'sms';
       } catch {
         isOk = result === 'ok';
       }
 
       if (isOk) {
-        alert('휴대폰 문자메시지로 임시 비밀번호를 보내드렸습니다. 확인 바랍니다.');
-        onClose();
+        if (channel === 'email') {
+          alert('휴대폰 문자 발송에 실패하여, 가입하신 이메일로 임시 비밀번호를 보내드렸습니다. 이메일을 확인해 주세요.');
+          onClose();
+        } else if (channel === 'sms') {
+          alert('휴대폰 문자메시지로 임시 비밀번호를 보내드렸습니다. 확인 바랍니다.');
+          onClose();
+        } else {
+          alert('임시 비밀번호 발송에 실패했습니다.\n등록된 휴대폰/이메일을 확인할 수 없습니다. 고객센터(1544-7576)로 문의해 주세요.');
+        }
       } else {
         alert('가입하신 정보가 없거나 일치하지 않습니다.');
       }
@@ -75,7 +84,7 @@ function FindPasswordPanel({ onClose }) {
         </div>
 
         <p className={findStyles.description}>
-          NICE 본인인증으로 신원 확인 후 임시 비밀번호를 휴대폰 문자메시지로 발송해 드립니다.
+          NICE 본인인증으로 신원 확인 후 임시 비밀번호를 휴대폰 문자메시지로 발송해 드립니다. (문자 발송이 어려우면 가입 이메일로 발송)
         </p>
 
         <div className={styles.form}>
