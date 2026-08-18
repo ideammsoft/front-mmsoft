@@ -39,14 +39,6 @@ function DownloadsPage() {
         </div>
       </section>
 
-      {/* 상단 캐러셀: 썸네일 있는 제품만, 3초 자동 이동(버튼 클릭 시 정지) */}
-      {!loading && (
-        <DownloadCarousel
-          items={downloads.filter(d => d.thumbnail)}
-          apiBase={API_BASE}
-        />
-      )}
-
       <div className={styles.content}>
         <DownloadCategories
           categories={DOWNLOAD_CATEGORIES}
@@ -68,6 +60,14 @@ function DownloadsPage() {
           </div>
         )}
       </div>
+
+      {/* 하단 캐러셀: 썸네일 있는 제품만, 3초 자동 이동(버튼 클릭 시 정지) */}
+      {!loading && (
+        <DownloadCarousel
+          items={downloads.filter(d => d.thumbnail)}
+          apiBase={API_BASE}
+        />
+      )}
     </div>
   );
 }
