@@ -4,14 +4,49 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="엠엠소프트 - 고객관리, 인사관리, 시설관리 솔루션" />
-    <meta name="keywords" content="고객관리, 인사관리, 엠엠소프트, mmsoft, 체육관관리, 시설관리" />
+    <meta name="description" content="엠엠소프트(구 여러사람소프트) - 고객관리, 인사관리, 지로관리, 시설관리 솔루션" />
+    <meta name="keywords" content="고객관리, 인사관리, 엠엠소프트, mmsoft, 여러사람소프트, 여러사람, 체육관관리, 시설관리" />
     <meta property="og:title" content="엠엠소프트" />
-    <meta property="og:description" content="비즈니스 관리 소프트웨어 솔루션" />
+    <meta property="og:description" content="엠엠소프트(구 여러사람소프트) - 비즈니스 관리 소프트웨어 솔루션" />
     <meta property="og:type" content="website" />
     <!-- 네이버 서치어드바이저 사이트 소유확인. 지우면 소유확인이 풀린다 -->
     <meta name="naver-site-verification" content="d5c82d95eacf05b237454facc9478405f238db36" />
     <title>엠엠소프트 - 비즈니스 관리 솔루션</title>
+    <!--
+      Organization 구조화 데이터.
+      alternateName에 옛 상호를 함께 넣어 '여러사람소프트'와 '엠엠소프트'가
+      같은 사업체임을 검색엔진에 명시한다. 회사 정보가 바뀌면 Footer.jsx와
+      함께 갱신할 것.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "엠엠소프트",
+        "alternateName": ["MMSoft", "엠엠소프트(MMSoft)", "여러사람소프트", "(주)여러사람소프트"],
+        "description": "고객관리, 인사관리, 지로관리, 시설관리 등 기업·기관용 비즈니스 관리 소프트웨어를 개발·공급합니다.",
+        "url": "https://www.mmsoft.co.kr",
+        "logo": "https://www.mmsoft.co.kr/logo.svg",
+        "foundingDate": "1997",
+        "email": "man@mmsoft.co.kr",
+        "telephone": "+82-2-864-7576",
+        "taxID": "207-01-55869",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "화곡로 416 더스카이밸리5차 1211호",
+          "addressLocality": "강서구",
+          "addressRegion": "서울특별시",
+          "addressCountry": "KR"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "telephone": "+82-2-864-7576",
+          "email": "man@mmsoft.co.kr",
+          "availableLanguage": ["Korean"]
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
