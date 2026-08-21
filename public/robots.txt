@@ -1,0 +1,13 @@
+# https://www.mmsoft.co.kr/robots.txt
+User-agent: *
+Allow: /
+
+# 색인이 불필요한 경로 (로그인/결제/OAuth/내부 API)
+Disallow: /payment
+Disallow: /login
+Disallow: /oauth/
+Disallow: /manyman/
+Disallow: /autoupdate/
+Disallow: /api/
+
+Sitemap: https://www.mmsoft.co.kr/sitemap.xml
