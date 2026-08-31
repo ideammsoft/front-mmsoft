@@ -161,8 +161,8 @@ export default function PrivacyPage() {
                     <td>신용카드 등 결제 처리 및 결제 결과 통지</td>
                   </tr>
                   <tr>
-                    <td>문자메시지 발송 대행사</td>
-                    <td>안내·공지 문자 및 알림톡 발송</td>
+                    <td>알리고(Aligo)</td>
+                    <td>회사가 발송하는 안내·공지 문자 및 알림톡 전송</td>
                   </tr>
                 </tbody>
               </table>
