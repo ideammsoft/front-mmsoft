@@ -40,7 +40,11 @@ function ProfileCompletionPanel({ mode = 'register', onClose, onSaved }) {
   const [pwSaving, setPwSaving]           = useState(false);
 
   const title   = isEdit ? '회원 정보 수정' : '추가 정보 입력';
-  const loginId = JSON.parse(localStorage.getItem('mmsoft_user') || '{}').homepageId || '';
+  // 소셜 로그인 계정은 homepageId 가 공급자 식별자(40자짜리 토큰)라 화면에 띄울 값이 아니다.
+  // provider 는 소셜 로그인에서만 채워지므로 이것으로 구분한다.
+  const _storedUser = JSON.parse(localStorage.getItem('mmsoft_user') || '{}');
+  const isSocial    = Boolean(_storedUser.provider);
+  const loginId     = isSocial ? '' : (_storedUser.homepageId || '');
   const overlayMouseDown = useRef(false);
 
   // 패널 열릴 때 토큰 만료 여부 즉시 확인
