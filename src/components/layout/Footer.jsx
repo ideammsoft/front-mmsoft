@@ -27,6 +27,7 @@ function Footer() {
             <Link to="/community" className={styles.footerLink}>커뮤니티</Link>
             <Link to="/downloads" className={styles.footerLink}>다운로드</Link>
             <Link to="/sitemap" className={styles.footerLink}>사이트맵</Link>
+            <Link to="/privacy" className={styles.footerLink}>개인정보처리방침</Link>
           </div>
 
           <div className={styles.footerSection}>

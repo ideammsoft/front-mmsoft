@@ -1,0 +1,131 @@
+.page {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.hero {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+  padding: 60px 24px 48px;
+  text-align: center;
+  color: #fff;
+}
+
+.heroTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.heroDesc {
+  font-size: 15px;
+  opacity: 0.85;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.container {
+  max-width: 860px;
+  margin: -24px auto 60px;
+  padding: 0 16px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, .08);
+  padding: 32px 28px;
+}
+
+.intro {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.7;
+  margin: 0 0 32px;
+}
+
+.section {
+  margin-bottom: 36px;
+}
+
+.sectionTitle {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.text {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.7;
+  margin: 0 0 12px;
+}
+
+.list {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.8;
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+
+.list li {
+  margin-bottom: 4px;
+}
+
+/* 표 — 좁은 화면에서는 가로 스크롤 */
+.tableWrap {
+  overflow-x: auto;
+  margin: 0 0 12px;
+}
+
+.table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  color: #334155;
+}
+
+.table th,
+.table td {
+  border: 1px solid #e2e8f0;
+  padding: 9px 12px;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.table th {
+  background: #f1f5f9;
+  font-weight: 600;
+  color: #1e3a5f;
+  white-space: nowrap;
+}
+
+.note {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.7;
+  background: #f8fafc;
+  border-left: 3px solid #cbd5e1;
+  padding: 12px 14px;
+  margin: 0 0 12px;
+}
+
+.footerMeta {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.8;
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 44px 20px 40px; }
+  .heroTitle { font-size: 22px; }
+  .card { padding: 24px 18px; }
+}
