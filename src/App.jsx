@@ -35,41 +35,58 @@ import { lazy, Suspense, Component, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import LoadingSpinner from './components/common/LoadingSpinner';
+import { FaExclamationTriangle, FaHome, FaRedo } from 'react-icons/fa';
 import { isChunkLoadError, reloadForNewChunks } from './utils/chunkReload';
+// 404 화면과 같은 스타일을 써서 오류 화면의 생김새를 사이트와 맞춘다
+import errorStyles from './pages/NotFoundPage.module.css';
 
-// 에러 경계: 페이지 렌더링 중 에러 발생 시 빈 화면 대신 에러 메시지 표시
+// 에러 경계: 페이지 렌더링 중 에러가 나면 빈 화면 대신 안내 화면을 보여준다.
+// 스택 트레이스는 고객에게 의미가 없고 내부 구조만 드러내므로 콘솔로만 남긴다.
 class ErrorBoundary extends Component {
-  state = { error: null, errorInfo: null };
+  state = { error: null };
   static getDerivedStateFromError(error) { return { error }; }
   componentDidCatch(error, errorInfo) {
     // 배포 직후 옛 청크를 부르다 실패한 경우 — 오류 화면 대신 자동 새로고침.
     // React.lazy 의 import() 실패는 vite:preloadError 가 뜨지 않아 여기로 온다.
     if (isChunkLoadError(error) && reloadForNewChunks()) return;
-    this.setState({ errorInfo });
-    console.error('[ErrorBoundary]', error, errorInfo);
+    // 진단에 필요한 내용은 여기에 전부 남긴다(개발자 도구 콘솔에서 확인).
+    console.error('[ErrorBoundary]', error, errorInfo?.componentStack);
   }
   componentDidUpdate(prevProps) {
     // 페이지 이동 시 에러 상태 리셋
     if (this.state.error && prevProps.location !== this.props.location) {
-      this.setState({ error: null, errorInfo: null });
+      this.setState({ error: null });
     }
   }
   render() {
     if (this.state.error) {
       return (
-        <div style={{ padding: '40px', color: 'red' }}>
-          <h2>페이지 오류</h2>
-          <pre style={{ background: '#fee', padding: '16px', borderRadius: '8px', fontSize: '12px', whiteSpace: 'pre-wrap', overflowX: 'auto' }}>
-            {this.state.error.stack || this.state.error.message}
-          </pre>
-          {this.state.errorInfo && (
-            <pre style={{ background: '#ffe', padding: '16px', borderRadius: '8px', fontSize: '11px', whiteSpace: 'pre-wrap', overflowX: 'auto' }}>
-              컴포넌트 스택:{this.state.errorInfo.componentStack}
-            </pre>
-          )}
-          <button onClick={() => this.setState({ error: null, errorInfo: null })} style={{ marginTop: '16px', padding: '8px 24px', cursor: 'pointer' }}>
-            다시 시도
-          </button>
+        <div className={errorStyles.container}>
+          <div className={errorStyles.code} style={{ fontSize: '5rem' }}>
+            <FaExclamationTriangle />
+          </div>
+          <h2 className={errorStyles.title}>일시적인 오류가 발생했습니다</h2>
+          <p className={errorStyles.description}>
+            페이지를 불러오는 중 문제가 생겼습니다.<br />
+            새로고침하면 대부분 해결됩니다.
+          </p>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className={errorStyles.homeLink}
+              style={{ border: 'none', cursor: 'pointer' }}
+            >
+              <FaRedo /> 새로고침
+            </button>
+            <a
+              href="/"
+              className={errorStyles.homeLink}
+              style={{ background: '#64748b', boxShadow: 'none' }}
+            >
+              <FaHome /> 홈으로
+            </a>
+          </div>
         </div>
       );
     }
