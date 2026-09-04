@@ -25,20 +25,15 @@ import { StrictMode } from 'react';          // 개발 모드 엄격 검사용
 import { createRoot } from 'react-dom/client'; // React 앱을 DOM에 연결하는 함수
 import './index.css';                          // 전역 스타일시트 (CSS 변수, 폰트 등)
 import App from './App.jsx';                   // 최상위 컴포넌트
+import { reloadForNewChunks } from './utils/chunkReload';
 
 // ── 배포 후 청크 로드 실패 자동 복구 ──────────────────────────────
-// 새 버전 배포로 JS 청크 해시가 바뀌면, 캐시된 옛 페이지가 사라진 옛 청크를
-// 불러오려다 "Failed to fetch dynamically imported module" 에러가 난다.
-// 이때 Vite가 쏘는 vite:preloadError 를 받아 페이지를 자동 새로고침해
-// 새 index.html + 새 청크를 받도록 한다. (8초 내 반복 리로드는 무한루프 방지)
+// Vite 프리로드 단계에서 실패하면 이 이벤트가 뜬다.
+// React.lazy 가 import() 를 실행하다 실패하는 경우는 이 이벤트가 뜨지 않고
+// 예외로 올라가므로, App.jsx 의 ErrorBoundary 에서 같은 처리를 한다.
 window.addEventListener('vite:preloadError', (e) => {
   e.preventDefault();
-  const now = Date.now();
-  const last = Number(sessionStorage.getItem('vitePreloadReload') || 0);
-  if (now - last > 8000) {
-    sessionStorage.setItem('vitePreloadReload', String(now));
-    window.location.reload();
-  }
+  reloadForNewChunks();
 });
 
 // document.getElementById('root') : index.html의 <div id="root">를 찾음

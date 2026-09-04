@@ -35,12 +35,16 @@ import { lazy, Suspense, Component, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import LoadingSpinner from './components/common/LoadingSpinner';
+import { isChunkLoadError, reloadForNewChunks } from './utils/chunkReload';
 
 // 에러 경계: 페이지 렌더링 중 에러 발생 시 빈 화면 대신 에러 메시지 표시
 class ErrorBoundary extends Component {
   state = { error: null, errorInfo: null };
   static getDerivedStateFromError(error) { return { error }; }
   componentDidCatch(error, errorInfo) {
+    // 배포 직후 옛 청크를 부르다 실패한 경우 — 오류 화면 대신 자동 새로고침.
+    // React.lazy 의 import() 실패는 vite:preloadError 가 뜨지 않아 여기로 온다.
+    if (isChunkLoadError(error) && reloadForNewChunks()) return;
     this.setState({ errorInfo });
     console.error('[ErrorBoundary]', error, errorInfo);
   }
