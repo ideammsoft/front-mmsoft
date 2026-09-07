@@ -24,6 +24,15 @@ function HomePage() {
             <Link to="/company" className={styles.heroSecondary}>
               회사 소개
             </Link>
+            {/* 원격 지원 — 외부 원격제어 서비스. 사이트를 닫지 않도록 새 탭으로 연다 */}
+            <a
+              href="https://367.co.kr/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.heroSecondary}
+            >
+              원격 지원 요청
+            </a>
           </div>
         </div>
       </section>
