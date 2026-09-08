@@ -26,6 +26,15 @@ function CTASection() {
           <Link to="/community" className={styles.secondaryButton}>
             문의하기
           </Link>
+          {/* 원격 지원 — 외부 원격제어 서비스. 사이트를 닫지 않도록 새 탭으로 연다 */}
+          <a
+            href="https://367.co.kr/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.secondaryButton}
+          >
+            원격 지원 요청
+          </a>
         </div>
       </div>
     </section>
